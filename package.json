@@ -1,0 +1,12 @@
+{
+    "name": "react-app-skeleton",
+    "version": "0.1.0",
+    "description": "A skeleton for react web app with react templates and require",
+    "keywords": ["react","require","react-templates"],
+    "author": "Guy Romm",
+    "main": "main module",
+    "dependencies":{
+        "requirejs": "2.1.15",
+        "lodash": "2.4.1"
+    }
+}
