@@ -15,10 +15,12 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 require.config({
     baseUrl:'base',
     paths: {
-        'lodash': 'node_modules/lodash/lodash'
+        'lodash': 'node_modules/lodash/dit/lodash',
+        'react': 'node_modules/react/dist/react-with-addons'
     },
     shim: {
-        'lodash': { exports: '_' }
+        'lodash': { exports: '_' },
+        react: { exports: 'React' }
     },
 
     // ask Require.js to load these files (all tests)
