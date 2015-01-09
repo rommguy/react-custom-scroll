@@ -21,7 +21,7 @@ require.config({
         'lodash': { exports: '_' }
     },
 
-    // ask Require.js to load these files (all our tests)
+    // ask Require.js to load these files (all tests)
     deps: tests,
 
     // start test run, once Require.js is done
