@@ -14,13 +14,14 @@ module.exports = function (config) {
             'src/test/test-main.js',
             {pattern: 'src/**/*.js', included: false},
             {pattern: 'libs/**/*.js', included: false},
-            {pattern: 'node_modules/**/*.js', included: false},
+            {pattern: 'node_modules/lodash-amd/**/*.js', included: false},
+            {pattern: 'node_modules/react/**/*.js', included: false}
         ],
 
 
         // list of files to exclude
         exclude: [
-            'src/main/main.js'
+            'main.js'
         ],
 
 
