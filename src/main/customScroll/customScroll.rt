@@ -3,7 +3,8 @@
         <div ref="innerContainer"
              class="inner-container"
              style="margin-right: -{this.scrollbarWidth}px;"
-             onScroll="{this.onScroll}">
+             onScroll="{this.onScroll}"
+             onWheel="{this.blockOuterScroll}">
             <div class="custom-scrollbar" style="height: {this.contentHeight}px">
                 <div class="custom-scrollHandle" style="{this.getScrollHandleStyle()}"></div>
             </div>

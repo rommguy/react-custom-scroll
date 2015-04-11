@@ -34,6 +34,19 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
                 scrollPos: e.currentTarget.scrollTop
             });
         },
+        blockOuterScroll: function(e){
+            var contentNode = e.currentTarget;
+            var totalHeight = this.contentHeight;
+            var maxScroll = totalHeight - e.currentTarget.clientHeight;
+            var delta = e.deltaY % 3 ? (e.deltaY) : (e.deltaY * 10);
+            if (contentNode.scrollTop + delta <= 0) {
+                contentNode.scrollTop = 0;
+                e.preventDefault();
+            } else if (contentNode.scrollTop + delta >= maxScroll){
+                contentNode.scrollTop = maxScroll;
+                e.preventDefault();
+            }
+        },
         render: template
     });
 });
