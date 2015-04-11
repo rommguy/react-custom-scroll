@@ -14,12 +14,10 @@ define(['react', 'customScroll/customScroll'], function(React, customScrollClass
         });
 
         describe('initialization', function(){
-            it('should have scrollbar width with value 0 on state', function(){
+            it('should have scrollbar width with value 0', function(){
                 var customScroll = getCustomScroll({});
 
-                var initialState = customScroll.getInitialState();
-
-                expect(initialState.mounted).toBeFalsy();
+                expect(customScroll.scrollbarWidth).toEqual(0);
             });
 
             it('should update scrollbarWidth and state after mounting', function(){
@@ -30,10 +28,9 @@ define(['react', 'customScroll/customScroll'], function(React, customScrollClass
                     clientWidth: contentWidth
                 });
 
-                customScroll.render();
+                customScroll.forceUpdate();
 
-                expect(customScroll.getScrollbarWidth()).toEqual(scrollbarWidth);
-                expect(customScroll.state.mounted).toBeTruthy();
+                expect(customScroll.scrollbarWidth).toEqual(scrollbarWidth);
             });
         });
     });

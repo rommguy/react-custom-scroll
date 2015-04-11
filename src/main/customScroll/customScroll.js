@@ -3,23 +3,21 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
 
     return React.createClass({
         displayName: 'customScroll',
-        getInitialState: function(){
+        getInitialState: function () {
+            this.scrollbarWidth = 0;
             return {
-                scrollPos: 0,
-                mounted: false
+                scrollPos: 0
             };
         },
-        componentDidMount: function(){
-            this.setState({
-                mounted: true
-            });
+        componentDidMount: function () {
+            this.forceUpdate();
         },
-        getScrollbarWidth: function(){
-            if (!this.state.mounted){
-                return 0;
+        componentWillUpdate: function () {
+            if (!this.isMounted()) {
+                this.scrollbarWidth = 0;
             }
             var contentWrapper = this.refs.innerContainer.getDOMNode();
-            return contentWrapper.offsetWidth - contentWrapper.clientWidth;
+            this.scrollbarWidth = contentWrapper.offsetWidth - contentWrapper.clientWidth;
         },
         render: template
     });
