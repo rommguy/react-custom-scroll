@@ -1,8 +1,11 @@
 <div class="custom-scroll">
     <div class="outer-container">
-        <div ref="innerContainer" class="inner-container" style="margin-right: -{this.scrollbarWidth}px;">
+        <div ref="innerContainer"
+             class="inner-container"
+             style="margin-right: -{this.scrollbarWidth}px;"
+             onScroll="{this.onScroll}">
             <div class="custom-scrollbar" style="height: {this.contentHeight}px">
-                <div class="custom-scrollHandle" style="height: {this.scrollHandleHeight}px"></div>
+                <div class="custom-scrollHandle" style="{this.getScrollHandleStyle()}"></div>
             </div>
             {this.props.children}
         </div>
