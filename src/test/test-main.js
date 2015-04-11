@@ -15,7 +15,7 @@
         paths: {
             'lodash': '../../node_modules/lodash-amd/modern/main',
             'react': '../../node_modules/react/dist/react-with-addons',
-            zepto: '../../js-libs/zepto/zepto.min',
+            zepto: '../../libs/zepto/zepto.min',
             definition: '../../js-libs/definition/definition'
         },
         shim: {
