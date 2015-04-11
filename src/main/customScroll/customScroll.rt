@@ -1,7 +1,7 @@
 <div>
     <div class="outer-custom-scroll">
         <div class="inner-custom-scroll">
-            this.props.children
+            {this.props.children}
         </div>
     </div>
 

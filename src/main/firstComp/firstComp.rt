@@ -1,3 +1,4 @@
+<rt-require dependency="customScroll/customScroll" as="customScroll"/>
 <div>
     <div class="container left-side">
         <label class="side-title">Native scroll</label>
@@ -21,9 +22,11 @@
             </div>
             <div id="temp-outer">
                 <div id="temp-inner">
-                    <div class="panel-content-custom">
-                        <div class="content-fill"></div>
-                    </div>
+                    <customScroll>
+                        <div class="panel-content-custom">
+                            <div class="content-fill"></div>
+                        </div>
+                    </customScroll>
                 </div>
             </div>
         </div>
