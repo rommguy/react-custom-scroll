@@ -55,7 +55,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-eslint');
 
     grunt.registerTask('rt', ['react-templates']);
-    grunt.registerTask('default', ['eslint', 'rt', 'sass']);
+    grunt.registerTask('default', ['eslint', 'clean', 'rt', 'sass']);
     grunt.registerTask('test', []);
 
     grunt.registerTask('all', ['default', 'test']);
