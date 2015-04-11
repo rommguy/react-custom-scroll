@@ -16,5 +16,6 @@ require.config({
 });
 
 require(['firstScript'], function(firstScript){
+    'use strict';
     firstScript.doSomething();
-})
+});

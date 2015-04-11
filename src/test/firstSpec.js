@@ -1,4 +1,6 @@
-define(['lodash'], function(_){
+define(['lodash'], function (_){
+    'use strict';
+
     describe('general test', function(){
         it('Should be false', function(){
 
@@ -6,11 +8,11 @@ define(['lodash'], function(_){
         });
 
         it('Should have lodsah', function(){
-            var someArr = [1,2,3];
+            var someArr = [1, 2, 3];
 
-            var result = _.contains(someArr,3);
+            var result = _.contains(someArr, 3);
 
             expect(result).toEqual(true);
         });
     });
-})
+});

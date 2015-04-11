@@ -1,9 +1,7 @@
 define(['lodash'], function(_){
-    function doSomething() {
-        console.log('hello world!');
-    }
+    'use strict';
 
     return {
-        doSomething: doSomething
-    }
-})
+        doSomething: _.noop
+    };
+});
