@@ -23,6 +23,22 @@ module.exports = function (grunt) {
                 options: {
                     spawn: false
                 }
+            },
+            sass: {
+                files: [
+                    'src/main/**/*.scss'
+                ],
+                tasks:['sass']
+            }
+        },
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'styles.css': 'src/main/main.scss'
+                }
             }
         },
         reactTemplates: {
@@ -35,10 +51,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-react-templates');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-eslint');
 
     grunt.registerTask('rt', ['react-templates']);
-    grunt.registerTask('default', ['eslint', 'rt']);
+    grunt.registerTask('default', ['eslint', 'rt', 'sass']);
     grunt.registerTask('test', []);
 
     grunt.registerTask('all', ['default', 'test']);
