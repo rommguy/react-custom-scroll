@@ -17,7 +17,7 @@ require.config({
     }
 });
 
-require(['firstScript'], function(firstScript){
+require(['react', './firstComp'], function(React, firstComp){
     'use strict';
-    firstScript.doSomething();
+    React.render(React.createElement(firstComp), document.body);
 });

@@ -38,3 +38,4 @@ out/
 node_modules/
 
 *.css
+*.rt.js
