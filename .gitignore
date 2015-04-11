@@ -36,3 +36,5 @@ out/
 
 # npm dependencies
 node_modules/
+
+*.css
