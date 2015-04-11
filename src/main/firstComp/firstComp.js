@@ -1,4 +1,4 @@
-define(['react', 'lodash', './firstComp.rt'], function (React, _, template) {
+define(['react', 'lodash', './../firstComp.rt.js'], function (React, _, template) {
     'use strict';
 
     return React.createClass({
