@@ -2,7 +2,7 @@
     <div class="outer-container">
         <div ref="innerContainer"
              class="inner-container"
-             style="margin-right: -{this.scrollbarWidth}px;"
+             style="margin-right: -{this.scrollbarYWidth}px; margin-bottom: -{this.scrollbarXWidth}px;"
              onScroll="{this.onScroll}"
              onWheel="{this.blockOuterScroll}">
             <div class="custom-scrollbar" style="height: {this.contentHeight}px">

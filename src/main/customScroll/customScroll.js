@@ -4,7 +4,8 @@ define(['react', './customScroll.rt'], function (React, template) {
     return React.createClass({
         displayName: 'customScroll',
         getInitialState: function () {
-            this.scrollbarWidth = 0;
+            this.scrollbarYWidth = 0;
+            this.scrollbarXWidth = 0;
             return {
                 scrollPos: 0
             };
@@ -14,10 +15,12 @@ define(['react', './customScroll.rt'], function (React, template) {
         },
         componentWillUpdate: function () {
             if (!this.isMounted()) {
-                this.scrollbarWidth = 0;
+                this.scrollbarYWidth = 0;
+                this.scrollbarXWidth = 0;
             }
             var contentWrapper = this.refs.innerContainer.getDOMNode();
-            this.scrollbarWidth = contentWrapper.offsetWidth - contentWrapper.clientWidth;
+            this.scrollbarYWidth = contentWrapper.offsetWidth - contentWrapper.clientWidth;
+            this.scrollbarXWidth = contentWrapper.offsetHeight - contentWrapper.clientHeight;
             this.contentHeight = contentWrapper.scrollHeight;
             this.wrapperHeight = contentWrapper.clientHeight;
             this.scrollHandleHeight = contentWrapper.clientHeight * contentWrapper.clientHeight / contentWrapper.scrollHeight;
