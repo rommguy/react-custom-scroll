@@ -1,6 +1,6 @@
-<div>
-    <div class="outer-custom-scroll">
-        <div class="inner-custom-scroll">
+<div class="custom-scroll">
+    <div class="outer-container">
+        <div ref="innerContainer" class="inner-container" style="margin-right: -{this.getScrollbarWidth()}px;">
             {this.props.children}
         </div>
     </div>

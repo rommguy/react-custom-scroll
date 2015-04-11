@@ -1,8 +1,10 @@
-.outer-custom-scroll {
-  overflow: hidden;
+.custom-scroll {
+  .outer-container {
+    overflow: hidden;
+  }
+
+  .inner-container {
+    overflow: auto;
+  }
 }
 
-.inner-custom-scroll {
-  overflow: auto;
-  margin-right: -17px;
-}
