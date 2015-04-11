@@ -1,4 +1,4 @@
-define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
+define(['react', './customScroll.rt'], function (React, template) {
     'use strict';
 
     return React.createClass({
