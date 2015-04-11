@@ -1,1 +1,26 @@
-<div class="example-div">Hello RT!</div>
+<div>
+    <div class="container left-side">
+        <label class="side-title">Native scroll</label>
+        <div class="panel">
+            <div class="panelHeader">
+                <label class="panel-title">Settings</label>
+            </div>
+            <div class="panel-content">
+                <div class="content-fill"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container right-side">
+        <label class="side-title">Custom scroll</label>
+        <div class="panel">
+            <div class="panelHeader">
+                <label class="panel-title">Settings</label>
+            </div>
+            <div class="panel-content">
+                <div class="content-fill"></div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-creator"></div>
+</div>
