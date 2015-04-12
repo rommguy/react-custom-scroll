@@ -1,6 +1,6 @@
 <div class="custom-scroll">
     <div class="outer-container">
-        <div class="custom-scrollbar" style="height: {this.contentHeight}px">
+        <div class="custom-scrollbar">
             <div class="custom-scrollHandle" style="{this.getScrollHandleStyle()}"></div>
         </div>
         <div ref="innerContainer"
