@@ -1,4 +1,9 @@
 .custom-scroll {
+
+  ::-webkit-scrollbar {
+    width:0;
+  }
+
   .outer-container {
     overflow: hidden;
     position: relative;
