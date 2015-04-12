@@ -9,7 +9,9 @@
     position: relative;
 
     &:hover .custom-scrollbar {
-      visibility: visible;
+      opacity: 1;
+      -webkit-transition-duration: 0.2s;
+      transition-duration: 0.2s;
     }
   }
 
@@ -24,8 +26,10 @@
     width: 10px;
     right: 0;
     background-color: grey;
-    visibility: hidden;
+    opacity: 0;
     z-index: 1;
+    -webkit-transition: opacity 0.4s ease-out;
+    transition: opacity 0.4s ease-out;
   }
 
   .custom-scrollHandle {
