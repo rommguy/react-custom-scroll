@@ -14,10 +14,6 @@ define(['react', './customScroll.rt'], function (React, template) {
             this.forceUpdate();
         },
         componentWillUpdate: function () {
-            if (!this.isMounted()) {
-                this.scrollbarYWidth = 0;
-                this.scrollbarXWidth = 0;
-            }
             var contentWrapper = this.refs.innerContainer.getDOMNode();
             this.scrollbarYWidth = contentWrapper.offsetWidth - contentWrapper.clientWidth;
             this.scrollbarXWidth = contentWrapper.offsetHeight - contentWrapper.clientHeight;
@@ -39,16 +35,17 @@ define(['react', './customScroll.rt'], function (React, template) {
         },
         blockOuterScroll: function(e){
             var contentNode = e.currentTarget;
-            var totalHeight = this.contentHeight;
-            var maxScroll = totalHeight - e.currentTarget.clientHeight;
+            var totalHeight = e.currentTarget.scrollHeight;
+            var maxScroll = totalHeight - e.currentTarget.offsetHeight;
             var delta = e.deltaY % 3 ? (e.deltaY) : (e.deltaY * 10);
             if (contentNode.scrollTop + delta <= 0) {
                 contentNode.scrollTop = 0;
                 e.preventDefault();
-            } else if (contentNode.scrollTop + delta >= maxScroll){
+            } else if (contentNode.scrollTop + delta >= maxScroll) {
                 contentNode.scrollTop = maxScroll;
                 e.preventDefault();
             }
+            e.stopPropagation();
         },
         render: template
     });
