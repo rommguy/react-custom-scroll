@@ -25,8 +25,8 @@ define(['react', './customScroll.rt'], function (React, template) {
             this.wrapperHeight = contentWrapper.clientHeight;
             this.scrollHandleHeight = this.wrapperHeight * this.wrapperHeight / this.contentHeight;
         },
-        getScrollHandleStyle: function () {
-            var handlePosition = this.state.scrollPos + this.state.scrollPos * this.wrapperHeight / this.contentHeight;
+        getScrollHandleStyle: function (){
+            var handlePosition = this.state.scrollPos * this.wrapperHeight / this.contentHeight;
             return {
                 height: this.scrollHandleHeight,
                 top: handlePosition

@@ -1,15 +1,16 @@
 .custom-scroll {
   .outer-container {
     overflow: hidden;
+    position: relative;
+
+    &:hover .custom-scrollbar {
+      visibility: visible;
+    }
   }
 
   .inner-container {
     position: relative;
     overflow: auto;
-
-    &:hover .custom-scrollbar {
-        visibility: visible;
-    }
   }
 
   .custom-scrollbar {
