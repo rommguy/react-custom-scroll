@@ -1,7 +1,7 @@
 <div class="custom-scroll">
     <div class="outer-container">
         <div rt-if="this.hasScroll" class="custom-scrollbar" onClick="{this.onCustomScrollClick}">
-            <div class="custom-scroll-handle" style="{this.getScrollHandleStyle()}"></div>
+            <div ref="scrollHandle"  class="custom-scroll-handle" style="{this.getScrollHandleStyle()}"></div>
         </div>
         <div ref="innerContainer"
              class="inner-container"

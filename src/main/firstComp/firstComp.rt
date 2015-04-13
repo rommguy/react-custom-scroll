@@ -20,15 +20,11 @@
             <div class="panelHeader">
                 <label class="panel-title">Settings</label>
             </div>
-            <div id="temp-outer">
-                <div id="temp-inner">
                     <customScroll>
                         <div class="panel-content-custom">
                             <div class="content-fill"></div>
                         </div>
                     </customScroll>
-                </div>
-            </div>
         </div>
     </div>
     <div class="scroll-creator"></div>

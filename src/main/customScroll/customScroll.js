@@ -2,23 +2,6 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
     'use strict';
 
 
-    function ensureWithinLimits(value, min, max) {
-        min = _.isUndefined(min) ? value : min;
-        max = _.isUndefined(max) ? value : max;
-        if (min > max) {
-            throw 'min limit is greater than max limit';
-        }
-
-        if (value < min) {
-            return min;
-        }
-        if (value > max) {
-            return max;
-        }
-
-        return value;
-    }
-
     return React.createClass({
         displayName: 'customScroll',
         getInitialState: function () {
@@ -32,9 +15,9 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
             this.forceUpdate();
         },
         componentWillUpdate: function () {
-            var domNode = this.getDOMNode();
+            var domNode = React.findDOMNode(this);
             var boundingRect = domNode.getBoundingClientRect();
-            var contentWrapper = this.refs.innerContainer.getDOMNode();
+            var contentWrapper = React.findDOMNode(this.refs.innerContainer);
             var contentHeight = contentWrapper.scrollHeight;
             this.scrollbarYWidth = contentWrapper.offsetWidth - contentWrapper.clientWidth;
             this.scrollbarXWidth = contentWrapper.offsetHeight - contentWrapper.clientHeight;
@@ -48,20 +31,33 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
             };
         },
         updateScrollPosition: function (scrollValue) {
-            var contentWrapper = this.refs.innerContainer.getDOMNode();
+            var contentWrapper = React.findDOMNode(this.refs.innerContainer);
             contentWrapper.scrollTop = scrollValue;
             this.setState({
                 scrollPos: scrollValue
             });
         },
         onCustomScrollClick: function (e) {
+            if (React.findDOMNode(this.refs.scrollHandle) === e.target) {
+                return;
+            }
             var relativeClickPosition = {
                 x: e.pageX - this.position.left,
                 y: e.pageY - this.position.top
             };
-            // if click is below handle - jump 1 * handle Height down
-            // else - upward same distance
-            this.updateScrollPosition((relativeClickPosition.y - this.scrollHandleHeight / 2) / this.scrollRatio);
+            var handleTopPosition = this.getScrollHandleStyle().top;
+            var isBelowHandle = relativeClickPosition.y > (handleTopPosition + this.scrollHandleHeight);
+            if (isBelowHandle) {
+                handleTopPosition += Math.min(this.scrollHandleHeight, this.visibleHeight - this.scrollHandleHeight);
+            } else {
+                handleTopPosition -= Math.max(this.scrollHandleHeight, 0);
+            }
+            var newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition);
+
+            this.updateScrollPosition(newScrollValue);
+        },
+        getScrollValueFromHandlePosition: function(handlePosition){
+            return (handlePosition) / this.scrollRatio;
         },
         getScrollHandleStyle: function () {
             var handlePosition = this.state.scrollPos * this.scrollRatio;
@@ -71,6 +67,7 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
                 top: handlePosition
             };
         },
+
         onScroll: function (e) {
             this.setState({
                 scrollPos: e.currentTarget.scrollTop
