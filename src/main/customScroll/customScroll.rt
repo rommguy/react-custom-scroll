@@ -1,11 +1,11 @@
 <div class="custom-scroll">
     <div class="outer-container">
-        <div class="custom-scrollbar">
-            <div class="custom-scrollHandle" style="{this.getScrollHandleStyle()}"></div>
+        <div rt-if="this.hasScroll" class="custom-scrollbar">
+            <div class="custom-scroll-handle" style="{this.getScrollHandleStyle()}"></div>
         </div>
         <div ref="innerContainer"
              class="inner-container"
-             style="margin-right: -{this.scrollbarYWidth}px; margin-bottom: -{this.scrollbarXWidth}px;"
+             style="margin-right: {-1 * this.scrollbarYWidth}px; margin-bottom: {(-1 * this.scrollbarXWidth)}px;"
              onScroll="{this.onScroll}"
              onWheel="{this.blockOuterScroll}">
 

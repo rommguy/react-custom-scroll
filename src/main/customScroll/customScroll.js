@@ -15,16 +15,18 @@ define(['react', './customScroll.rt'], function (React, template) {
         },
         componentWillUpdate: function () {
             var contentWrapper = this.refs.innerContainer.getDOMNode();
+            var contentHeight = contentWrapper.scrollHeight;
             this.scrollbarYWidth = contentWrapper.offsetWidth - contentWrapper.clientWidth;
             this.scrollbarXWidth = contentWrapper.offsetHeight - contentWrapper.clientHeight;
-            this.contentHeight = contentWrapper.scrollHeight;
-            this.wrapperHeight = contentWrapper.clientHeight;
-            this.scrollHandleHeight = this.wrapperHeight * this.wrapperHeight / this.contentHeight;
+            this.visibleHeight = contentWrapper.clientHeight;
+            this.scrollRatio = contentHeight ? this.visibleHeight / contentHeight : 1;
+            this.hasScroll = this.scrollRatio < 1;
         },
         getScrollHandleStyle: function (){
-            var handlePosition = this.state.scrollPos * this.wrapperHeight / this.contentHeight;
+            var handlePosition = this.state.scrollPos * this.scrollRatio;
+            var scrollHandleHeight = this.visibleHeight * this.scrollRatio;
             return {
-                height: this.scrollHandleHeight,
+                height: scrollHandleHeight,
                 top: handlePosition
             };
         },
