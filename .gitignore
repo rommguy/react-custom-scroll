@@ -37,5 +37,7 @@ out/
 # npm dependencies
 node_modules/
 
-*.css
+# sass
+*.css*
+*.sass-cache
 *.rt.js
