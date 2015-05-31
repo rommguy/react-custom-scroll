@@ -1,6 +1,6 @@
 <rt-require dependency="customScroll/customScroll" as="customScroll"/>
 <div>
-    <div class="container left-side">
+    <div class="container native-scroll">
         <label class="side-title">Native scroll</label>
 
         <div class="panel">
@@ -13,14 +13,14 @@
         </div>
 
     </div>
-    <div class="container right-side">
+    <div class="container custom-scroll-example">
         <label class="side-title">Custom scroll</label>
 
         <div class="panel">
             <div class="panelHeader">
                 <label class="panel-title">Settings</label>
             </div>
-                    <customScroll>
+                    <customScroll allowOuterScroll="{true}">
                         <div class="panel-content-custom">
                             <div class="content-fill"></div>
                         </div>
