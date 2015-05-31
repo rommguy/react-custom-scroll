@@ -3,12 +3,12 @@ require.config({
     paths: {
         'lodash': '../../node_modules/lodash-amd/modern/main',
         react: '../../node_modules/react/dist/react-with-addons',
-        zepto: '../../js-libs/zepto/zepto.min'
+        jquery : '//code.jquery.com/jquery-2.1.4.min'
     },
     shim: {
         lodash: { exports: '_' },
         react: {exports: 'React'},
-        'zepto': { exports: '$' }
+        jquery: { exports: '$' }
     },
     map: {
         '*': {
