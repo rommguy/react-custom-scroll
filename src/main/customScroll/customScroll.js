@@ -1,49 +1,84 @@
-define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
+define(['react', 'lodash', 'jquery', './customScroll.rt'], function (React, _, $, template) {
     'use strict';
 
 
+    function ensureWithinLimits(value, min, max){
+        min = _.isUndefined(min) ? value : min;
+        max = _.isUndefined(max) ? value : max;
+        if (min > max){
+            throw 'min limit is greater than max limit';
+        }
+
+        if (value < min) {
+            return min;
+        }
+        if (value > max){
+            return max;
+        }
+
+        return value;
+    }
+
     return React.createClass({
         displayName: 'customScroll',
+        propTypes: {
+            allowOuterScroll: React.PropTypes.bool,
+            heightRelativetoParent: React.PropTypes.string,
+            onScroll: React.PropTypes.func,
+            addScrolledClass: React.PropTypes.bool
+        },
         getInitialState: function () {
             this.scrollbarYWidth = 0;
-            this.scrollbarXWidth = 0;
+            this.scrollbarXHeight = 0;
             return {
-                scrollPos: 0
+                scrollPos: 0,
+                onDrag: false
             };
         },
         componentDidMount: function () {
             this.forceUpdate();
         },
-        componentWillUpdate: function () {
-            var domNode = React.findDOMNode(this);
+        componentDidUpdate: function () {
+            var domNode = this.getDOMNode();
             var boundingRect = domNode.getBoundingClientRect();
-            var contentWrapper = React.findDOMNode(this.refs.innerContainer);
+            var contentWrapper = this.refs.innerContainer.getDOMNode();
             var contentHeight = contentWrapper.scrollHeight;
             this.scrollbarYWidth = contentWrapper.offsetWidth - contentWrapper.clientWidth;
-            this.scrollbarXWidth = contentWrapper.offsetHeight - contentWrapper.clientHeight;
+            this.scrollbarXHeight = contentWrapper.offsetHeight - contentWrapper.clientHeight;
             this.visibleHeight = contentWrapper.clientHeight;
             this.scrollRatio = contentHeight ? this.visibleHeight / contentHeight : 1;
-            this.hasScroll = this.scrollRatio < 1;
+
+            this.toggleScrollIfNeeded();
 
             this.position = {
-                top: boundingRect.top + window.scrollY,
-                left: boundingRect.left + window.scrollX
+                top: boundingRect.top + $(window).scrollTop(),
+                left: boundingRect.left + $(window).scrollLeft()
             };
         },
+        toggleScrollIfNeeded: function () {
+            var shouldHaveScroll = this.scrollRatio < 1;
+            if (this.hasScroll !== shouldHaveScroll) {
+                this.hasScroll = shouldHaveScroll;
+                this.forceUpdate();
+            }
+        },
+        getScrollTop: function() {
+            return this.refs.innerContainer.getDOMNode().scrollTop;
+        },
         updateScrollPosition: function (scrollValue) {
-            var contentWrapper = React.findDOMNode(this.refs.innerContainer);
+            var contentWrapper = this.refs.innerContainer.getDOMNode();
             contentWrapper.scrollTop = scrollValue;
             this.setState({
                 scrollPos: scrollValue
             });
         },
-        onCustomScrollClick: function (e) {
-            if (React.findDOMNode(this.refs.scrollHandle) === e.target) {
+        onCustomScrollClick: function (event) {
+            if (this.refs.scrollHandle.getDOMNode() === event.target) {
                 return;
             }
             var relativeClickPosition = {
-                x: e.pageX - this.position.left,
-                y: e.pageY - this.position.top
+                x: event.pageX - this.position.left,
+                y: event.pageY - this.position.top
             };
             var handleTopPosition = this.getScrollHandleStyle().top;
             var isBelowHandle = relativeClickPosition.y > (handleTopPosition + this.scrollHandleHeight);
@@ -67,13 +102,46 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
                 top: handlePosition
             };
         },
-
-        onScroll: function (e) {
+        scrollTo: function(scrollPosition){
             this.setState({
-                scrollPos: e.currentTarget.scrollTop
+                scrollPos: scrollPosition
             });
         },
+        onScroll: function (event) {
+            this.scrollTo(event.currentTarget.scrollTop);
+            if (this.props.onScroll) {
+                this.props.onScroll(event);
+            }
+        },
+        getScrolledElement: function(){
+            return this.refs.innerContainer.getDOMNode();
+        },
+        onHandleMouseDown: function(event){
+            this.startDragHandlePos = this.getScrollHandleStyle().top;
+            this.startDragMousePos = event.pageY;
+            this.setState({
+                onDrag: true
+            });
+            $(document).on('mousemove', this.onHandleDrag);
+            $(document).on('mouseup', this.onHandleDragEnd);
+        },
+        onHandleDrag: function(event){
+            var mouseDeltaY = event.pageY - this.startDragMousePos;
+            var handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight);
+            var newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition);
+            this.updateScrollPosition(newScrollValue);
+        },
+        onHandleDragEnd: function(){
+            this.setState({
+                onDrag: false
+            });
+            $(document).off('mousemove', this.onHandleDrag);
+            $(document).off('mouseup', this.onHandleDragEnd);
+        },
         blockOuterScroll: function (e) {
+            if (this.props.allowOuterScroll){
+                return;
+            }
             var contentNode = e.currentTarget;
             var totalHeight = e.currentTarget.scrollHeight;
             var maxScroll = totalHeight - e.currentTarget.offsetHeight;
@@ -87,6 +155,30 @@ define(['react', 'lodash', './customScroll.rt'], function (React, _, template) {
             }
             e.stopPropagation();
         },
+        getScrollstyles: function(){
+            var scrollSize = this.scrollbarYWidth || 20;
+            var innerContainerStyle = {
+                'marginRight': (-1 * scrollSize) + 'px',
+                'marginBottom': (-1 * this.scrollbarXHeight) + 'px',
+                height: this.props.heightRelativetoParent ? '100%' : ''
+            };
+            var contentWrapperStyle = this.scrollbarYWidth ? {} : {
+                'marginRight': scrollSize + 'px',
+                'marginBottom': this.scrollbarXHeight + 'px',
+                height: this.props.heightRelativetoParent ? '100%' : ''
+            };
+
+            return {
+                innerContainer: innerContainerStyle,
+                contentWrapper: contentWrapperStyle
+            };
+        },
+        getOuterContainerStyle: function() {
+            return {
+                height: this.props.heightRelativetoParent ? '100%' : ''
+            };
+        },
         render: template
     });
 });
+

@@ -1,17 +1,21 @@
-<div class="custom-scroll">
-    <div class="outer-container">
-        <div rt-if="this.hasScroll" class="custom-scrollbar" onClick="{this.onCustomScrollClick}">
-            <div ref="scrollHandle"  class="custom-scroll-handle" style="{this.getScrollHandleStyle()}"></div>
+<div class="custom-scroll" style="height: {this.props.heightRelativetoParent}">
+    <div class="outer-container" style="{this.getOuterContainerStyle()}">
+        <div rt-if="this.hasScroll" class="custom-scrollbar {this.state.onDrag ? 'handleDrag' : ''}"
+             onClick="{this.onCustomScrollClick}" key="scrollbar">
+            <div ref="scrollHandle" class="custom-scroll-handle" style="{this.getScrollHandleStyle()}"
+                 onMouseDown="{this.onHandleMouseDown}">
+                <div class="inner-handle"></div>
+            </div>
         </div>
         <div ref="innerContainer"
-             class="inner-container"
-             style="margin-right: {-1 * this.scrollbarYWidth}px; margin-bottom: {(-1 * this.scrollbarXWidth)}px;"
+             rt-class="{'inner-container': true, dragging: this.props.dragging, 'content-scrolled': this.state.scrollPos && this.props.addScrolledClass}"
+             style="{this.getScrollstyles().innerContainer}"
              onScroll="{this.onScroll}"
              onWheel="{this.blockOuterScroll}">
-
-            {this.props.children}
+            <div class="content-wrapper"
+                 style="{this.getScrollstyles().contentWrapper}">
+                {this.props.children}
+            </div>
         </div>
     </div>
-
-
 </div>
