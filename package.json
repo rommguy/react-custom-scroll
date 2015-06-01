@@ -1,5 +1,5 @@
 {
-  "name": "custom-scroll-react",
+  "name": "react-custom-scroll",
   "version": "0.1.1",
   "description": "A cross-browser, designable custom scroll with react",
   "keywords": [
@@ -27,6 +27,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:rommguy/web-app-skeleton.git"
+    "url": "git@github.com:rommguy/React-Custom-Scroll.git"
   }
 }
