@@ -396,11 +396,15 @@ th {
   padding: 0;
 }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+  padding-top: 50px;
+}
+
 .container {
-  width: 45%;
+  width: 33%;
   height: 800px;
   display: inline-block;
-  border: 1px solid black;
   float: left;
   text-align: center;
 }
@@ -417,13 +421,24 @@ th {
 .panel {
   display: inline-block;
   width: 288px;
-  box-shadow: 0 0 1px black;
+  box-shadow: 0 0 1px #DDD;
+  border-radius: 8px;
 }
 
-.panelHeader {
-  height: 30px;
-  background-color: #aaa;
+.panel-header {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+  background-color: #333;
   text-align: left;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel-content, .outer-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .panel-content-native {
@@ -436,8 +451,11 @@ th {
 }
 
 .content-fill {
-  height: 3000px;
-  background: linear-gradient(to bottom, #BDEAFC, #FCBDC9);
+  background: #D6EFF5;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px 20px;
 }
 
 .custom-scroll .outer-container {
@@ -490,6 +508,16 @@ th {
   margin-top: 3px;
   background-color: rgba(78, 183, 245, 0.7);
   border-radius: 3px;
+}
+
+.crazy-scroll .custom-scrollbar {
+  width: 45px;
+}
+.crazy-scroll .inner-handle {
+  background-color: inherit;
+  background-image: url("http://fc07.deviantart.net/fs71/f/2012/008/7/d/tour_eiffle___stock_image_by_berrykissed-d4lq72r.png");
+  background-repeat: no-repeat no-repeat;
+  background-size: contain;
 }
 
 /*# sourceMappingURL=styles.css.map */
