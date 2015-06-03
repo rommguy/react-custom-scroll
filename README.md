@@ -1,6 +1,8 @@
 # React-Custom-Scroll
 An easily designable, cross browser (!!), custom scroll with ReactJS  
-Animations and scroll rate **exactly** like native scroll   
+Animations and scroll rate **exactly** like native scroll 
+
+##### See a [working Demo](demo.html) ###
 
 ### Why do I need this ?  
 - Same design on all browsers
