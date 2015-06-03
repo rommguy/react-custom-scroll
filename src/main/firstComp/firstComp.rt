@@ -1,30 +1,44 @@
 <rt-require dependency="customScroll/customScroll" as="customScroll"/>
 <div>
     <div class="container native-scroll">
-        <label class="side-title">Native scroll</label>
+        <label class="side-title">Native Scroll</label>
 
         <div class="panel">
-            <div class="panelHeader">
-                <label class="panel-title">Settings</label>
+            <div class="panel-header">
+                <label class="panel-title">This is boring</label>
             </div>
-            <div class="panel-content-native">
-                <div class="content-fill"></div>
+            <div class="panel-content-native panel-content">
+                <div class="content-fill">{this.getText()}</div>
             </div>
         </div>
 
     </div>
     <div class="container custom-scroll-example">
-        <label class="side-title">Custom scroll</label>
+        <label class="side-title">Custom Scroll</label>
 
         <div class="panel">
-            <div class="panelHeader">
-                <label class="panel-title">Settings</label>
+            <div class="panel-header">
+                <label class="panel-title">Cool Scrollbar !</label>
             </div>
                     <customScroll allowOuterScroll="{true}">
-                        <div class="panel-content-custom">
-                            <div class="content-fill"></div>
+                        <div class="panel-content-custom panel-content">
+                            <div class="content-fill">{this.getText()}</div>
                         </div>
                     </customScroll>
+        </div>
+    </div>
+    <div class="container custom-scroll-example">
+        <label class="side-title">Crazy Designer</label>
+
+        <div class="panel crazy-scroll">
+            <div class="panel-header">
+                <label class="panel-title">Who designed this ???</label>
+            </div>
+            <customScroll allowOuterScroll="{true}">
+                <div class="panel-content-custom panel-content">
+                    <div class="content-fill">{this.getText()}</div>
+                </div>
+            </customScroll>
         </div>
     </div>
     <div class="scroll-creator"></div>
