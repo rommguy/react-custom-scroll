@@ -1,9 +1,13 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  padding-top: 50px;
+}
+
 .container {
-  width:45%;
-  height:800px;
+  width: 33%;
+  height: 800px;
   display: inline-block;
-  border: 1px solid black;
-  float:left;
+  float: left;
   text-align: center;
 
   .side-title {
@@ -18,15 +22,26 @@
 }
 
 .panel {
-  display:inline-block;
+  display: inline-block;
   width: 288px;
-  box-shadow: 0 0 1px black;
+  box-shadow: 0 0 1px #DDD;
+  border-radius: 8px;
 }
 
-.panelHeader {
-  height: 30px;
-  background-color: #aaa;
+.panel-header {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+  background-color: #333;
   text-align: left;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel-content, .outer-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .panel-content-native {
@@ -39,6 +54,10 @@
 }
 
 .content-fill {
-  height:3000px;
-  background: linear-gradient(to bottom, #BDEAFC, #FCBDC9);
+  background: #D6EFF5;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px 20px;
+
 }
