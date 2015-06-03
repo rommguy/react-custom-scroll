@@ -4,6 +4,7 @@ define(['react', 'lodash', 'demoText', './firstComp.rt'], function (React, _, de
     return React.createClass({
         displayName: 'firstComp',
         getText: function(){
+            //return demoText.shortText;
             return demoText.text;
         },
         render: template
