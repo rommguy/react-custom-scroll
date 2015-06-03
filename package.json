@@ -6,6 +6,7 @@
     "react",
     "require",
     "react-templates",
+    "react-component",
     "scrollbar"
   ],
   "author": "Guy Romm",
