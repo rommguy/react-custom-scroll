@@ -40,4 +40,3 @@ node_modules/
 # sass
 *.css*
 *.sass-cache
-*.rt.js
