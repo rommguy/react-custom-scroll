@@ -1,0 +1,31 @@
+<rt-require dependency="customScroll/customScroll" as="customScroll"/>
+<div>
+    <div class="container native-scroll">
+        <label class="side-title">Native scroll</label>
+
+        <div class="panel">
+            <div class="panelHeader">
+                <label class="panel-title">Settings</label>
+            </div>
+            <div class="panel-content-native">
+                <div class="content-fill"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container custom-scroll-example">
+        <label class="side-title">Custom scroll</label>
+
+        <div class="panel">
+            <div class="panelHeader">
+                <label class="panel-title">Settings</label>
+            </div>
+                    <customScroll allowOuterScroll="{true}">
+                        <div class="panel-content-custom">
+                            <div class="content-fill"></div>
+                        </div>
+                    </customScroll>
+        </div>
+    </div>
+    <div class="scroll-creator"></div>
+</div>

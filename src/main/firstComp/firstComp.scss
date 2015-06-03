@@ -1,0 +1,44 @@
+.container {
+  width:45%;
+  height:800px;
+  display: inline-block;
+  border: 1px solid black;
+  float:left;
+  text-align: center;
+
+  .side-title {
+    display: block;
+    margin: 20px 0;
+    font-size: 18px;
+  }
+}
+
+.scroll-creator {
+  background: linear-gradient(to bottom, #BDEAFC, #FCBDC9);
+}
+
+.panel {
+  display:inline-block;
+  width: 288px;
+  box-shadow: 0 0 1px black;
+}
+
+.panelHeader {
+  height: 30px;
+  background-color: #aaa;
+  text-align: left;
+}
+
+.panel-content-native {
+  max-height: 525px;
+  overflow: auto;
+}
+
+.panel-content-custom {
+  max-height: 525px;
+}
+
+.content-fill {
+  height:3000px;
+  background: linear-gradient(to bottom, #BDEAFC, #FCBDC9);
+}
