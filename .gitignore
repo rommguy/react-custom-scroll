@@ -38,5 +38,4 @@ out/
 node_modules/
 
 # sass
-*.css*
 *.sass-cache
