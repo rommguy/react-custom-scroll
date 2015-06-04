@@ -407,6 +407,8 @@ body {
   display: inline-block;
   float: left;
   text-align: center;
+  padding: 1%;
+  box-sizing: border-box;
 }
 .container .side-title {
   display: block;
@@ -420,7 +422,7 @@ body {
 
 .panel {
   display: inline-block;
-  width: 288px;
+  max-width: 288px;
   box-shadow: 0 0 1px #DDD;
   border-radius: 8px;
 }
