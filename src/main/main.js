@@ -1,9 +1,9 @@
 require.config({
     baseUrl:'src/main',
     paths: {
-        'lodash': '//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.6.0/lodash.min',
-        'react': '//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.min',
-        'jquery' : '//code.jquery.com/jquery-2.1.4.min'
+        'lodash': 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.6.0/lodash.min',
+        'react': 'https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.min',
+        'jquery' : 'https://code.jquery.com/jquery-2.1.4.min'
     },
     shim: {
         'lodash': { exports: '_' },
