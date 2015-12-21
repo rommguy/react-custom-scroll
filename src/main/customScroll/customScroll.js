@@ -100,7 +100,8 @@ define(['react', 'reactDOM', 'lodash', 'jquery', './customScroll.rt'], function 
             this.updateScrollPosition(newScrollValue);
         },
         isClickOnScrollHandle: function (event) {
-            return event.target === reactDOM.findDOMNode(this.refs.scrollHandle);
+            var scrollHandle = reactDOM.findDOMNode(this.refs.scrollHandle);
+            return event.target === scrollHandle || event.target.parentElement === scrollHandle;
         },
         calculateNewScrollHandleTop: function (clickEvent) {
             var clickYRelativeToScrollbar = clickEvent.pageY - this.position.top;
