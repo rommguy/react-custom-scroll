@@ -26,6 +26,7 @@ remove overflow style properties from your content root component - The custom s
 - heightRelativetoParent : string, default undefined. Content height limit is relative to parent - the value should be the height limit.
 - onScroll - function, default undefined. Listener that will be called on each scroll.
 - addScrolledClass - boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
+- freezePosition - boolean, default false. When true, will prevent scrolling. 
 
 ##### Example for heightRelativetoParent
 
