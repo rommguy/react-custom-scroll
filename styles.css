@@ -469,20 +469,22 @@ body {
   transition-duration: 0.2s;
 }
 .custom-scroll .inner-container {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
-.custom-scroll .inner-container::after {
+.custom-scroll .inner-container:after {
   content: '';
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
-  height: 0px;
+  height: 0;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 60%, transparent 100%);
   pointer-events: none;
   transition: height 0.1s ease-in;
+  will-change: height;
 }
-.custom-scroll .inner-container.content-scrolled::after {
+.custom-scroll .inner-container.content-scrolled:after {
   height: 5px;
   transition: height 0.15s ease-out;
 }
@@ -496,6 +498,7 @@ body {
   transition: opacity 0.4s ease-out;
   padding: 6px 0;
   box-sizing: border-box;
+  will-change: opacity;
 }
 .custom-scroll .handleDrag {
   opacity: 1;
@@ -506,8 +509,8 @@ body {
   top: 0;
 }
 .custom-scroll .inner-handle {
-  height: calc(100% - 6px);
-  margin-top: 3px;
+  height: calc(100% - 12px);
+  margin-top: 6px;
   background-color: rgba(78, 183, 245, 0.7);
   border-radius: 3px;
 }

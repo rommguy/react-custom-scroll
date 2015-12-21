@@ -1,6 +1,9 @@
 .custom-scroll {
+    $scroll-margin-top: 6px;
 
   .outer-container {
+
+
     overflow: hidden;
     position: relative;
 
@@ -11,19 +14,22 @@
   }
 
   .inner-container {
-    overflow: auto;
-    &::after{
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    &:after{
       content: '';
       position: absolute;
       top: 0;
       right: 0;
       left: 0;
-      height: 0px;
+      height: 0;
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 60%, rgba(0, 0, 0, 0) 100%);
       pointer-events: none;
       transition: height 0.1s ease-in;
+      will-change: height;
     }
-    &.content-scrolled::after {
+    &.content-scrolled:after {
       height: 5px;
       transition: height 0.15s ease-out;
     }
@@ -39,6 +45,7 @@
     transition: opacity 0.4s ease-out;
     padding: 6px 0;
     box-sizing: border-box;
+    will-change: opacity;
   }
 
   .handleDrag {
@@ -52,9 +59,9 @@
   }
 
   .inner-handle {
-    height: calc(100% - 6px);
-    margin-top: 3px;
-    background-color: rgba(#4eb7f5, .7);
+    height: calc(100% - #{2 * $scroll-margin-top});
+    margin-top: $scroll-margin-top;
+    background-color: rgba(#4eb7f5, 0.7);
     border-radius: 3px;
   }
 }
