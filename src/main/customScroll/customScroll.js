@@ -1,4 +1,4 @@
-define(['react', 'lodash', 'jquery', './customScroll.rt'], function (React, _, $, template) {
+define(['react', 'reactDOM', 'lodash', 'jquery', './customScroll.rt'], function (React, reactDOM, _, $, template) {
     'use strict';
 
 
@@ -39,9 +39,9 @@ define(['react', 'lodash', 'jquery', './customScroll.rt'], function (React, _, $
             this.forceUpdate();
         },
         componentDidUpdate: function (prevProps) {
-            var domNode = this.getDOMNode();
+            var domNode = reactDOM.findDOMNode(this)
             var boundingRect = domNode.getBoundingClientRect();
-            var innerContainer = this.refs.innerContainer.getDOMNode();
+            var innerContainer = this.getScrolledElement();
             var contentHeight = innerContainer.scrollHeight;
 
             this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth;
@@ -62,8 +62,8 @@ define(['react', 'lodash', 'jquery', './customScroll.rt'], function (React, _, $
             $(document).off('mouseup', this.onHandleDragEnd);
         },
         freezePosition: function (prevProps) {
-            var innerContainer = this.refs.innerContainer.getDOMNode();
-            var contentWrapper = this.refs.contentWrapper.getDOMNode();
+            var innerContainer = this.getScrolledElement();
+            var contentWrapper = reactDOM.findDOMNode(this.refs.contentWrapper);
 
             if (this.props.freezePosition) {
                 contentWrapper.scrollTop = this.state.scrollPos;
@@ -81,10 +81,10 @@ define(['react', 'lodash', 'jquery', './customScroll.rt'], function (React, _, $
             }
         },
         getScrollTop: function () {
-            return this.refs.innerContainer.getDOMNode().scrollTop;
+            return this.getScrolledElement().scrollTop;
         },
         updateScrollPosition: function (scrollValue) {
-            var innerContainer = this.refs.innerContainer.getDOMNode();
+            var innerContainer = this.getScrolledElement();
             innerContainer.scrollTop = scrollValue;
             this.setState({
                 scrollPos: scrollValue
@@ -100,7 +100,7 @@ define(['react', 'lodash', 'jquery', './customScroll.rt'], function (React, _, $
             this.updateScrollPosition(newScrollValue);
         },
         isClickOnScrollHandle: function (event) {
-            return event.target === this.refs.scrollHandle.getDOMNode();
+            return event.target === reactDOM.findDOMNode(this.refs.scrollHandle);
         },
         calculateNewScrollHandleTop: function (clickEvent) {
             var clickYRelativeToScrollbar = clickEvent.pageY - this.position.top;
@@ -140,7 +140,7 @@ define(['react', 'lodash', 'jquery', './customScroll.rt'], function (React, _, $
             }
         },
         getScrolledElement: function () {
-            return this.refs.innerContainer.getDOMNode();
+            return reactDOM.findDOMNode(this.refs.innerContainer);
         },
         onHandleMouseDown: function (event) {
             this.startDragHandlePos = this.getScrollHandleStyle().top;
