@@ -23,15 +23,15 @@ define([
             'ref': 'innerContainer',
             'className': _.keys(_.pick({
                 'inner-container': true,
-                dragging: this.props.dragging,
                 'content-scrolled': this.state.scrollPos && this.props.addScrolledClass
             }, _.identity)).join(' '),
-            'style': this.getScrollstyles().innerContainer,
+            'style': this.getScrollStyles().innerContainer,
             'onScroll': this.onScroll,
             'onWheel': this.blockOuterScroll
         }, React.createElement('div', {
             'className': 'content-wrapper',
-            'style': this.getScrollstyles().contentWrapper
+            'ref': 'contentWrapper',
+            'style': this.getScrollStyles().contentWrapper
         }, '\n                ', this.props.children, '\n            '))));
     };
 });
