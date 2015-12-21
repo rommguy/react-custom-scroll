@@ -39,3 +39,4 @@ node_modules/
 
 # sass
 *.sass-cache
+*.css.map
