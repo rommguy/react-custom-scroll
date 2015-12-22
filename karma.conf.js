@@ -1,4 +1,5 @@
 module.exports = function (config) {
+    'user strict';
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -12,16 +13,14 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             'src/test/test-main.js',
-            {pattern: 'src/**/*.js', included: false},
-            {pattern: 'libs/**/*.js', included: false},
-            {pattern: 'node_modules/lodash-amd/**/*.js', included: false},
-            {pattern: 'node_modules/react/**/*.js', included: false}
+            {pattern: 'src/main/**/*.js', included: false},
+            {pattern: 'src/test/**/*.js', included: false}
         ],
 
 
         // list of files to exclude
         exclude: [
-            'main.js'
+            'src/main/main.js'
         ],
 
 

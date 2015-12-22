@@ -10,17 +10,19 @@
         }
     }
 
+    var cdnPrefix = 'https://';
+
     require.config({
-        baseUrl: '/base/src/main/',
+        baseUrl: '/base/src/main',
         paths: {
-            'lodash': '../../node_modules/lodash-amd/modern/main',
-            'react': '../../node_modules/react/dist/react-with-addons',
-            zepto: '../../libs/zepto/zepto.min',
-            definition: '../../js-libs/definition/definition'
+            'lodash': cdnPrefix + "cdnjs.cloudflare.com/ajax/libs/lodash.js/3.6.0/lodash.min",
+            'react': cdnPrefix + "cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons",
+            'react-dom': cdnPrefix + "cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom",
+            jquery: cdnPrefix + 'code.jquery.com/jquery-2.1.4.min'
         },
         shim: {
             'lodash': { exports: '_' },
-            'zepto': { exports: '$' },
+            'jquery': { exports: '$' },
             'react': { exports: 'React' }
         },
         map: {
