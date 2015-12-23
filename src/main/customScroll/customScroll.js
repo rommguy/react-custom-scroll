@@ -1,4 +1,4 @@
-define(['react', 'reactDOM', 'lodash', 'jquery', './customScroll.rt'], function (React, reactDOM, _, $, template) {
+define(['react', 'react-dom', 'lodash', 'jquery', './customScroll.rt'], function (React, reactDOM, _, $, template) {
     'use strict';
 
 
@@ -185,11 +185,11 @@ define(['react', 'reactDOM', 'lodash', 'jquery', './customScroll.rt'], function 
         getScrollStyles: function () {
             var scrollSize = this.scrollbarYWidth || 20;
             var innerContainerStyle = {
-                marginRight: (-1 * scrollSize) + 'px',
+                marginRight: (-1 * scrollSize),
                 height: this.props.heightRelativetoParent ? '100%' : ''
             };
             var contentWrapperStyle = {
-                marginRight: this.scrollbarYWidth ? 0 : (scrollSize + 'px'),
+                marginRight: this.scrollbarYWidth ? 0 : scrollSize,
                 height: this.props.heightRelativetoParent ? '100%' : '',
                 overflowY: this.props.freezePosition ? 'hidden' : 'visible'
             };
