@@ -26,7 +26,13 @@ define(['react', 'react-dom', 'lodash', 'jquery', './customScroll.rt'], function
             heightRelativetoParent: React.PropTypes.string,
             onScroll: React.PropTypes.func,
             addScrolledClass: React.PropTypes.bool,
-            freezePosition: React.PropTypes.bool
+            freezePosition: React.PropTypes.bool,
+            handleClass: React.PropTypes.string
+        },
+        getDefaultProps: function(){
+            return {
+                handleClass: 'inner-handle'
+            };
         },
         getInitialState: function () {
             this.scrollbarYWidth = 0;
