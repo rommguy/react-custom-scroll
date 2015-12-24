@@ -69,7 +69,7 @@ define(['react', 'react-dom', 'lodash', 'jquery', './customScroll.rt'], function
         },
         freezePosition: function (prevProps) {
             var innerContainer = this.getScrolledElement();
-            var contentWrapper = reactDOM.findDOMNode(this.refs.contentWrapper);
+            var contentWrapper = this.refs.contentWrapper;
 
             if (this.props.freezePosition) {
                 contentWrapper.scrollTop = this.state.scrollPos;
@@ -132,7 +132,7 @@ define(['react', 'react-dom', 'lodash', 'jquery', './customScroll.rt'], function
                 top: handlePosition
             };
         },
-        scrollTo: function (scrollPosition) {
+        adjustCustomScrollPosToContentPos: function (scrollPosition) {
             this.setState({
                 scrollPos: scrollPosition
             });
@@ -141,13 +141,13 @@ define(['react', 'react-dom', 'lodash', 'jquery', './customScroll.rt'], function
             if (this.props.freezePosition) {
                 return;
             }
-            this.scrollTo(event.currentTarget.scrollTop);
+            this.adjustCustomScrollPosToContentPos(event.currentTarget.scrollTop);
             if (this.props.onScroll) {
                 this.props.onScroll(event);
             }
         },
         getScrolledElement: function () {
-            return reactDOM.findDOMNode(this.refs.innerContainer);
+            return this.refs.innerContainer;
         },
         onHandleMouseDown: function (event) {
             this.startDragHandlePos = this.getScrollHandleStyle().top;
