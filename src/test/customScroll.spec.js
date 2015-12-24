@@ -39,16 +39,18 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
         });
 
         function getCustomScroll(props) {
+            this.totalScrollHeight = 200;
+            this.visibleHeight = 100;
             var scrolledContent = React.createElement('div', {
                 style: {
-                    height: 200,
+                    height: this.totalScrollHeight,
                     width: 50
                 }
             });
             var content = React.createElement('div', {
                 style: {
-                    maxHeight: 100,
-                    display: 'inline-block'
+                    maxHeight: this.visibleHeight,
+                    width: 50
                 }
             }, scrolledContent);
             return reactDOM.render(React.createElement(customScrollClass, props, content), this.customScrollContainer);
@@ -107,19 +109,16 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
             });
 
             describe('when scrolling content', function () {
-                beforeEach(function () {
-                    // TODO GuyR 12/23/15 23:12 - make sure the content has scroll
-                });
                 it('should update scroll handle position', function () {
                     var initialHandlePos = this.customScroll.getScrollHandleStyle().top;
                     var contentContainerNode = this.customScroll.refs.innerContainer;
 
-                    contentContainerNode.scrollTop = 50;
+                    contentContainerNode.scrollTop = this.totalScrollHeight / 4;
                     testUtils.Simulate.scroll(contentContainerNode);
 
                     var newHandlePos = this.customScroll.getScrollHandleStyle().top;
 
-                    expect(newHandlePos).not.toEqual(initialHandlePos);
+                    expect(newHandlePos).toEqual(initialHandlePos + this.visibleHeight / 4);
                 });
 
                 it('should call onScroll callback from props if defined', function () {
