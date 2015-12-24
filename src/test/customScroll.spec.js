@@ -4,6 +4,40 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
     describe('custom scroll', function () {
         var testUtils = React.addons.TestUtils;
 
+        function loadCSS(url, callback){
+            var link = document.createElement('link');
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+            link.href = url;
+
+            document.getElementsByTagName('head')[0].appendChild(link);
+
+            var img = document.createElement('img');
+            img.onerror = function(){
+                if (callback) {
+                    callback(link);
+                }
+            };
+            img.src = url;
+        }
+
+        beforeEach(function (done) {
+            loadCSS('/base/styles.css', function(linkElm){
+                this.link = linkElm;
+
+                this.customScrollContainer = document.createElement('div');
+                this.customScrollContainer.id = 'testScrollContainer';
+                document.body.appendChild(this.customScrollContainer);
+                done();
+            }.bind(this));
+        });
+
+        afterEach(function () {
+            document.body.removeChild(this.customScrollContainer);
+            var head = document.getElementsByTagName('head')[0];
+            head.removeChild(this.link);
+        });
+
         function getCustomScroll(props) {
             var scrolledContent = React.createElement('div', {
                 style: {
@@ -17,12 +51,12 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
                     display: 'inline-block'
                 }
             }, scrolledContent);
-            return testUtils.renderIntoDocument(React.createElement(customScrollClass, props, content));
+            return reactDOM.render(React.createElement(customScrollClass, props, content), this.customScrollContainer);
         }
 
         describe('general functionality', function () {
             beforeEach(function () {
-                this.customScroll = getCustomScroll();
+                this.customScroll = getCustomScroll.call(this);
                 this.customScroll.forceUpdate();
             });
 
@@ -50,6 +84,19 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
                 });
 
                 describe('when there is no native scrollbar (mac floating scrollbar)', function () {
+                    beforeEach(function(){
+                        var innerContainer = {
+                            scrollTop: 0,
+                            offsetWidth: 0,
+                            clientWidth: 0
+                        };
+                        spyOn(this.customScroll, 'getScrolledElement').and.returnValue(innerContainer);
+                        innerContainer.clientWidth = 50;
+                        innerContainer.offsetWidth = innerContainer.clientWidth;
+
+                        this.customScroll.forceUpdate();
+                    });
+
                     it('should position the inner container to the right with minus 20 pixels', function () {
                         var styles = this.customScroll.getScrollStyles();
 
@@ -67,10 +114,8 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
                     var initialHandlePos = this.customScroll.getScrollHandleStyle().top;
                     var contentContainerNode = this.customScroll.refs.innerContainer;
 
-                    this.customScroll.setState({
-                        scrollPos: 50
-                    });
-                    //contentContainerNode.scrollTop = 50;
+                    contentContainerNode.scrollTop = 50;
+                    testUtils.Simulate.scroll(contentContainerNode);
 
                     var newHandlePos = this.customScroll.getScrollHandleStyle().top;
 
@@ -79,6 +124,13 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
 
                 it('should call onScroll callback from props if defined', function () {
                     var propsOnScroll = jasmine.createSpy('onScroll');
+                    this.customScroll = getCustomScroll.call(this, {
+                        onScroll: propsOnScroll
+                    });
+                    this.customScroll.forceUpdate();
+                    var contentContainerNode = this.customScroll.refs.innerContainer;
+
+                    testUtils.Simulate.scroll(contentContainerNode);
 
                     expect(propsOnScroll).toHaveBeenCalled();
                 });
@@ -99,7 +151,7 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
 
         describe('freeze position', function () {
             beforeEach(function () {
-                this.customScroll = getCustomScroll({
+                this.customScroll = getCustomScroll.call(this, {
                     freezePosition: true
                 });
             });
@@ -109,5 +161,5 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
 
     })
     ;
-})
-;
+});
+

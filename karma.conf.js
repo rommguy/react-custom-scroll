@@ -14,7 +14,8 @@ module.exports = function (config) {
         files: [
             'src/test/test-main.js',
             {pattern: 'src/main/**/*.js', included: false},
-            {pattern: 'src/test/**/*.js', included: false}
+            {pattern: 'src/test/**/*.js', included: false},
+            {pattern: '*.css', included: false}
         ],
 
 
