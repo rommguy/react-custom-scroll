@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         clean: {
             main: {
-                src: ['src/**/*.rt.js']
+                src: ['src/**/*.rt.js', 'dist/**/*.*']
             }
         },
         eslint: {
@@ -45,6 +45,22 @@ module.exports = function (grunt) {
             modules: 'amd',
             format: 'stylish',
             src: ['src/**/*.rt']
+        },
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: "./",
+                    mainConfigFile: 'src/main/main.js',
+                    include: ['src/main/customScroll/customScroll.js', 'src/main/customScroll/customScroll.rt.js'],
+                    out: "dist/customScroll.min.js",
+                    paths: {
+                        jquery: 'empty:',
+                        react: 'empty:',
+                        lodash: 'empty:',
+                        'react-dom': 'empty:'
+                    }
+                }
+            }
         }
     });
 
@@ -52,10 +68,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-eslint');
 
     grunt.registerTask('rt', ['react-templates']);
-    grunt.registerTask('default', ['eslint', 'clean', 'rt', 'sass']);
+    grunt.registerTask('rt', ['react-templates']);
+    grunt.registerTask('default', ['eslint', 'clean', 'rt', 'requirejs', 'sass']);
     grunt.registerTask('test', []);
 
     grunt.registerTask('all', ['default', 'test']);
