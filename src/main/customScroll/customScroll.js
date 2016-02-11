@@ -1,4 +1,4 @@
-define(['react', 'react-dom', 'lodash', 'jquery', './customScroll.rt'], function (React, reactDOM, _, $, template) {
+define(['react', 'reactDOM', 'lodash', 'jquery', './customScroll.rt'], function (React, reactDOM, _, $, template) {
     'use strict';
 
 
