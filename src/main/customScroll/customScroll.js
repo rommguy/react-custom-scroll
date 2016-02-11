@@ -45,7 +45,7 @@ define(['react', 'react-dom', 'lodash', 'jquery', './customScroll.rt'], function
             this.forceUpdate();
         },
         componentDidUpdate: function (prevProps) {
-            var domNode = reactDOM.findDOMNode(this)
+            var domNode = reactDOM.findDOMNode(this);
             var boundingRect = domNode.getBoundingClientRect();
             var innerContainer = this.getScrolledElement();
             var contentHeight = innerContainer.scrollHeight;
