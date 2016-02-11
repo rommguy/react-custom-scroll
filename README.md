@@ -13,11 +13,10 @@ wrap your content with the custom scroll component
 remove overflow style properties from your content root component - The custom scroll will take care of it
 
 
-```
+```html
 <customScroll>
   your content
 </customScroll>
-
 ```
 
 ### Options (react props)
@@ -30,8 +29,8 @@ remove overflow style properties from your content root component - The custom s
 
 ##### Example for heightRelativetoParent
 
-```
-<customScroll heightRelativetoParent="calc(100% - 20px)"">
+```html
+<customScroll heightRelativetoParent="calc(100% - 20px)">
   your content
 </customScroll>  
 ```
