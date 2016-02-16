@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "strict": [2, "function"]
+    },
+    "env": {
+        "amd": true
+    },
+    "globals": {
+        "requirejs": true
+    }
+}

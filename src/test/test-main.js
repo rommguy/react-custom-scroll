@@ -15,15 +15,15 @@
     require.config({
         baseUrl: '/base/src/main',
         paths: {
-            'lodash': cdnPrefix + "cdnjs.cloudflare.com/ajax/libs/lodash.js/3.6.0/lodash.min",
-            'react': cdnPrefix + "cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-with-addons",
-            'react-dom': cdnPrefix + "cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom",
+            lodash: cdnPrefix + 'cdnjs.cloudflare.com/ajax/libs/lodash.js/3.6.0/lodash.min',
+            react: cdnPrefix + 'cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-with-addons',
+            'react-dom': cdnPrefix + 'cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom',
             jquery: cdnPrefix + 'code.jquery.com/jquery-2.1.4.min'
         },
         shim: {
-            'lodash': { exports: '_' },
-            'jquery': { exports: '$' },
-            'react': { exports: 'React' }
+            lodash: {exports: '_'},
+            jquery: {exports: '$'},
+            react: {exports: 'React'}
         },
         map: {
             '*': {

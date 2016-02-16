@@ -1,5 +1,5 @@
+'use strict';
 module.exports = function (config) {
-    'user strict';
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)

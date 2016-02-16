@@ -1,4 +1,4 @@
-<div class="custom-scroll" style="height: {this.props.heightRelativetoParent}">
+<div class="custom-scroll" style="height: {this.props.heightRelativeToParent}">
     <div class="outer-container" style="{this.getOuterContainerStyle()}">
         <div rt-if="this.hasScroll"
              class="custom-scrollbar {this.state.onDrag ? 'handleDrag' : ''}"

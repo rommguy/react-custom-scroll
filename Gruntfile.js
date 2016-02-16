@@ -28,7 +28,7 @@ module.exports = function (grunt) {
                 files: [
                     'src/main/**/*.scss'
                 ],
-                tasks:['sass']
+                tasks: ['sass']
             }
         },
         sass: {
@@ -37,43 +37,50 @@ module.exports = function (grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'styles.css': 'src/main/main.scss'
+                    'example/styles.css': 'example/main.scss'
                 }
             }
         },
         reactTemplates: {
-            modules: 'amd',
-            format: 'stylish',
-            src: ['src/**/*.rt']
-        },
-        requirejs: {
-            compile: {
-                options: {
-                    baseUrl: "./",
-                    mainConfigFile: 'src/main/main.js',
-                    include: ['src/main/customScroll/customScroll.js', 'src/main/customScroll/customScroll.rt.js'],
-                    out: "dist/customScroll.min.js",
-                    paths: {
-                        jquery: 'empty:',
-                        react: 'empty:',
-                        lodash: 'empty:',
-                        'react-dom': 'empty:'
-                    }
-                }
+            main: {
+                modules: 'commonjs',
+                format: 'stylish',
+                src: ['src/**/*.rt']
+            },
+            example: {
+                modules: 'amd',
+                format: 'stylish',
+                src: ['example/**/*.rt']
             }
         }
+        //requirejs: {
+        //    compile: {
+        //        options: {
+        //            baseUrl: "./",
+        //            mainConfigFile: 'src/main/main.js',
+        //            include: ['src/main/customScroll/customScroll.js', 'src/main/customScroll/customScroll.rt.js'],
+        //            out: "dist/customScroll.min.js",
+        //            paths: {
+        //                jquery: 'empty:',
+        //                react: 'empty:',
+        //                lodash: 'empty:',
+        //                'react-dom': 'empty:'
+        //            }
+        //        }
+        //    }
+        //}
     });
 
     grunt.loadNpmTasks('grunt-react-templates');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    //grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-eslint');
 
     grunt.registerTask('rt', ['react-templates']);
     grunt.registerTask('rt', ['react-templates']);
-    grunt.registerTask('default', ['eslint', 'clean', 'rt', 'requirejs', 'sass']);
+    grunt.registerTask('default', ['eslint', 'clean', 'rt', /*'requirejs', */'sass']);
     grunt.registerTask('test', []);
 
     grunt.registerTask('all', ['default', 'test']);

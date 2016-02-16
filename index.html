@@ -26,7 +26,7 @@
 Animations and scroll rate <strong>exactly</strong> like native scroll </p>
 
 <h5>
-<a id="see-a-working-demo" class="anchor" href="#see-a-working-demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>See a <a href="http://rommguy.github.io/react-custom-scroll/demo.html">working demo</a>
+<a id="see-a-working-demo" class="anchor" href="#see-a-working-demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>See a <a href="http://rommguy.github.io/react-custom-scroll/example/demo.html">working demo</a>
 </h5>
 
 <h3>
@@ -54,15 +54,15 @@ remove overflow style properties from your content root component - The custom s
 
 <ul>
 <li>allowOuterScroll : boolean, default false. Blocks outer scroll while scrolling the content</li>
-<li>heightRelativetoParent : string, default undefined. Content height limit is relative to parent - the value should be the height limit.</li>
+<li>heightRelativeToParent : string, default undefined. Content height limit is relative to parent - the value should be the height limit.</li>
 <li>onScroll - function, default undefined. Listener that will be called on each scroll.</li>
 <li>addScrolledClass - boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.</li>
 </ul>
 
 <h5>
-<a id="example-for-heightrelativetoparent" class="anchor" href="#example-for-heightrelativetoparent" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example for heightRelativetoParent</h5>
+<a id="example-for-heightrelativetoparent" class="anchor" href="#example-for-heightrelativetoparent" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example for heightRelativeToParent</h5>
 
-<pre><code>&lt;customScroll heightRelativetoParent="calc(100% - 20px)""&gt;
+<pre><code>&lt;customScroll heightRelativeToParent="calc(100% - 20px)""&gt;
   your content
 &lt;/customScroll&gt;  
 </code></pre>
@@ -72,7 +72,7 @@ remove overflow style properties from your content root component - The custom s
 
 <ul>
 <li>Check if you forgot to remove 'overflow' properties from the content root element.</li>
-<li>Check if your height limit is relative to parent, and you didn't use heightRelativetoParent prop.</li>
+<li>Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.</li>
 </ul>
 
       <footer class="site-footer">

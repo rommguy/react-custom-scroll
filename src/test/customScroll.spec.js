@@ -1,10 +1,10 @@
-define(['react', 'react-dom', 'customScroll/customScroll'], function (React, reactDOM, customScrollClass) {
+define(['React', 'ReactDOM', 'customScroll/customScroll'], function (React, reactDOM, customScrollClass) {
     'use strict';
 
     describe('custom scroll', function () {
         var testUtils = React.addons.TestUtils;
 
-        function loadCSS(url, callback){
+        function loadCSS(url, callback) {
             var link = document.createElement('link');
             link.type = 'text/css';
             link.rel = 'stylesheet';
@@ -13,7 +13,7 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
             document.getElementsByTagName('head')[0].appendChild(link);
 
             var img = document.createElement('img');
-            img.onerror = function(){
+            img.onerror = function () {
                 if (callback) {
                     callback(link);
                 }
@@ -22,7 +22,7 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
         }
 
         beforeEach(function (done) {
-            loadCSS('/base/styles.css', function(linkElm){
+            loadCSS('/base/styles.css', function (linkElm) {
                 this.link = linkElm;
 
                 this.customScrollContainer = document.createElement('div');
@@ -86,7 +86,7 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
                 });
 
                 describe('when there is no native scrollbar (mac floating scrollbar)', function () {
-                    beforeEach(function(){
+                    beforeEach(function () {
                         var innerContainer = {
                             scrollTop: 0,
                             offsetWidth: 0,
@@ -105,7 +105,6 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
                         expect(styles.innerContainer.marginRight).toEqual(-20);
                     });
                 });
-
             });
 
             describe('when scrolling content', function () {
@@ -157,8 +156,6 @@ define(['react', 'react-dom', 'customScroll/customScroll'], function (React, rea
 
             it('should not scroll ');
         });
-
-    })
-    ;
+    });
 });
 

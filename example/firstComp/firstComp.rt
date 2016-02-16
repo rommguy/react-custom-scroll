@@ -1,5 +1,5 @@
-<rt-require dependency="customScroll/customScroll" as="customScroll"/>
-<div>
+<rt-require dependency="customScroll" as="cs"/>
+<div rt-scope="cs.CustomScroll as customScroll">
     <div class="container native-scroll">
         <label class="side-title">Native Scroll</label>
 

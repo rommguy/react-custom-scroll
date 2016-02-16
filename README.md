@@ -2,7 +2,7 @@
 An easily designable, cross browser (!!), custom scroll with ReactJS  
 Animations and scroll rate **exactly** like native scroll 
 
-##### See a [working demo](http://rommguy.github.io/react-custom-scroll/demo.html) ###
+##### See a [working demo](http://rommguy.github.io/react-custom-scroll/example/demo.html) ###
 
 ### Why do I need this ?  
 - Same design on all browsers
@@ -22,15 +22,15 @@ remove overflow style properties from your content root component - The custom s
 ### Options (react props)
 
 - allowOuterScroll : boolean, default false. Blocks outer scroll while scrolling the content
-- heightRelativetoParent : string, default undefined. Content height limit is relative to parent - the value should be the height limit.
+- heightRelativeToParent : string, default undefined. Content height limit is relative to parent - the value should be the height limit.
 - onScroll - function, default undefined. Listener that will be called on each scroll.
 - addScrolledClass - boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
 - freezePosition - boolean, default false. When true, will prevent scrolling. 
 
-##### Example for heightRelativetoParent
+##### Example for heightRelativeToParent
 
 ```html
-<customScroll heightRelativetoParent="calc(100% - 20px)">
+<customScroll heightRelativeToParent="calc(100% - 20px)">
   your content
 </customScroll>  
 ```
@@ -38,4 +38,4 @@ remove overflow style properties from your content root component - The custom s
 ### It doesn't work, please help me
 
 - Check if you forgot to remove 'overflow' properties from the content root element.
-- Check if your height limit is relative to parent, and you didn't use heightRelativetoParent prop.
+- Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.

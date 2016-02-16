@@ -6,7 +6,7 @@ define([
     return function () {
         return React.createElement('div', {
             'className': 'custom-scroll',
-            'style': { height: this.props.heightRelativetoParent }
+            'style': { height: this.props.heightRelativeToParent }
         }, React.createElement('div', {
             'className': 'outer-container',
             'style': this.getOuterContainerStyle()
