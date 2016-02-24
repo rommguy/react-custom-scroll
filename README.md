@@ -1,3 +1,5 @@
+[![NPM version][npm-image]][npm-url]
+
 # React-Custom-Scroll
 An easily designable, cross browser (!!), custom scroll with ReactJS  
 Animations and scroll rate **exactly** like native scroll 
@@ -39,3 +41,13 @@ remove overflow style properties from your content root component - The custom s
 
 - Check if you forgot to remove 'overflow' properties from the content root element.
 - Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.
+
+
+[npm-image]: https://img.shields.io/npm/v/react-custom-scroll.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/react-custom-scroll
+[travis-image]: https://img.shields.io/travis/wix/react-custom-scroll/gh-pages.svg?style=flat-square
+[travis-url]: https://travis-ci.org/wix/react-custom-scroll
+[coveralls-image]: https://img.shields.io/coveralls/wix/react-custom-scroll/gh-pages.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/wix/react-custom-scroll?branch=gh-pages
+[downloads-image]: http://img.shields.io/npm/dm/react-custom-scroll.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/react-custom-scroll
