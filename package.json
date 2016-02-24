@@ -7,24 +7,24 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "rt": "rt -m commonjs src/main/customScroll.rt -r --react-import-path react",
     "rtex": "rt -m amd example/firstComp/firstComp.rt -r --react-import-path React",
+    "sass": "node-sass src/main/customScroll.scss > src/main/customScroll.css",
+    "sassex": "node-sass example/main.scss > example/styles.css",
     "lint": "eslint .",
-    "start": "npm run lint && npm run rt && npm run rtex && webpack -p"
+    "start": "npm run lint && npm run sass && npm run sassex && npm run rt && npm run rtex && webpack -p"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:rommguy/react-custom-scroll.git"
   },
   "author": "Guy Romm",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rommguy/react-custom-scroll/issues"
   },
   "homepage": "https://github.com/rommguy/react-custom-scroll#readme",
   "dependencies": {
     "jquery": "^2.2.0",
-    "lodash": "^3.10.1",
-    "lodash-amd": "3.6.0",
-    "requirejs": "^2.1.22"
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     "eslint": "^2.0.0",
@@ -36,6 +36,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^18.0.0",
     "grunt-react-templates": "^0.4.0",
+    "node-sass": "3.4.2",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-templates": "^0.4.1",
