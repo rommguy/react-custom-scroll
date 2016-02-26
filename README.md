@@ -8,9 +8,13 @@ Animations and scroll rate **exactly** like native scroll
 
 ### Why do I need this ?  
 - Same design on all browsers
-- Scrollbar above content instead of floating to the side - same layout on scrolled content as not scrolled content
+- Scrollbar is above the content instead of floating to the side - same layout on scrolled content as not scrolled content
 
 ### How to use ?
+Custom scroll component is available in commonJS format so you can just require it after installing.  
+There is also a UMD version - inside dist directory.  
+In both cases you have to include the customScroll.css file in your page.  
+
 wrap your content with the custom scroll component
 remove overflow style properties from your content root component - The custom scroll will take care of it
 
