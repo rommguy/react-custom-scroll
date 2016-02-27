@@ -189,6 +189,13 @@ module.exports = React.createClass({
         }
         e.stopPropagation();
     },
+    getInnerContainerClasses: function () {
+        var res = 'inner-container';
+        if (this.state.scrollPos && this.props.addScrolledClass) {
+            res += ' content-scrolled';
+        }
+        return res;
+    },
     getScrollStyles: function () {
         var scrollSize = this.scrollbarYWidth || 20;
         var innerContainerStyle = {

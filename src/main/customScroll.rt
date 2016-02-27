@@ -10,7 +10,7 @@
             </div>
         </div>
         <div ref="innerContainer"
-             rt-class="{'inner-container': true, 'content-scrolled': this.state.scrollPos && this.props.addScrolledClass}"
+             class="{this.getInnerContainerClasses()}"
              style="{this.getScrollStyles().innerContainer}"
              onScroll="{this.onScroll}"
              onWheel="{this.blockOuterScroll}">

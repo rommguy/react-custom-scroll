@@ -19,10 +19,7 @@ module.exports = function () {
         'onMouseDown': this.onHandleMouseDown
     }, React.createElement('div', { 'className': 'inner-handle' }))) : null, React.createElement('div', {
         'ref': 'innerContainer',
-        'className': _.keys(_.pick({
-            'inner-container': true,
-            'content-scrolled': this.state.scrollPos && this.props.addScrolledClass
-        }, _.identity)).join(' '),
+        'className': this.getInnerContainerClasses(),
         'style': this.getScrollStyles().innerContainer,
         'onScroll': this.onScroll,
         'onWheel': this.blockOuterScroll
