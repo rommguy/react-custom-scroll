@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "rt": "rt -m commonjs src/main/customScroll.rt -r --react-import-path react",
     "rtex": "rt -m amd example/firstComp/firstComp.rt -r --react-import-path React",
-    "sass": "node-sass src/main/customScroll.scss > src/main/customScroll.css",
+    "sass": "node-sass src/main/cs.scss > src/main/customScroll.css",
     "sassex": "node-sass example/main.scss > example/styles.css",
     "lint": "eslint .",
     "start": "npm run lint && npm run sass && npm run sassex && npm run rt && npm run rtex && webpack -p"
