@@ -139,7 +139,7 @@ describe('custom scroll', function () {
     });
 
     describe('heightRelativeToParent', function () {
-        describe('when defined', function(){
+        describe('when defined', function () {
             beforeEach(function () {
                 this.customScroll = getCustomScroll.call(this, {
                     heightRelativeToParent: '70%'
@@ -158,7 +158,7 @@ describe('custom scroll', function () {
             });
         });
 
-        describe('when not defined', function(){
+        describe('when not defined', function () {
             beforeEach(function () {
                 this.customScroll = getCustomScroll.call(this, {});
             });
@@ -174,9 +174,6 @@ describe('custom scroll', function () {
                 expect(contentWrapperStyle.height).toBeFalsy();
             });
         });
-
-
-
     });
 });
 
