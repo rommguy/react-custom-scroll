@@ -139,9 +139,44 @@ describe('custom scroll', function () {
     });
 
     describe('heightRelativeToParent', function () {
-        it('should set value passed as heightRelativeToParent on the root element', function () {
-            expect(true).toEqual(true);
+        describe('when defined', function(){
+            beforeEach(function () {
+                this.customScroll = getCustomScroll.call(this, {
+                    heightRelativeToParent: '70%'
+                });
+            });
+
+            it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function () {
+                var rootStyle = reactDOM.findDOMNode(this.customScroll).style;
+                var innerContainerStyle = this.customScroll.refs.innerContainer.style;
+                var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+
+
+                expect(rootStyle.height).toEqual('70%');
+                expect(innerContainerStyle.height).toEqual('100%');
+                expect(contentWrapperStyle.height).toEqual('100%');
+            });
         });
+
+        describe('when not defined', function(){
+            beforeEach(function () {
+                this.customScroll = getCustomScroll.call(this, {});
+            });
+
+            it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function () {
+                var rootStyle = reactDOM.findDOMNode(this.customScroll).style;
+                var innerContainerStyle = this.customScroll.refs.innerContainer.style;
+                var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+
+
+                expect(rootStyle.height).toBeFalsy();
+                expect(innerContainerStyle.height).toBeFalsy();
+                expect(contentWrapperStyle.height).toBeFalsy();
+            });
+        });
+
+
+
     });
 });
 
