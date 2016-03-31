@@ -15,8 +15,8 @@ Custom scroll component is available in commonJS format so you can just require 
 There is also a UMD version - inside dist directory.  
 In both cases **you have to include the customScroll.css** file in your page.  
 
-wrap your content with the custom scroll component
-remove overflow style properties from your content root component - The custom scroll will take care of it
+Wrap your content with the custom scroll component  
+Remove any overflow style properties from your content root component - The custom scroll will take care of it
 
 
 ```html
