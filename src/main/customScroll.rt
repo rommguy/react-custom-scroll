@@ -10,13 +10,14 @@
             </div>
         </div>
         <div ref="innerContainer"
+             rt-scope="this.getScrollStyles() as scrollStyles"
              class="{this.getInnerContainerClasses()}"
-             style="{this.getScrollStyles().innerContainer}"
+             style="{scrollStyles.innerContainer}"
              onScroll="{this.onScroll}"
              onWheel="{this.blockOuterScroll}">
             <div class="content-wrapper"
                  ref="contentWrapper"
-                 style="{this.getScrollStyles().contentWrapper}">
+                 style="{scrollStyles.contentWrapper}">
                 {this.props.children}
             </div>
         </div>
