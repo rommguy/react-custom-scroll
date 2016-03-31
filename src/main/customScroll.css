@@ -49,12 +49,3 @@
   background-color: rgba(78, 183, 245, 0.7);
   border-radius: 3px; }
 
-.crazy-scroll .custom-scrollbar {
-  width: 45px; }
-
-.crazy-scroll .inner-handle {
-  background-color: inherit;
-  background-image: url("http://fc07.deviantart.net/fs71/f/2012/008/7/d/tour_eiffle___stock_image_by_berrykissed-d4lq72r.png");
-  background-repeat: no-repeat no-repeat;
-  background-size: contain; }
-
