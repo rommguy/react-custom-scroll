@@ -58,9 +58,9 @@ describe('custom scroll', function () {
                 });
 
                 it('should position the inner container to the right with minus the size of the scrollbar', function () {
-                    var innerContainerStyle = this.customScroll.refs.innerContainer.props.style;
+                    var innerContainerStyle = this.customScroll.refs.innerContainer.style;
 
-                    expect(innerContainerStyle.marginRight).toEqual(-1 * this.nativeScrollWidth);
+                    expect(innerContainerStyle.marginRight).toEqual((-1 * this.nativeScrollWidth) + 'px');
                 });
             });
 
@@ -79,9 +79,9 @@ describe('custom scroll', function () {
                 });
 
                 it('should position the inner container to the right with minus 20 pixels', function () {
-                    var innerContainerStyle = this.customScroll.refs.innerContainer.props.style;
+                    var innerContainerStyle = this.customScroll.refs.innerContainer.style;
 
-                    expect(innerContainerStyle.marginRight).toEqual(-20);
+                    expect(innerContainerStyle.marginRight).toEqual('-20px');
                 });
             });
         });
