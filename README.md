@@ -46,6 +46,13 @@ remove overflow style properties from your content root component - The custom s
 - Check if you forgot to remove 'overflow' properties from the content root element.
 - Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.
 
+### Tests
+```bash
+npm install
+npm test
+# Or for continuous run
+karma start
+```
 
 [npm-image]: https://img.shields.io/npm/v/react-custom-scroll.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/react-custom-scroll
