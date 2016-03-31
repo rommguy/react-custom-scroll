@@ -6,7 +6,8 @@ module.exports = function (config) {
         plugins: [
             'karma-chrome-launcher',
             'karma-jasmine',
-            'karma-webpack'
+            'karma-webpack',
+            'karma-sourcemap-loader'
         ],
         files: [
             'tests.webpack.js' //just load this file
@@ -17,7 +18,7 @@ module.exports = function (config) {
         singleRun: false,
         reporters: ['dots'], //report results in this format
         webpack: { //kind of a copy of your webpack config
-            devtool: 'inline-source-map', //just do inline source maps instead of the default
+            devtool: 'inline-source-map',
             module: {
                 loaders: [
                     {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
