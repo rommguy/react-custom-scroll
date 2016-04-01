@@ -24,7 +24,6 @@ module.exports = {
     externals: {
         react: 'React',
         'react-dom': 'ReactDOM',
-        lodash: 'lodash',
-        jquery: 'jquery'
+        lodash: 'lodash'
     }
 };

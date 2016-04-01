@@ -2,7 +2,6 @@
 var React = require('react');
 var reactDOM = require('react-dom');
 var _ = require('lodash');
-var $ = require('jquery');
 var template = require('./customScroll.rt.js');
 
 function ensureWithinLimits(value, min, max) {
@@ -58,15 +57,15 @@ module.exports = React.createClass({
         this.toggleScrollIfNeeded(contentHeight);
 
         this.position = {
-            top: boundingRect.top + $(window).scrollTop(),
-            left: boundingRect.left + $(window).scrollLeft()
+            top: boundingRect.top + window.pageYOffset,
+            left: boundingRect.left + window.pageXOffset
         };
 
         this.freezePosition(prevProps);
     },
     componentWillUnmount: function () {
-        $(document).off('mousemove', this.onHandleDrag);
-        $(document).off('mouseup', this.onHandleDragEnd);
+        document.removeEventListener('mousemove', this.onHandleDrag);
+        document.removeEventListener('mouseup', this.onHandleDragEnd);
     },
     freezePosition: function (prevProps) {
         var innerContainer = this.getScrolledElement();
@@ -156,8 +155,8 @@ module.exports = React.createClass({
         this.setState({
             onDrag: true
         });
-        $(document).on('mousemove', this.onHandleDrag);
-        $(document).on('mouseup', this.onHandleDragEnd);
+        document.addEventListener('mousemove', this.onHandleDrag);
+        document.addEventListener('mouseup', this.onHandleDragEnd);
     },
     onHandleDrag: function (event) {
         var mouseDeltaY = event.pageY - this.startDragMousePos;
@@ -169,8 +168,8 @@ module.exports = React.createClass({
         this.setState({
             onDrag: false
         });
-        $(document).off('mousemove', this.onHandleDrag);
-        $(document).off('mouseup', this.onHandleDragEnd);
+        document.removeEventListener('mousemove', this.onHandleDrag);
+        document.removeEventListener('mouseup', this.onHandleDragEnd);
     },
     blockOuterScroll: function (e) {
         if (this.props.allowOuterScroll) {

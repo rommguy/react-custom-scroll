@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/rommguy/react-custom-scroll#readme",
   "dependencies": {
-    "jquery": "^2.2.0",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
