@@ -24,6 +24,8 @@ Remove any overflow style properties from your content root component - The cust
   your content
 </customScroll>
 ```
+  
+To design the scroll handle, change the inner-handle class css properties in customScroll.css
 
 ### Options (react props)
 
