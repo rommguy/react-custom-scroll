@@ -33,6 +33,10 @@
     }
   }
 
+  &.scroll-handle-dragged .inner-container {
+    user-select: none;
+  }
+
   .custom-scrollbar {
     position: absolute;
     height: 100%;
