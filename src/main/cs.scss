@@ -46,7 +46,7 @@
     will-change: opacity;
   }
 
-  .handleDrag {
+  &.scroll-handle-dragged .custom-scrollbar {
     opacity: 1;
   }
 

@@ -35,7 +35,7 @@
   box-sizing: border-box;
   will-change: opacity; }
 
-.custom-scroll .handleDrag {
+.custom-scroll.scroll-handle-dragged .custom-scrollbar {
   opacity: 1; }
 
 .custom-scroll .custom-scroll-handle {

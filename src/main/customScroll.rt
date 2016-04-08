@@ -1,7 +1,7 @@
-<div class="custom-scroll" style="height: {this.props.heightRelativeToParent}">
+<div class="custom-scroll {this.state.onDrag ? 'scroll-handle-dragged' : ''}" style="height: {this.props.heightRelativeToParent}">
     <div class="outer-container" style="{this.getOuterContainerStyle()}">
         <div rt-if="this.hasScroll"
-             class="custom-scrollbar {this.state.onDrag ? 'handleDrag' : ''}"
+             class="custom-scrollbar"
              onClick="{this.onCustomScrollClick}"
              key="scrollbar">
             <div ref="scrollHandle" class="custom-scroll-handle" style="{this.getScrollHandleStyle()}"

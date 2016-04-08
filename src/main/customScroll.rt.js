@@ -17,13 +17,13 @@ function scopeScrollStyles1() {
 }
 module.exports = function () {
     return React.createElement('div', {
-        'className': 'custom-scroll',
+        'className': 'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : ''),
         'style': { height: this.props.heightRelativeToParent }
     }, React.createElement('div', {
         'className': 'outer-container',
         'style': this.getOuterContainerStyle()
     }, this.hasScroll ? React.createElement('div', {
-        'className': 'custom-scrollbar ' + (this.state.onDrag ? 'handleDrag' : ''),
+        'className': 'custom-scrollbar',
         'onClick': this.onCustomScrollClick,
         'key': 'scrollbar'
     }, React.createElement('div', {
