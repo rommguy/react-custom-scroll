@@ -7,8 +7,8 @@
     "test": "karma start --single-run",
     "rt": "rt -m commonjs src/main/customScroll.rt -r --react-import-path react",
     "rtex": "rt -m amd example/firstComp/firstComp.rt -r --react-import-path React",
-    "sass": "node-sass src/main/cs.scss > src/main/customScroll.css",
-    "sassex": "node-sass example/main.scss > example/styles.css",
+    "sass": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > src/main/customScroll.css",
+    "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
     "lint": "eslint .",
     "start": "npm run lint && npm run sass && npm run sassex && npm run rt && npm run rtex && webpack -p"
   },
@@ -26,6 +26,7 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
+    "autoprefixer": "6.3.6",
     "babel-core": "6.5.2",
     "babel-loader": "6.2.4",
     "css-loader": "0.23.1",
@@ -40,6 +41,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "1.7.0",
     "node-sass": "3.4.2",
+    "postcss-cli": "2.5.1",
     "react": "^0.14.7",
     "react-addons-test-utils": "0.14.7",
     "react-dom": "^0.14.7",
