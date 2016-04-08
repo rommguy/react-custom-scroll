@@ -1,6 +1,6 @@
 {
   "name": "react-custom-scroll",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "An easily designable, cross browser (!!), custom scroll with ReactJS Animations and scroll rate **exactly** like native scroll",
   "main": "index",
   "scripts": {
