@@ -159,15 +159,17 @@ module.exports = React.createClass({
         document.addEventListener('mouseup', this.onHandleDragEnd);
     },
     onHandleDrag: function (event) {
+        event.preventDefault();
         var mouseDeltaY = event.pageY - this.startDragMousePos;
         var handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight);
         var newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition);
         this.updateScrollPosition(newScrollValue);
     },
-    onHandleDragEnd: function () {
+    onHandleDragEnd: function (e) {
         this.setState({
             onDrag: false
         });
+        e.preventDefault();
         document.removeEventListener('mousemove', this.onHandleDrag);
         document.removeEventListener('mouseup', this.onHandleDragEnd);
     },
