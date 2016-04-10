@@ -419,14 +419,22 @@ body {
   font-family: 'Open Sans', sans-serif;
   padding-top: 50px; }
 
+.example-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
 .container {
-  width: 33%;
-  height: 800px;
-  display: inline-block;
-  float: left;
   text-align: center;
-  padding: 1%;
-  box-sizing: border-box; }
+  padding: 0 2%; }
   .container .side-title {
     display: block;
     margin: 20px 0;

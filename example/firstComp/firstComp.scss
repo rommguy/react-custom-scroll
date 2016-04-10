@@ -3,14 +3,15 @@ body {
   padding-top: 50px;
 }
 
+.example-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .container {
-  width: 33%;
-  height: 800px;
-  display: inline-block;
-  float: left;
   text-align: center;
-  padding: 1%;
-  box-sizing: border-box;
+  padding: 0 2%;
 
   .side-title {
     display: block;
