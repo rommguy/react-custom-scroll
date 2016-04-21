@@ -19,6 +19,10 @@ Wrap your content with the custom scroll component
 Remove any overflow style properties from your content root component - The custom scroll will take care of it
 
 
+```
+import {CustomScroll} from 'react-custom-scroll';
+```
+
 ```html
 <CustomScroll>
   your content
