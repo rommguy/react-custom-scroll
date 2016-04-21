@@ -1,11 +1,10 @@
 'use strict';
 var React = require('react');
 var reactDOM = require('react-dom');
-var _ = require('lodash');
 
 function ensureWithinLimits(value, min, max) {
-    min = _.isUndefined(min) ? value : min;
-    max = _.isUndefined(max) ? value : max;
+    min = (!min && min !== 0) ? value : min;
+    max = (!max && max !== 0) ? value : max;
     if (min > max) {
         throw 'min limit is greater than max limit';
     }
