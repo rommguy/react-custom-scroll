@@ -1,4 +1,6 @@
 'use strict';
+var path = require('path');
+
 module.exports = function (config) {
     config.set({
         browsers: ['Chrome'],
@@ -20,8 +22,15 @@ module.exports = function (config) {
         webpack: { //kind of a copy of your webpack config
             devtool: 'inline-source-map',
             module: {
-                loaders: [
-                    {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+                loaders: [{
+                    loader: 'babel-loader',
+                    test: /\.js$/,
+                    include: [
+                        path.resolve(__dirname, 'src/main')
+                    ],
+                    query: {
+                        presets: ['react']
+                    }},
                     {test: /\.css$/, loader: 'style-loader!css-loader'}
                 ]
             }
