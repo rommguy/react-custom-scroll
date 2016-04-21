@@ -19,10 +19,10 @@ Wrap your content with the custom scroll component
 Remove any overflow style properties from your content root component - The custom scroll will take care of it
 
 
-```html
-<customScroll>
+```JSX
+<CustomScroll>
   your content
-</customScroll>
+</CustomScroll>
 ```
   
 To design the scroll handle, change the inner-handle class css properties in customScroll.css
@@ -46,6 +46,8 @@ To design the scroll handle, change the inner-handle class css properties in cus
 ### It doesn't work, please help me
 
 - Check if you forgot to remove 'overflow' properties from the content root element.
+- If you're using JSX, make sure you use Pascal case and not camelCase \<CustomScroll\> and not \<customScroll\>.  
+starting with lower case causes JSX to treat the tag as a native dom element
 - Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.
 
 ### Tests
