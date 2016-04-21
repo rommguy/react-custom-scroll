@@ -223,29 +223,29 @@ module.exports = React.createClass({
             height: this.props.heightRelativeToParent
         };
 
-        return (
-            <div className={'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : '')}
-                 style={rootStyle}>
-                <div className="outer-container" style={this.getOuterContainerStyle()}>
-                    {this.hasScroll ? (<div className="custom-scrollbar" onClick={this.onCustomScrollClick} key="scrollbar">
-                        <div ref="scrollHandle" className="custom-scroll-handle" style={this.getScrollHandleStyle()}
-                             onMouseDown={this.onHandleMouseDown}>
-                            <div className="inner-handle"></div>
-                        </div>
-                    </div>) : null}
-                    <div ref="innerContainer"
-                         className={this.getInnerContainerClasses()}
-                         style={scrollStyles.innerContainer}
-                         onScroll={this.onScroll}
-                         onWheel={this.blockOuterScroll}>
-                        <div className="content-wrapper"
-                             ref="contentWrapper"
-                             style={scrollStyles.contentWrapper}>
-                            {this.props.children}
-                        </div>
-                    </div>
-                </div>
-            </div>
+        /*eslint indent:0*/
+        return React.createElement('div', {
+                className: 'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : ''),
+                style: rootStyle
+            }, React.createElement('div', {
+                className: 'outer-container', style: this.getOuterContainerStyle()
+            }, this.hasScroll ? React.createElement('div', {
+                className: 'custom-scrollbar', onClick: this.onCustomScrollClick, key: 'scrollbar'
+            }, React.createElement('div', {
+                ref: 'scrollHandle', className: 'custom-scroll-handle', style: this.getScrollHandleStyle(),
+                onMouseDown: this.onHandleMouseDown
+            }, React.createElement('div', {className: 'inner-handle'}))) : null,
+            React.createElement('div', {
+                ref: 'innerContainer',
+                className: this.getInnerContainerClasses(),
+                style: scrollStyles.innerContainer,
+                onScroll: this.onScroll,
+                onWheel: this.blockOuterScroll
+            }, React.createElement('div', {
+                className: 'content-wrapper',
+                ref: 'contentWrapper',
+                style: scrollStyles.contentWrapper
+            }, this.props.children)))
         );
     }
 });
