@@ -1,17 +1,25 @@
 {
-    "extends": "wix-editor",
-    "rules": {
-        "strict": [2, "global"],
-        "no-extra-parens": 0,
-        "no-throw-literal": 0
-    },
-    "env": {
-        "browser": true,
-        "node": true,
-        "amd": true,
-        "jasmine": true
-    },
-    "globals": {
-        "requirejs": true
+  "extends": "wix-editor",
+  "rules": {
+    "strict": [
+      2,
+      "global"
+    ],
+    "no-extra-parens": 0,
+    "no-throw-literal": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "amd": true,
+    "jasmine": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "globals": {
+    "requirejs": true
+  }
 }
