@@ -38,9 +38,9 @@ To design the scroll handle, change the inner-handle class css properties in cus
 ##### Example for heightRelativeToParent
 
 ```html
-<customScroll heightRelativeToParent="calc(100% - 20px)">
+<CustomScroll heightRelativeToParent="calc(100% - 20px)">
   your content
-</customScroll>  
+</CustomScroll>  
 ```
 
 ### It doesn't work, please help me
