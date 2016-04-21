@@ -10,16 +10,20 @@ module.exports = {
         libraryTarget: 'umd'
     },
     resolve: {
-        extensions: ['', '.js']
+        extensions: ['', '.js', '.jsx']
     },
     module: {
-        //loaders: [
-        //    {
-        //        test: /\.js$/,
-        //        loaders: ['babel'],
-        //        exclude: /node_modules/
-        //    }
-        //]
+        loaders: [{
+            loader: 'babel-loader',
+            test: /\.js$/,
+            include: [
+                path.resolve(__dirname, 'src/main')
+            ],
+            exclude: /\.rt/,
+            query: {
+                presets: ['react']
+            }
+        }]
     },
     externals: {
         react: 'React',
