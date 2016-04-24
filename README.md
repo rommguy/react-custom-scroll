@@ -20,7 +20,7 @@ Remove any overflow style properties from your content root component - The cust
 
 
 ```
-import {CustomScroll} from 'react-custom-scroll';
+import CustomScroll from 'react-custom-scroll';
 ```
 
 ```html
