@@ -2,7 +2,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: ['./index'],
+    entry: ['./src/main/customScroll'],
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'reactCustomScroll.js',
@@ -26,8 +26,8 @@ module.exports = {
         }]
     },
     externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
+        react: 'react',
+        'react-dom': 'react-dom',
         lodash: 'lodash'
     }
 };
