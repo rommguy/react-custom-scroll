@@ -1,4 +1,4 @@
-define(['React', 'lodash', './demoText', './firstComp.rt'], function (React, _, demoText, template) {
+define(['react', 'lodash', './demoText', './firstComp.rt'], function (React, _, demoText, template) {
     'use strict';
 
     return React.createClass({
