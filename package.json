@@ -5,7 +5,7 @@
   "main": "index",
   "scripts": {
     "test": "karma start --single-run",
-    "rtex": "rt -m amd example/firstComp/firstComp.rt -r --react-import-path React",
+    "rtex": "rt -m amd example/firstComp/firstComp.rt -r --react-import-path react",
     "sass": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > src/main/customScroll.css",
     "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
     "lint": "eslint .",
