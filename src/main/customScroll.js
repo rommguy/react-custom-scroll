@@ -6,7 +6,8 @@ function ensureWithinLimits(value, min, max) {
     min = (!min && min !== 0) ? value : min;
     max = (!max && max !== 0) ? value : max;
     if (min > max) {
-        throw 'min limit is greater than max limit';
+        console.error('min limit is greater than max limit');
+        return value;
     }
     if (value < min) {
         return min;
