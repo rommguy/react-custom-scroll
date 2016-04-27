@@ -26,11 +26,13 @@ module.exports = React.createClass({
         onScroll: React.PropTypes.func,
         addScrolledClass: React.PropTypes.bool,
         freezePosition: React.PropTypes.bool,
-        handleClass: React.PropTypes.string
+        handleClass: React.PropTypes.string,
+        minScrollHandleHeight: React.PropTypes.number
     },
     getDefaultProps: function () {
         return {
-            handleClass: 'inner-handle'
+            handleClass: 'inner-handle',
+            minScrollHandleHeight: 40
         };
     },
     getInitialState: function () {
@@ -47,13 +49,14 @@ module.exports = React.createClass({
         var domNode = reactDOM.findDOMNode(this);
         var boundingRect = domNode.getBoundingClientRect();
         var innerContainer = this.getScrolledElement();
-        var contentHeight = innerContainer.scrollHeight;
+
+        this.contentHeight = innerContainer.scrollHeight;
 
         this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth;
         this.visibleHeight = innerContainer.clientHeight;
-        this.scrollRatio = contentHeight ? this.visibleHeight / contentHeight : 1;
+        this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1;
 
-        this.toggleScrollIfNeeded(contentHeight);
+        this.toggleScrollIfNeeded();
 
         this.position = {
             top: boundingRect.top + window.pageYOffset,
@@ -78,8 +81,8 @@ module.exports = React.createClass({
             innerContainer.scrollTop = this.state.scrollPos;
         }
     },
-    toggleScrollIfNeeded: function (contentHeight) {
-        var shouldHaveScroll = contentHeight - this.visibleHeight > 1;
+    toggleScrollIfNeeded: function () {
+        var shouldHaveScroll = this.contentHeight - this.visibleHeight > 1;
         if (this.hasScroll !== shouldHaveScroll) {
             this.hasScroll = shouldHaveScroll;
             this.forceUpdate();
@@ -124,10 +127,22 @@ module.exports = React.createClass({
         return (handlePosition) / this.scrollRatio;
     },
     getScrollHandleStyle: function () {
-        var handlePosition = this.state.scrollPos * this.scrollRatio;
+        var handlePosition,
+            diffHeightBetweenScrollHandles,
+            scrollPositionRatio,
+            marginTop;
+
+        handlePosition = this.state.scrollPos * this.scrollRatio;
         this.scrollHandleHeight = this.visibleHeight * this.scrollRatio;
+        if (this.scrollHandleHeight < this.props.minScrollHandleHeight) {
+            diffHeightBetweenScrollHandles = this.props.minScrollHandleHeight - this.scrollHandleHeight;
+            scrollPositionRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight);
+            marginTop = diffHeightBetweenScrollHandles * scrollPositionRatio;
+            handlePosition = handlePosition - marginTop;
+        }
+
         return {
-            height: this.scrollHandleHeight,
+            height: Math.max(this.scrollHandleHeight, this.props.minScrollHandleHeight),
             top: handlePosition
         };
     },
