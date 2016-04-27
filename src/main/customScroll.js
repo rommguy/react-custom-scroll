@@ -231,7 +231,7 @@ module.exports = React.createClass({
                     {this.hasScroll ? (<div className="custom-scrollbar" onClick={this.onCustomScrollClick} key="scrollbar">
                         <div ref="scrollHandle" className="custom-scroll-handle" style={this.getScrollHandleStyle()}
                              onMouseDown={this.onHandleMouseDown}>
-                            <div className="inner-handle"></div>
+                            <div className={this.props.handleClass}></div>
                         </div>
                     </div>) : null}
                     <div ref="innerContainer"
