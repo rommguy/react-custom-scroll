@@ -24,10 +24,10 @@ function enforceMinHandleHeight(calculatedStyle) {
         return calculatedStyle;
     }
 
-    var diffHeightBetweenScrollHandles = minHeight - calculatedStyle.height;
-    var scrollPositionRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight);
-    var marginTop = diffHeightBetweenScrollHandles * scrollPositionRatio;
-    var handlePosition = calculatedStyle.top - marginTop;
+    var diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height;
+    var scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight);
+    var scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio;
+    var handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight;
 
     return {
         height: minHeight,
