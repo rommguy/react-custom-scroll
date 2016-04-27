@@ -18,6 +18,23 @@ function ensureWithinLimits(value, min, max) {
     return value;
 }
 
+function enforceMinHandleHeight(calculatedStyle) {
+    var minHeight = this.props.minScrollHandleHeight;
+    if (calculatedStyle.height >= minHeight) {
+        return calculatedStyle;
+    }
+
+    var diffHeightBetweenScrollHandles = minHeight - calculatedStyle.height;
+    var scrollPositionRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight);
+    var marginTop = diffHeightBetweenScrollHandles * scrollPositionRatio;
+    var handlePosition = calculatedStyle.top - marginTop;
+
+    return {
+        height: minHeight,
+        top: handlePosition
+    };
+}
+
 module.exports = React.createClass({
     displayName: 'customScroll',
     propTypes: {
@@ -26,11 +43,13 @@ module.exports = React.createClass({
         onScroll: React.PropTypes.func,
         addScrolledClass: React.PropTypes.bool,
         freezePosition: React.PropTypes.bool,
-        handleClass: React.PropTypes.string
+        handleClass: React.PropTypes.string,
+        minScrollHandleHeight: React.PropTypes.number
     },
     getDefaultProps: function () {
         return {
-            handleClass: 'inner-handle'
+            handleClass: 'inner-handle',
+            minScrollHandleHeight: 38
         };
     },
     getInitialState: function () {
@@ -47,13 +66,13 @@ module.exports = React.createClass({
         var domNode = reactDOM.findDOMNode(this);
         var boundingRect = domNode.getBoundingClientRect();
         var innerContainer = this.getScrolledElement();
-        var contentHeight = innerContainer.scrollHeight;
+        this.contentHeight = innerContainer.scrollHeight;
 
         this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth;
         this.visibleHeight = innerContainer.clientHeight;
-        this.scrollRatio = contentHeight ? this.visibleHeight / contentHeight : 1;
+        this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1;
 
-        this.toggleScrollIfNeeded(contentHeight);
+        this.toggleScrollIfNeeded();
 
         this.position = {
             top: boundingRect.top + window.pageYOffset,
@@ -78,8 +97,8 @@ module.exports = React.createClass({
             innerContainer.scrollTop = this.state.scrollPos;
         }
     },
-    toggleScrollIfNeeded: function (contentHeight) {
-        var shouldHaveScroll = contentHeight - this.visibleHeight > 1;
+    toggleScrollIfNeeded: function () {
+        var shouldHaveScroll = this.contentHeight - this.visibleHeight > 1;
         if (this.hasScroll !== shouldHaveScroll) {
             this.hasScroll = shouldHaveScroll;
             this.forceUpdate();
@@ -223,17 +242,20 @@ module.exports = React.createClass({
         var rootStyle = {
             height: this.props.heightRelativeToParent
         };
+        var scrollHandleStyle = enforceMinHandleHeight.call(this, this.getScrollHandleStyle());
+
 
         return (
             <div className={'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : '')}
                  style={rootStyle}>
                 <div className="outer-container" style={this.getOuterContainerStyle()}>
-                    {this.hasScroll ? (<div className="custom-scrollbar" onClick={this.onCustomScrollClick} key="scrollbar">
-                        <div ref="scrollHandle" className="custom-scroll-handle" style={this.getScrollHandleStyle()}
-                             onMouseDown={this.onHandleMouseDown}>
-                            <div className={this.props.handleClass}></div>
-                        </div>
-                    </div>) : null}
+                    {this.hasScroll ? (
+                        <div className="custom-scrollbar" onClick={this.onCustomScrollClick} key="scrollbar">
+                            <div ref="scrollHandle" className="custom-scroll-handle" style={scrollHandleStyle}
+                                 onMouseDown={this.onHandleMouseDown}>
+                                <div className={this.props.handleClass}></div>
+                            </div>
+                        </div>) : null}
                     <div ref="innerContainer"
                          className={this.getInnerContainerClasses()}
                          style={scrollStyles.innerContainer}
