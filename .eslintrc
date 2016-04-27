@@ -12,7 +12,8 @@
     "browser": true,
     "node": true,
     "amd": true,
-    "jasmine": true
+    "jasmine": true,
+    "es6": true
   },
   "parserOptions": {
     "ecmaFeatures": {

@@ -21,7 +21,7 @@ module.exports = {
             ],
             exclude: /\.rt/,
             query: {
-                presets: ['react']
+                presets: ['es2015', 'react']
             }
         }]
     },

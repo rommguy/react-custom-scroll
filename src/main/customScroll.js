@@ -19,15 +19,15 @@ function ensureWithinLimits(value, min, max) {
 }
 
 function enforceMinHandleHeight(calculatedStyle) {
-    var minHeight = this.props.minScrollHandleHeight;
+    const minHeight = this.props.minScrollHandleHeight;
     if (calculatedStyle.height >= minHeight) {
         return calculatedStyle;
     }
 
-    var diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height;
-    var scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight);
-    var scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio;
-    var handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight;
+    const diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height;
+    const scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight);
+    const scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio;
+    const handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight;
 
     return {
         height: minHeight,
@@ -46,23 +46,23 @@ module.exports = React.createClass({
         handleClass: React.PropTypes.string,
         minScrollHandleHeight: React.PropTypes.number
     },
-    getDefaultProps: function () {
+    getDefaultProps() {
         return {
             handleClass: 'inner-handle',
             minScrollHandleHeight: 38
         };
     },
-    getInitialState: function () {
+    getInitialState() {
         this.scrollbarYWidth = 0;
         return {
             scrollPos: 0,
             onDrag: false
         };
     },
-    componentDidMount: function () {
+    componentDidMount() {
         this.forceUpdate();
     },
-    componentDidUpdate: function (prevProps) {
+    componentDidUpdate(prevProps) {
         var domNode = reactDOM.findDOMNode(this);
         var boundingRect = domNode.getBoundingClientRect();
         var innerContainer = this.getScrolledElement();
@@ -81,11 +81,11 @@ module.exports = React.createClass({
 
         this.freezePosition(prevProps);
     },
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         document.removeEventListener('mousemove', this.onHandleDrag);
         document.removeEventListener('mouseup', this.onHandleDragEnd);
     },
-    freezePosition: function (prevProps) {
+    freezePosition(prevProps) {
         var innerContainer = this.getScrolledElement();
         var contentWrapper = this.refs.contentWrapper;
 
@@ -97,24 +97,24 @@ module.exports = React.createClass({
             innerContainer.scrollTop = this.state.scrollPos;
         }
     },
-    toggleScrollIfNeeded: function () {
+    toggleScrollIfNeeded() {
         var shouldHaveScroll = this.contentHeight - this.visibleHeight > 1;
         if (this.hasScroll !== shouldHaveScroll) {
             this.hasScroll = shouldHaveScroll;
             this.forceUpdate();
         }
     },
-    getScrollTop: function () {
+    getScrollTop() {
         return this.getScrolledElement().scrollTop;
     },
-    updateScrollPosition: function (scrollValue) {
+    updateScrollPosition(scrollValue) {
         var innerContainer = this.getScrolledElement();
         innerContainer.scrollTop = scrollValue;
         this.setState({
             scrollPos: scrollValue
         });
     },
-    onCustomScrollClick: function (event) {
+    onCustomScrollClick(event) {
         if (this.isClickOnScrollHandle(event)) {
             return;
         }
@@ -123,11 +123,11 @@ module.exports = React.createClass({
 
         this.updateScrollPosition(newScrollValue);
     },
-    isClickOnScrollHandle: function (event) {
+    isClickOnScrollHandle(event) {
         var scrollHandle = reactDOM.findDOMNode(this.refs.scrollHandle);
         return event.target === scrollHandle || event.target.parentElement === scrollHandle;
     },
-    calculateNewScrollHandleTop: function (clickEvent) {
+    calculateNewScrollHandleTop(clickEvent) {
         var clickYRelativeToScrollbar = clickEvent.pageY - this.position.top;
         var scrollHandleTop = this.getScrollHandleStyle().top;
         var newScrollHandleTop;
@@ -139,10 +139,10 @@ module.exports = React.createClass({
         }
         return newScrollHandleTop;
     },
-    getScrollValueFromHandlePosition: function (handlePosition) {
+    getScrollValueFromHandlePosition(handlePosition) {
         return (handlePosition) / this.scrollRatio;
     },
-    getScrollHandleStyle: function () {
+    getScrollHandleStyle() {
         var handlePosition = this.state.scrollPos * this.scrollRatio;
         this.scrollHandleHeight = this.visibleHeight * this.scrollRatio;
         return {
@@ -150,12 +150,12 @@ module.exports = React.createClass({
             top: handlePosition
         };
     },
-    adjustCustomScrollPosToContentPos: function (scrollPosition) {
+    adjustCustomScrollPosToContentPos(scrollPosition) {
         this.setState({
             scrollPos: scrollPosition
         });
     },
-    onScroll: function (event) {
+    onScroll(event) {
         if (this.props.freezePosition) {
             return;
         }
@@ -164,10 +164,10 @@ module.exports = React.createClass({
             this.props.onScroll(event);
         }
     },
-    getScrolledElement: function () {
+    getScrolledElement() {
         return this.refs.innerContainer;
     },
-    onHandleMouseDown: function (event) {
+    onHandleMouseDown(event) {
         this.startDragHandlePos = this.getScrollHandleStyle().top;
         this.startDragMousePos = event.pageY;
         this.setState({
@@ -176,14 +176,14 @@ module.exports = React.createClass({
         document.addEventListener('mousemove', this.onHandleDrag);
         document.addEventListener('mouseup', this.onHandleDragEnd);
     },
-    onHandleDrag: function (event) {
+    onHandleDrag(event) {
         event.preventDefault();
         var mouseDeltaY = event.pageY - this.startDragMousePos;
         var handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight);
         var newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition);
         this.updateScrollPosition(newScrollValue);
     },
-    onHandleDragEnd: function (e) {
+    onHandleDragEnd(e) {
         this.setState({
             onDrag: false
         });
@@ -191,7 +191,7 @@ module.exports = React.createClass({
         document.removeEventListener('mousemove', this.onHandleDrag);
         document.removeEventListener('mouseup', this.onHandleDragEnd);
     },
-    blockOuterScroll: function (e) {
+    blockOuterScroll(e) {
         if (this.props.allowOuterScroll) {
             return;
         }
@@ -208,14 +208,14 @@ module.exports = React.createClass({
         }
         e.stopPropagation();
     },
-    getInnerContainerClasses: function () {
+    getInnerContainerClasses() {
         var res = 'inner-container';
         if (this.state.scrollPos && this.props.addScrolledClass) {
             res += ' content-scrolled';
         }
         return res;
     },
-    getScrollStyles: function () {
+    getScrollStyles() {
         var scrollSize = this.scrollbarYWidth || 20;
         var innerContainerStyle = {
             marginRight: (-1 * scrollSize),
@@ -232,17 +232,17 @@ module.exports = React.createClass({
             contentWrapper: contentWrapperStyle
         };
     },
-    getOuterContainerStyle: function () {
+    getOuterContainerStyle() {
         return {
             height: this.props.heightRelativeToParent ? '100%' : ''
         };
     },
-    render: function () {
-        var scrollStyles = this.getScrollStyles();
-        var rootStyle = {
+    render() {
+        const scrollStyles = this.getScrollStyles();
+        const rootStyle = {
             height: this.props.heightRelativeToParent
         };
-        var scrollHandleStyle = enforceMinHandleHeight.call(this, this.getScrollHandleStyle());
+        const scrollHandleStyle = enforceMinHandleHeight.call(this, this.getScrollHandleStyle());
 
 
         return (
