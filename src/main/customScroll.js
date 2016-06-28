@@ -18,6 +18,14 @@ function ensureWithinLimits(value, min, max) {
     return value;
 }
 
+function isEventPosOnDomNode(event, domNode) {
+    const nodeClientRect = domNode.getBoundingClientRect();
+    return (event.clientX > nodeClientRect.left &&
+    event.clientX < nodeClientRect.left + nodeClientRect.width &&
+    event.clientY > nodeClientRect.top &&
+    event.clientY < nodeClientRect.top + nodeClientRect.height);
+}
+
 function enforceMinHandleHeight(calculatedStyle) {
     const minHeight = this.props.minScrollHandleHeight;
     if (calculatedStyle.height >= minHeight) {
@@ -114,18 +122,22 @@ module.exports = React.createClass({
             scrollPos: scrollValue
         });
     },
-    onCustomScrollClick(event) {
-        if (this.isClickOnScrollHandle(event)) {
+    onClick(event) {
+        if (!this.isMouseEventOnCustomScrollbar(event) || this.isMouseEventOnScrollHandle(event)) {
             return;
         }
-        var newScrollHandleTop = this.calculateNewScrollHandleTop(event);
-        var newScrollValue = this.getScrollValueFromHandlePosition(newScrollHandleTop);
+        const newScrollHandleTop = this.calculateNewScrollHandleTop(event);
+        const newScrollValue = this.getScrollValueFromHandlePosition(newScrollHandleTop);
 
         this.updateScrollPosition(newScrollValue);
     },
-    isClickOnScrollHandle(event) {
-        var scrollHandle = reactDOM.findDOMNode(this.refs.scrollHandle);
-        return event.target === scrollHandle || event.target.parentElement === scrollHandle;
+    isMouseEventOnCustomScrollbar(event) {
+        const customScrollbar = reactDOM.findDOMNode(this.refs.customScrollbar);
+        return isEventPosOnDomNode(event, customScrollbar);
+    },
+    isMouseEventOnScrollHandle(event) {
+        const scrollHandle = reactDOM.findDOMNode(this.refs.scrollHandle);
+        return isEventPosOnDomNode(event, scrollHandle);
     },
     calculateNewScrollHandleTop(clickEvent) {
         var clickYRelativeToScrollbar = clickEvent.pageY - this.position.top;
@@ -167,7 +179,11 @@ module.exports = React.createClass({
     getScrolledElement() {
         return this.refs.innerContainer;
     },
-    onHandleMouseDown(event) {
+    onMouseDown(event) {
+        if (!this.isMouseEventOnScrollHandle(event)) {
+            return;
+        }
+
         this.startDragHandlePos = this.getScrollHandleStyle().top;
         this.startDragMousePos = event.pageY;
         this.setState({
@@ -248,11 +264,13 @@ module.exports = React.createClass({
         return (
             <div className={'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : '')}
                  style={rootStyle}>
-                <div className="outer-container" style={this.getOuterContainerStyle()}>
+                <div className="outer-container"
+                     style={this.getOuterContainerStyle()}
+                     onMouseDown={this.onMouseDown}
+                     onClick={this.onClick}>
                     {this.hasScroll ? (
-                        <div className="custom-scrollbar" onClick={this.onCustomScrollClick} key="scrollbar">
-                            <div ref="scrollHandle" className="custom-scroll-handle" style={scrollHandleStyle}
-                                 onMouseDown={this.onHandleMouseDown}>
+                        <div ref="customScrollbar" className="custom-scrollbar" key="scrollbar">
+                            <div ref="scrollHandle" className="custom-scroll-handle" style={scrollHandleStyle}>
                                 <div className={this.props.handleClass}></div>
                             </div>
                         </div>) : null}

@@ -235,5 +235,93 @@ describe('custom scroll', function () {
             expect(scrollHandleWithDefaultClass.length).toBeFalsy();
         });
     });
+
+    describe('on click events', function () {
+        beforeEach(function () {
+            this.initialHandlePos = this.customScroll.getScrollHandleStyle().top;
+            this.outerContainer = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, 'outer-container');
+            this.scrollHandle = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, 'custom-scroll-handle');
+            this.scrollHandleLayout = this.scrollHandle.getBoundingClientRect();
+            this.innerContainer = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, 'inner-container');
+            this.initialScrollPos = this.innerContainer.scrollTop;
+        });
+
+        it('should do nothing if the click is out of the custom scrollbar area', function () {
+            const yUnderHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height + 20;
+            const clickPosition = {
+                clientY: yUnderHandle,
+                pageY: yUnderHandle,
+                clientX: this.scrollHandleLayout.left - 10,
+                pageX: this.scrollHandleLayout.left - 10
+            };
+
+            TestUtils.Simulate.click(this.outerContainer, clickPosition);
+
+            expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos);
+            expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos);
+        });
+
+        it('should do nothing if the click is on the custom scroll handle element', function () {
+            const yOnHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height / 2;
+            const xInCustomScrollbar = this.scrollHandleLayout.left + this.scrollHandleLayout.width / 2;
+            const clickPosition = {
+                clientY: yOnHandle,
+                pageY: yOnHandle,
+                clientX: xInCustomScrollbar,
+                pageX: xInCustomScrollbar
+            };
+
+            TestUtils.Simulate.click(this.outerContainer, clickPosition);
+
+            expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos);
+            expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos);
+        });
+
+        describe('when click is on the custom scrollbar area, and not on the handle itself', function () {
+            it('should scroll downwards and update handle position, if click is below the handle', function () {
+                const yBelowHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height + 20;
+                const xInCustomScrollbar = this.scrollHandleLayout.left + this.scrollHandleLayout.width / 2;
+                const clickPosition = {
+                    clientY: yBelowHandle,
+                    pageY: yBelowHandle,
+                    clientX: xInCustomScrollbar,
+                    pageX: xInCustomScrollbar
+                };
+
+                TestUtils.Simulate.click(this.outerContainer, clickPosition);
+
+                expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos + this.scrollHandleLayout.height);
+                expect(this.innerContainer.scrollTop).toBeGreaterThan(this.initialScrollPos);
+            });
+
+            it('should scroll upwards and update handle position, if click is above the handle', function () {
+                const yBelowHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height + 20;
+                const xInCustomScrollbar = this.scrollHandleLayout.left + this.scrollHandleLayout.width / 2;
+                const clickPositionBelowHandle = {
+                    clientY: yBelowHandle,
+                    pageY: yBelowHandle,
+                    clientX: xInCustomScrollbar,
+                    pageX: xInCustomScrollbar
+                };
+
+                TestUtils.Simulate.click(this.outerContainer, clickPositionBelowHandle);
+                const newHandlePosition = this.customScroll.getScrollHandleStyle().top;
+                const newScrollPos = this.innerContainer.scrollTop;
+
+                const yAboveHandle = this.customScroll.getScrollHandleStyle().top - 20;
+                const clickPositionAboveHandle = {
+                    clientY: yAboveHandle,
+                    pageY: yAboveHandle,
+                    clientX: xInCustomScrollbar,
+                    pageX: xInCustomScrollbar
+                };
+
+                TestUtils.Simulate.click(this.outerContainer, clickPositionAboveHandle);
+
+                expect(this.customScroll.getScrollHandleStyle().top).toEqual(newHandlePosition - this.scrollHandleLayout.height);
+                expect(this.innerContainer.scrollTop).toBeLessThan(newScrollPos);
+            });
+        });
+    });
 });
 

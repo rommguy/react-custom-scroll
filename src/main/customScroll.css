@@ -44,7 +44,8 @@
   transition: opacity 0.4s ease-out;
   padding: 6px 0;
   box-sizing: border-box;
-  will-change: opacity; }
+  will-change: opacity;
+  pointer-events: none; }
 
 .custom-scroll.scroll-handle-dragged .custom-scrollbar {
   opacity: 1; }
