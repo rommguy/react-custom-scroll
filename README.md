@@ -44,6 +44,7 @@ You can see a usage example in example/firstComp/firstComp.scss
 - onScroll - function, default undefined. Listener that will be called on each scroll.
 - addScrolledClass - boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
 - freezePosition - boolean, default false. When true, will prevent scrolling. 
+- minScrollHandleHeight - number, sets the mimimum height of the scroll handle. Default is 38, as in Chrome on OSX.
 
 ##### Example for heightRelativeToParent
 
