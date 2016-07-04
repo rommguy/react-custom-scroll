@@ -277,6 +277,26 @@ describe('custom scroll', function () {
             expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos);
         });
 
+        it('should do nothing if there is no scroll', function () {
+            const contentHeight = 100;
+            const visibleHeight = contentHeight + 100;
+            this.customScroll = createAndRenderCustomScroll(this.customScrollContainer, {}, visibleHeight, contentHeight);
+
+            const yOnHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height / 2;
+            const xInCustomScrollbar = this.scrollHandleLayout.left + this.scrollHandleLayout.width / 2;
+            const clickPosition = {
+                clientY: yOnHandle,
+                pageY: yOnHandle,
+                clientX: xInCustomScrollbar,
+                pageX: xInCustomScrollbar
+            };
+
+            TestUtils.Simulate.click(this.outerContainer, clickPosition);
+
+            expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos);
+            expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos);
+        });
+
         describe('when click is on the custom scrollbar area, and not on the handle itself', function () {
             it('should scroll downwards and update handle position, if click is below the handle', function () {
                 const yBelowHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height + 20;
