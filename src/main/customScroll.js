@@ -123,7 +123,7 @@ module.exports = React.createClass({
         });
     },
     onClick(event) {
-        if (!this.isMouseEventOnCustomScrollbar(event) || this.isMouseEventOnScrollHandle(event)) {
+        if (!this.hasScroll || !this.isMouseEventOnCustomScrollbar(event) || this.isMouseEventOnScrollHandle(event)) {
             return;
         }
         const newScrollHandleTop = this.calculateNewScrollHandleTop(event);
@@ -180,7 +180,7 @@ module.exports = React.createClass({
         return this.refs.innerContainer;
     },
     onMouseDown(event) {
-        if (!this.isMouseEventOnScrollHandle(event)) {
+        if (!this.hasScroll || !this.isMouseEventOnScrollHandle(event)) {
             return;
         }
 
@@ -290,4 +290,3 @@ module.exports = React.createClass({
         );
     }
 });
-
