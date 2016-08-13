@@ -416,20 +416,30 @@ th {
   background-color: rgba(78, 183, 245, 0.7);
   border-radius: 3px; }
 
+.custom-scroll.custom-scroll-flex, .custom-scroll .custom-scroll-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /* setting minimal values in order to let the container's
+       size be smaller than its content size */
+  min-height: 0;
+  min-width: 0; }
+
 body {
   font-family: 'Open Sans', sans-serif;
   padding-top: 50px; }
 
 .example-wrapper {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center; }
 
@@ -487,4 +497,36 @@ body {
   background-image: url("http://rommguy.github.io/react-custom-scroll/example/giraffe-icon.png");
   background-repeat: no-repeat no-repeat;
   background-size: cover; }
+
+.flex-example-wrapper {
+  margin: 20px; }
+
+.flex-scroll-example {
+  width: 288px;
+  height: 300px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: column;
+      flex-flow: column; }
+
+.flex-scroll {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-height: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.flex-content-fill {
+  height: 25px; }
+
+.flex-content-fill:nth-child(even) {
+  background: #eeeeee; }
 
