@@ -61,3 +61,16 @@
   background-color: rgba(78, 183, 245, 0.7);
   border-radius: 3px; }
 
+.custom-scroll.custom-scroll-flex, .custom-scroll .custom-scroll-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /* setting minimal values in order to let the container's
+       size be smaller than its content size */
+  min-height: 0;
+  min-width: 0; }
+

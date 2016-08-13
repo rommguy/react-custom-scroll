@@ -67,5 +67,14 @@
     background-color: rgba(#4eb7f5, 0.7);
     border-radius: 3px;
   }
+
+  &.custom-scroll-flex, .custom-scroll-flex {
+    display: flex;
+    flex-direction: column;
+    /* setting minimal values in order to let the container's
+       size be smaller than its content size */
+    min-height: 0;
+    min-width: 0;
+  }
 }
 

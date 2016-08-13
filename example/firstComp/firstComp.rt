@@ -1,45 +1,91 @@
 <rt-require dependency="customScroll" as="customScroll"/>
-<div class="example-wrapper">
-    <div class="container native-scroll">
-        <label class="side-title">Native Scroll</label>
+<div>
+    <div class="example-wrapper">
+        <div class="container native-scroll">
+            <label class="side-title">Native Scroll</label>
 
-        <div class="panel">
-            <div class="panel-header">
-                <label class="panel-title">This is boring</label>
-            </div>
-            <div class="panel-content-native panel-content">
-                <div class="content-fill">{this.getText()}</div>
-            </div>
-        </div>
-
-    </div>
-    <div class="container custom-scroll-example">
-        <label class="side-title">Custom Scroll</label>
-
-        <div class="panel">
-            <div class="panel-header">
-                <label class="panel-title">Cool Scrollbar !</label>
-            </div>
-                    <customScroll allowOuterScroll="{true}">
-                        <div class="panel-content-custom panel-content">
-                            <div class="content-fill">{this.getText()}</div>
-                        </div>
-                    </customScroll>
-        </div>
-    </div>
-    <div class="container custom-scroll-example">
-        <label class="side-title">Crazy Designer</label>
-
-        <div class="panel crazy-scroll">
-            <div class="panel-header">
-                <label class="panel-title">Who designed this ???</label>
-            </div>
-            <customScroll allowOuterScroll="{true}">
-                <div class="panel-content-custom panel-content">
+            <div class="panel">
+                <div class="panel-header">
+                    <label class="panel-title">This is boring</label>
+                </div>
+                <div class="panel-content-native panel-content">
                     <div class="content-fill">{this.getText()}</div>
                 </div>
-            </customScroll>
+            </div>
+
+        </div>
+        <div class="container custom-scroll-example">
+            <label class="side-title">Custom Scroll</label>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <label class="panel-title">Cool Scrollbar !</label>
+                </div>
+                        <customScroll allowOuterScroll="{true}">
+                            <div class="panel-content-custom panel-content">
+                                <div class="content-fill">{this.getText()}</div>
+                            </div>
+                        </customScroll>
+            </div>
+        </div>
+        <div class="container custom-scroll-example">
+            <label class="side-title">Crazy Designer</label>
+
+            <div class="panel crazy-scroll">
+                <div class="panel-header">
+                    <label class="panel-title">Who designed this ???</label>
+                </div>
+                <customScroll allowOuterScroll="{true}">
+                    <div class="panel-content-custom panel-content">
+                        <div class="content-fill">{this.getText()}</div>
+                    </div>
+                </customScroll>
+            </div>
+        </div>
+        <div class="scroll-creator"></div>
+    </div>
+    <div class="flex-example-wrapper">
+        <div class="container flex-scroll-example">
+            <label class="side-title">Flex</label>
+
+            <div class="panel flex-scroll">
+                <div class="panel-header">
+                    <label class="panel-title">Even works with flexbox!</label>
+                </div>
+                <customScroll flex="{1}">
+                    <div class="panel-content-flex panel-content">
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                        <div class="flex-content-fill"></div>
+                    </div>
+                </customScroll>
+            </div>
         </div>
     </div>
-    <div class="scroll-creator"></div>
 </div>
