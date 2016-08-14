@@ -74,3 +74,9 @@ body {
   background-repeat: no-repeat no-repeat;
   background-size: cover;
 }
+
+.flex-scroll {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}

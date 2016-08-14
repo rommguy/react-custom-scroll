@@ -52,7 +52,9 @@ module.exports = React.createClass({
         addScrolledClass: React.PropTypes.bool,
         freezePosition: React.PropTypes.bool,
         handleClass: React.PropTypes.string,
-        minScrollHandleHeight: React.PropTypes.number
+        minScrollHandleHeight: React.PropTypes.number,
+        flex: React.PropTypes.string,
+        rtl: React.PropTypes.bool
     },
     getDefaultProps() {
         return {
@@ -233,13 +235,14 @@ module.exports = React.createClass({
     },
     getScrollStyles() {
         var scrollSize = this.scrollbarYWidth || 20;
+        var marginKey = this.props.rtl ? 'marginLeft' : 'marginRight';
         var innerContainerStyle = {
-            marginRight: (-1 * scrollSize),
-            height: this.props.heightRelativeToParent ? '100%' : ''
+            [marginKey]: (-1 * scrollSize),
+            height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
         };
         var contentWrapperStyle = {
-            marginRight: this.scrollbarYWidth ? 0 : scrollSize,
-            height: this.props.heightRelativeToParent ? '100%' : '',
+            [marginKey]: this.scrollbarYWidth ? 0 : scrollSize,
+            height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
             overflowY: this.props.freezePosition ? 'hidden' : 'visible'
         };
 
@@ -250,16 +253,24 @@ module.exports = React.createClass({
     },
     getOuterContainerStyle() {
         return {
-            height: this.props.heightRelativeToParent ? '100%' : ''
+            height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
         };
+    },
+    getRootStyles() {
+        let result = {};
+
+        if (this.props.heightRelativeToParent) {
+            result.height = this.props.heightRelativeToParent;
+        } else if (this.props.flex) {
+            result.flex = this.props.flex;
+        }
+
+        return result;
     },
     render() {
         const scrollStyles = this.getScrollStyles();
-        const rootStyle = {
-            height: this.props.heightRelativeToParent
-        };
+        const rootStyle = this.getRootStyles();
         const scrollHandleStyle = enforceMinHandleHeight.call(this, this.getScrollHandleStyle());
-
 
         return (
             <div className={'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : '')}
@@ -269,7 +280,9 @@ module.exports = React.createClass({
                      onMouseDown={this.onMouseDown}
                      onClick={this.onClick}>
                     {this.hasScroll ? (
-                        <div ref="customScrollbar" className="custom-scrollbar" key="scrollbar">
+                        <div ref="customScrollbar"
+                             className={'custom-scrollbar' + (this.props.rtl ? ' custom-scrollbar-rtl' : '')}
+                             key="scrollbar">
                             <div ref="scrollHandle" className="custom-scroll-handle" style={scrollHandleStyle}>
                                 <div className={this.props.handleClass}></div>
                             </div>

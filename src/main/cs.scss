@@ -1,5 +1,8 @@
 .custom-scroll {
-    $scroll-margin-top: 6px;
+
+  $scroll-margin-top: 6px;
+  min-height: 0;
+  min-width: 0;
 
   .outer-container {
     overflow: hidden;
@@ -49,6 +52,11 @@
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none;
+
+    &.custom-scrollbar-rtl {
+      right: auto;
+      left: 3px;
+    }
   }
 
   &.scroll-handle-dragged .custom-scrollbar {
