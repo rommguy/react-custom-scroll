@@ -52,7 +52,8 @@ module.exports = React.createClass({
         addScrolledClass: React.PropTypes.bool,
         freezePosition: React.PropTypes.bool,
         handleClass: React.PropTypes.string,
-        minScrollHandleHeight: React.PropTypes.number
+        minScrollHandleHeight: React.PropTypes.number,
+        flex: React.PropTypes.string
     },
     getDefaultProps() {
         return {
@@ -235,11 +236,11 @@ module.exports = React.createClass({
         var scrollSize = this.scrollbarYWidth || 20;
         var innerContainerStyle = {
             marginRight: (-1 * scrollSize),
-            height: this.props.heightRelativeToParent ? '100%' : ''
+            height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
         };
         var contentWrapperStyle = {
             marginRight: this.scrollbarYWidth ? 0 : scrollSize,
-            height: this.props.heightRelativeToParent ? '100%' : '',
+            height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
             overflowY: this.props.freezePosition ? 'hidden' : 'visible'
         };
 
@@ -250,16 +251,24 @@ module.exports = React.createClass({
     },
     getOuterContainerStyle() {
         return {
-            height: this.props.heightRelativeToParent ? '100%' : ''
+            height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
         };
+    },
+    getRootStyles() {
+        let result = {};
+
+        if (this.props.heightRelativeToParent) {
+            result.height = this.props.heightRelativeToParent;
+        } else if (this.props.flex) {
+            result.flex = this.props.flex;
+        }
+
+        return result;
     },
     render() {
         const scrollStyles = this.getScrollStyles();
-        const rootStyle = {
-            height: this.props.heightRelativeToParent
-        };
+        const rootStyle = this.getRootStyles();
         const scrollHandleStyle = enforceMinHandleHeight.call(this, this.getScrollHandleStyle());
-
 
         return (
             <div className={'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : '')}
