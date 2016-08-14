@@ -42,9 +42,10 @@ You can see a usage example in example/firstComp/firstComp.scss
 - allowOuterScroll : boolean, default false. Blocks outer scroll while scrolling the content
 - heightRelativeToParent : string, default undefined. Content height limit is relative to parent - the value should be the height limit.
 - onScroll - function, default undefined. Listener that will be called on each scroll.
-- addScrolledClass - boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
-- freezePosition - boolean, default false. When true, will prevent scrolling. 
-- minScrollHandleHeight - number, sets the mimimum height of the scroll handle. Default is 38, as in Chrome on OSX.
+- addScrolledClass : boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
+- freezePosition : boolean, default false. When true, will prevent scrolling. 
+- minScrollHandleHeight : number, sets the mimimum height of the scroll handle. Default is 38, as in Chrome on OSX.
+- rtl : boolean, default false. Right to left document, will place the custom scrollbar on the left side of the content, and assume the native one is also there.  
 
 ##### Example for heightRelativeToParent
 
