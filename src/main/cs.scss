@@ -52,6 +52,11 @@
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none;
+
+    &.custom-scrollbar-rtl {
+      right: auto;
+      left: 3px;
+    }
   }
 
   &.scroll-handle-dragged .custom-scrollbar {

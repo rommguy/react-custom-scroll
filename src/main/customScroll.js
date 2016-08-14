@@ -53,7 +53,8 @@ module.exports = React.createClass({
         freezePosition: React.PropTypes.bool,
         handleClass: React.PropTypes.string,
         minScrollHandleHeight: React.PropTypes.number,
-        flex: React.PropTypes.string
+        flex: React.PropTypes.string,
+        rtl: React.PropTypes.bool
     },
     getDefaultProps() {
         return {
@@ -234,12 +235,13 @@ module.exports = React.createClass({
     },
     getScrollStyles() {
         var scrollSize = this.scrollbarYWidth || 20;
+        var marginKey = this.props.rtl ? 'marginLeft' : 'marginRight';
         var innerContainerStyle = {
-            marginRight: (-1 * scrollSize),
+            [marginKey]: (-1 * scrollSize),
             height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
         };
         var contentWrapperStyle = {
-            marginRight: this.scrollbarYWidth ? 0 : scrollSize,
+            [marginKey]: this.scrollbarYWidth ? 0 : scrollSize,
             height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
             overflowY: this.props.freezePosition ? 'hidden' : 'visible'
         };
@@ -278,7 +280,9 @@ module.exports = React.createClass({
                      onMouseDown={this.onMouseDown}
                      onClick={this.onClick}>
                     {this.hasScroll ? (
-                        <div ref="customScrollbar" className="custom-scrollbar" key="scrollbar">
+                        <div ref="customScrollbar"
+                             className={'custom-scrollbar' + (this.props.rtl ? ' custom-scrollbar-rtl' : '')}
+                             key="scrollbar">
                             <div ref="scrollHandle" className="custom-scroll-handle" style={scrollHandleStyle}>
                                 <div className={this.props.handleClass}></div>
                             </div>

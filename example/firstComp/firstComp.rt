@@ -46,7 +46,7 @@
 
         <div class="panel flex-scroll">
             <div class="panel-header">
-                <label class="panel-title">Who designed this ???</label>
+                <label class="panel-title">Flexbox!!!</label>
             </div>
             <customScroll allowOuterScroll="{true}" flex="1">
                 <div class="panel-content-custom panel-content">

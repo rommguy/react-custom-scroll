@@ -401,6 +401,9 @@ th {
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none; }
+    .custom-scroll .custom-scrollbar.custom-scrollbar-rtl {
+      right: auto;
+      left: 3px; }
   .custom-scroll.scroll-handle-dragged .custom-scrollbar {
     opacity: 1; }
   .custom-scroll .custom-scroll-handle {
