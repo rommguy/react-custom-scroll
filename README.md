@@ -41,6 +41,9 @@ You can see a usage example in example/firstComp/firstComp.scss
 
 - allowOuterScroll : boolean, default false. Blocks outer scroll while scrolling the content
 - heightRelativeToParent : string, default undefined. Content height limit is relative to parent - the value should be the height limit.
+- flex : number, default undefined. If present will apply to the content wrapped by the custom scroll.  
+This prop represents flex size. It is only relevant if the parent of customScroll has display: flex. See example below.  
+This prop will override any value given to heightRelativeToParent when setting the height of customScroll.
 - onScroll - function, default undefined. Listener that will be called on each scroll.
 - addScrolledClass : boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
 - freezePosition : boolean, default false. When true, will prevent scrolling. 
@@ -61,6 +64,53 @@ You can see a usage example in example/firstComp/firstComp.scss
 - If you're using JSX, make sure you use Pascal case and not camelCase \<CustomScroll\> and not \<customScroll\>.  
 starting with lower case causes JSX to treat the tag as a native dom element
 - Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.
+
+
+### Usage with flexbox
+There are some details that apply when using customScroll on elements with size set by css flex.  
+Here is an example for an HTML structure before using customScroll:  
+```html
+<someParent style="display: flex; height: 500px;">
+  <fixedHeightElement style="height: 100px"><fixedHeightElement/>
+  <flexibleHeightElement style="flex:1; overflow:scroll">
+   your content (with enough height to cause a scroll)
+  <flexibleHeightElement/>
+</someParent>  
+```
+
+In this example, a scroll is active on the flexibleHeightElement, where the flex size sets it's height to 400px, after the fixedHeight element took 100px.  
+
+#### Solutions
+There are 2 options to use customScroll with this structure:
+
+- Wrapping the content:  
+For this solution, the overflow property should be removed from the flex size element, since the customScroll will take care of that. 
+Instead, min-height and min-width should be set to 0.
+```html
+<someParent style="display: flex; height: 500px;">
+  <fixedHeightElement style="height: 100px"><fixedHeightElement/>
+  <flexibleHeightElement style="flex:1; min-height: 0; min-width: 0">
+    <CustomScroll heightRelativeToParent="100%">
+      your content (with enough height to cause a scroll)
+    <CustomScroll/>
+  <flexibleHeightElement/>
+</someParent>  
+```
+min-height and min-width are required since flex won't shrink below it's minimum content size ([flex box spec](https://www.w3.org/TR/css-flexbox/#flex-common)).  
+
+- Replacing the flex-size element with customScroll
+```html
+<someParent style="display: flex; height: 500px;">
+  <fixedHeightElement style="height: 100px"><fixedHeightElement/>
+  <CustomScroll flex="1">
+      your content (with enough height to cause a scroll)
+  <CustomScroll/>
+</someParent>  
+```
+
+
+### Contributing
+To build the project, run 'npm start'.  
 
 ### Tests
 ```bash
