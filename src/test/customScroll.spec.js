@@ -222,6 +222,44 @@ describe('custom scroll', function () {
         });
     });
 
+    describe('flex size', function () {
+        beforeEach(function () {
+            this.customScroll = createAndRenderCustomScroll(this.customScrollContainer, {
+                flex: '2'
+            }, this.visibleHeight, this.totalScrollHeight);
+        });
+
+        it('should set value passed as flex on the root element, and 100% on other containers', function () {
+            var rootStyle = reactDOM.findDOMNode(this.customScroll).style;
+            var innerContainerStyle = this.customScroll.refs.innerContainer.style;
+            var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+
+
+            expect(rootStyle.flexGrow).toEqual('2');
+            expect(innerContainerStyle.height).toEqual('100%');
+            expect(contentWrapperStyle.height).toEqual('100%');
+        });
+    });
+
+    describe('Right to left support', function () {
+        beforeEach(function () {
+            this.customScroll = createAndRenderCustomScroll(this.customScrollContainer, {
+                rtl: 'true'
+            }, this.visibleHeight, this.totalScrollHeight);
+        });
+
+        it('should position the custom scrollbar on the left side of the content', function () {
+            var customScrollbarStyle = window.getComputedStyle(this.customScroll.refs.customScrollbar);
+            var innerContainerStyle = this.customScroll.refs.innerContainer.style;
+            var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+
+            expect(customScrollbarStyle.left).toEqual('3px');
+            expect(innerContainerStyle.marginLeft).toEqual('-20px');
+            expect(contentWrapperStyle.marginLeft).toEqual('20px');
+
+        });
+    });
+
     describe('custom inner handle css class', function () {
         it('should replace the default class', function () {
             this.customScroll = createAndRenderCustomScroll(this.customScrollContainer, {
