@@ -67,6 +67,7 @@ starting with lower case causes JSX to treat the tag as a native dom element
 
 
 ### Usage with flexbox
+##### See a [demo with Flex](http://rommguy.github.io/react-custom-scroll/example/demo.html?flex=true) ###
 There are some details that apply when using customScroll on elements with size set by css flex.  
 Here is an example for an HTML structure before using customScroll:  
 ```html
