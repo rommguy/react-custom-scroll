@@ -256,7 +256,6 @@ describe('custom scroll', function () {
             expect(customScrollbarStyle.left).toEqual('3px');
             expect(innerContainerStyle.marginLeft).toEqual('-20px');
             expect(contentWrapperStyle.marginLeft).toEqual('20px');
-
         });
     });
 

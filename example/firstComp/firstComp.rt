@@ -1,6 +1,6 @@
 <rt-require dependency="customScroll" as="customScroll"/>
 <div class="example-wrapper">
-    <div class="container native-scroll">
+    <div rt-if="!this.isFlexExample()" key="native-example"  class="container native-scroll">
         <label class="side-title">Native Scroll</label>
 
         <div class="panel">
@@ -13,7 +13,7 @@
         </div>
 
     </div>
-    <div class="container custom-scroll-example">
+    <div rt-if="!this.isFlexExample()" key="cool-example" class="container custom-scroll-example">
         <label class="side-title">Custom Scroll</label>
 
         <div class="panel">
@@ -27,7 +27,7 @@
             </customScroll>
         </div>
     </div>
-    <div class="container custom-scroll-example">
+    <div rt-if="!this.isFlexExample()" key="crazy-example"  class="container custom-scroll-example">
         <label class="side-title">Crazy Designer</label>
 
         <div class="panel crazy-scroll">
@@ -41,8 +41,8 @@
             </customScroll>
         </div>
     </div>
-    <div class="container example-flex-wrapper">
-        <label class="side-title">Flex Scroll</label>
+    <div rt-if="this.isFlexExample()" key="flex-example" class="container example-flex-wrapper">
+        <label class="side-title">With CSS Flex</label>
 
         <div class="panel flex-scroll">
             <div class="panel-header">
