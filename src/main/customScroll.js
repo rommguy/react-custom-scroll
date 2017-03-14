@@ -54,7 +54,8 @@ module.exports = React.createClass({
         handleClass: React.PropTypes.string,
         minScrollHandleHeight: React.PropTypes.number,
         flex: React.PropTypes.string,
-        rtl: React.PropTypes.bool
+        rtl: React.PropTypes.bool,
+        scrollTo: React.PropTypes.number
     },
     getDefaultProps() {
         return {
@@ -89,13 +90,18 @@ module.exports = React.createClass({
             left: boundingRect.left + window.pageXOffset
         };
 
-        this.freezePosition(prevProps);
+        if (this.props.freezePosition || prevProps.freezePosition) {
+            this.adjustFreezePosition(prevProps);
+        }
+        if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
+            this.updateScrollPosition(this.props.scrollTo);
+        }
     },
     componentWillUnmount() {
         document.removeEventListener('mousemove', this.onHandleDrag);
         document.removeEventListener('mouseup', this.onHandleDragEnd);
     },
-    freezePosition(prevProps) {
+    adjustFreezePosition(prevProps) {
         var innerContainer = this.getScrolledElement();
         var contentWrapper = this.refs.contentWrapper;
 

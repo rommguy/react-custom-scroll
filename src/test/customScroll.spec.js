@@ -380,5 +380,42 @@ describe('custom scroll', function () {
             });
         });
     });
+
+    describe('scrollTo', function () {
+        let customScroll, scrollToValue, outerContainer;
+        beforeEach(function () {
+            scrollToValue = 10;
+            customScroll = createAndRenderCustomScroll(this.customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
+            outerContainer = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'outer-container');
+        });
+
+        it('should scroll content to required position', () => {
+            const contentContainerNode = customScroll.refs.innerContainer;
+
+            expect(contentContainerNode.scrollTop).toEqual(scrollToValue);
+        });
+
+        it('should allow scrolling away from position in props, as long as props are the same', () => {
+            const innerContainer = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'inner-container');
+            const initialHandlePos = customScroll.getScrollHandleStyle().top;
+            const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'custom-scroll-handle');
+            const scrollHandleLayout = scrollHandle.getBoundingClientRect();
+            const initialScrollPos = innerContainer.scrollTop;
+
+            const yBelowHandle = scrollHandleLayout.top + scrollHandleLayout.height + 20;
+            const xInCustomScrollbar = scrollHandleLayout.left + scrollHandleLayout.width / 2;
+            const clickPosition = {
+                clientY: yBelowHandle,
+                pageY: yBelowHandle,
+                clientX: xInCustomScrollbar,
+                pageX: xInCustomScrollbar
+            };
+
+            TestUtils.Simulate.click(outerContainer, clickPosition);
+
+            expect(customScroll.getScrollHandleStyle().top).toEqual(initialHandlePos + scrollHandleLayout.height);
+            expect(innerContainer.scrollTop).toBeGreaterThan(initialScrollPos);
+        });
+    });
 });
 

@@ -48,7 +48,8 @@ This prop will override any value given to heightRelativeToParent when setting t
 - addScrolledClass : boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
 - freezePosition : boolean, default false. When true, will prevent scrolling. 
 - minScrollHandleHeight : number, sets the mimimum height of the scroll handle. Default is 38, as in Chrome on OSX.
-- rtl : boolean, default false. Right to left document, will place the custom scrollbar on the left side of the content, and assume the native one is also there.  
+- rtl : boolean, default false. Right to left document, will place the custom scrollbar on the left side of the content, and assume the native one is also there.
+- scrollTo: number, default undefined. Will scroll content to the given value.
 
 ##### Example for heightRelativeToParent
 
