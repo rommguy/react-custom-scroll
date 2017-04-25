@@ -417,5 +417,71 @@ describe('custom scroll', function () {
             expect(innerContainer.scrollTop).toBeGreaterThan(initialScrollPos);
         });
     });
+    
+    describe('keepAtBottom', function () {
+        describe('when false', function () {
+            it('should not scroll to bottom if the scroll is at the bottom', function () {
+                const contentContainerNode = this.customScroll.refs.innerContainer;
+                const expectedScrollTop = this.totalScrollHeight - this.visibleHeight;
+                
+                // scroll to bottom
+                createAndRenderCustomScroll(this.customScrollContainer, { scrollTo: 99999 }, this.visibleHeight, this.totalScrollHeight);
+
+                expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
+
+                // add content                
+                createAndRenderCustomScroll(this.customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight + 50);
+
+                expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
+            });
+        });
+
+        describe('when true', function () {
+            describe('when content is added', function () {
+                it('should automatically scroll to bottom if the scroll is at the bottom', function () {
+                    const addedContentHeight = 50;
+                    const contentContainerNode = this.customScroll.refs.innerContainer;
+                    const expectedScrollTop = this.totalScrollHeight - this.visibleHeight + addedContentHeight;
+                    
+                    // scroll to bottom
+                    createAndRenderCustomScroll(this.customScrollContainer, { scrollTo: 99999 }, this.visibleHeight, this.totalScrollHeight);
+
+                    expect(contentContainerNode.scrollTop).toEqual(this.totalScrollHeight - this.visibleHeight);
+
+                    // add content                
+                    createAndRenderCustomScroll(this.customScrollContainer, { keepAtBottom: true }, this.visibleHeight, this.totalScrollHeight + addedContentHeight);
+
+                    expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
+                });
+
+                it('should not scroll to bottom if the scroll was not at the bottom', function () {
+                    const addedContentHeight = 50;
+                    const contentContainerNode = this.customScroll.refs.innerContainer;
+                    const initialScrollTop = contentContainerNode.scrollTop;
+
+                    // add content                
+                    createAndRenderCustomScroll(this.customScrollContainer, { keepAtBottom: true }, this.visibleHeight, this.totalScrollHeight + addedContentHeight);
+
+                    expect(contentContainerNode.scrollTop).toEqual(initialScrollTop);
+                });
+            });
+
+            describe('when content is the same', function () {
+                it('should not scroll to bottom if the scroll is at the bottom', function () {
+                    const contentContainerNode = this.customScroll.refs.innerContainer;
+                    const expectedScrollTop = this.totalScrollHeight - this.visibleHeight;
+
+                    // scroll to bottom
+                    createAndRenderCustomScroll(this.customScrollContainer, { scrollTo: 99999 }, this.visibleHeight, this.totalScrollHeight);
+
+                    expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);                    
+
+                    createAndRenderCustomScroll(this.customScrollContainer, { keepAtBottom: true }, this.visibleHeight, this.totalScrollHeight);
+
+                    expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
+                });
+            });
+        });
+    });
 });
 
