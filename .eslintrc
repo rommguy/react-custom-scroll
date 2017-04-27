@@ -22,5 +22,8 @@
   },
   "globals": {
     "requirejs": true
-  }
+  },
+  "plugins": [
+    "react"
+  ]
 }
