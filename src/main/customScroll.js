@@ -75,15 +75,18 @@ module.exports = React.createClass({
     componentDidMount() {
         this.forceUpdate();
     },
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         const domNode = reactDOM.findDOMNode(this);
         const boundingRect = domNode.getBoundingClientRect();
         const innerContainer = this.getScrolledElement();
+        const reachedBottomOnPrevRender = prevState.scrollPos >= this.contentHeight - this.visibleHeight;
+
         this.contentHeight = innerContainer.scrollHeight;
 
         this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth;
         this.visibleHeight = innerContainer.clientHeight;
         this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1;
+        const reachedBottomOnCurrentRender = this.state.scrollPos >= this.contentHeight - this.visibleHeight;
 
         this.toggleScrollIfNeeded();
 
@@ -97,6 +100,8 @@ module.exports = React.createClass({
         }
         if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
             this.updateScrollPosition(this.props.scrollTo);
+        } else if (this.props.keepAtBottom && reachedBottomOnPrevRender && !reachedBottomOnCurrentRender) {
+            this.updateScrollPosition(this.contentHeight - this.visibleHeight);
         }
     },
     componentWillUnmount() {
