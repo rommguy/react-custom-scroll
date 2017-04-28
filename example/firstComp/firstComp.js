@@ -18,11 +18,38 @@ define(['react', 'lodash', './demoText', './firstComp.rt'], function (React, _, 
 
     return React.createClass({
         displayName: 'firstComp',
+        getInitialState: function () {
+            return {
+                dynamicContentCounter: 4
+            };
+        },
         getText: function () {
             return demoText.text;
         },
-        isFlexExample: function () {
-            return getParameterByName('flex');
+        getDynamicContent: function () {
+            return _.times(this.state.dynamicContentCounter, function (index) {
+                return 'Content #' + index;
+            });
+        },
+        addContent: function () {
+            this.setState({
+                dynamicContentCounter: this.state.dynamicContentCounter + 1
+            });
+        },
+        removeContent: function () {
+            this.setState({
+                dynamicContentCounter: Math.max(this.state.dynamicContentCounter - 1, 4)
+            });
+        },
+        getExamplesToDisplay: function () {
+            var isFlex = getParameterByName('flex');
+            var isDynamic = getParameterByName('dynamic');
+
+            return {
+                flex: isFlex,
+                dynamic: isDynamic,
+                standard: !isFlex && !isDynamic
+            };
         },
         render: template
     });

@@ -25,6 +25,7 @@ module.exports = {
             }
         }]
     },
+    // devtool: 'source-map',
     externals: {
         react: 'react',
         'react-dom': 'react-dom',

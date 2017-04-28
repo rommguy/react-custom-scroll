@@ -26,7 +26,7 @@ body {
 
 .panel {
   display: inline-block;
-  max-width: 288px;
+  width: 288px;
   box-shadow: 0 0 1px #DDD;
   border-radius: 8px;
 }
@@ -79,4 +79,46 @@ body {
   display: flex;
   flex-direction: column;
   height: 400px;
+}
+
+.dynamic-content {
+  padding: 30px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.example-dynamic-wrapper {
+  .panel-content-custom {
+    max-height: 250px;
+  }
+
+  .dynamic-content-button {
+    display: block;
+    border: 10px;
+    font-family: Roboto, sans-serif;
+    cursor: pointer;
+    padding: 0px;
+    outline: none;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 2px;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    background-color: rgb(0, 188, 212);
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+    margin: 10px auto;
+    min-width: 200px;
+    user-select: none;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: rgb(255, 255, 255);
+
+    &:hover {
+      background-color: rgba(0, 188, 212, .6);
+    }
+  }
+
 }

@@ -1,6 +1,6 @@
 'use strict';
-var React = require('react');
-var reactDOM = require('react-dom');
+const React = require('react');
+const reactDOM = require('react-dom');
 
 function ensureWithinLimits(value, min, max) {
     min = (!min && min !== 0) ? value : min;
@@ -46,6 +46,7 @@ function enforceMinHandleHeight(calculatedStyle) {
 module.exports = React.createClass({
     displayName: 'customScroll',
     propTypes: {
+        children: React.PropTypes.any,
         allowOuterScroll: React.PropTypes.bool,
         heightRelativeToParent: React.PropTypes.string,
         onScroll: React.PropTypes.func,
@@ -55,7 +56,8 @@ module.exports = React.createClass({
         minScrollHandleHeight: React.PropTypes.number,
         flex: React.PropTypes.string,
         rtl: React.PropTypes.bool,
-        scrollTo: React.PropTypes.number
+        scrollTo: React.PropTypes.number,
+        keepAtBottom: React.PropTypes.bool
     },
     getDefaultProps() {
         return {
@@ -73,15 +75,20 @@ module.exports = React.createClass({
     componentDidMount() {
         this.forceUpdate();
     },
-    componentDidUpdate(prevProps) {
-        var domNode = reactDOM.findDOMNode(this);
-        var boundingRect = domNode.getBoundingClientRect();
-        var innerContainer = this.getScrolledElement();
-        this.contentHeight = innerContainer.scrollHeight;
+    componentDidUpdate(prevProps, prevState) {
+        const prevContentHeight = this.contentHeight;
+        const prevVisibleHeight = this.visibleHeight;
+        const domNode = reactDOM.findDOMNode(this);
+        const boundingRect = domNode.getBoundingClientRect();
+        const innerContainer = this.getScrolledElement();
+        const reachedBottomOnPrevRender = prevState.scrollPos >= prevContentHeight - prevVisibleHeight;
 
+        this.contentHeight = innerContainer.scrollHeight;
         this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth;
         this.visibleHeight = innerContainer.clientHeight;
         this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1;
+        const reachedBottomOnCurrentRender = this.state.scrollPos >= this.contentHeight - this.visibleHeight;
+        const contentResized = prevContentHeight !== this.contentHeight;
 
         this.toggleScrollIfNeeded();
 
@@ -95,6 +102,8 @@ module.exports = React.createClass({
         }
         if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
             this.updateScrollPosition(this.props.scrollTo);
+        } else if (this.props.keepAtBottom && contentResized && reachedBottomOnPrevRender && !reachedBottomOnCurrentRender) {
+            this.updateScrollPosition(this.contentHeight - this.visibleHeight);
         }
     },
     componentWillUnmount() {
@@ -102,8 +111,8 @@ module.exports = React.createClass({
         document.removeEventListener('mouseup', this.onHandleDragEnd);
     },
     adjustFreezePosition(prevProps) {
-        var innerContainer = this.getScrolledElement();
-        var contentWrapper = this.refs.contentWrapper;
+        const innerContainer = this.getScrolledElement();
+        const contentWrapper = this.refs.contentWrapper;
 
         if (this.props.freezePosition) {
             contentWrapper.scrollTop = this.state.scrollPos;
@@ -114,7 +123,7 @@ module.exports = React.createClass({
         }
     },
     toggleScrollIfNeeded() {
-        var shouldHaveScroll = this.contentHeight - this.visibleHeight > 1;
+        const shouldHaveScroll = this.contentHeight - this.visibleHeight > 1;
         if (this.hasScroll !== shouldHaveScroll) {
             this.hasScroll = shouldHaveScroll;
             this.forceUpdate();
@@ -124,7 +133,7 @@ module.exports = React.createClass({
         return this.getScrolledElement().scrollTop;
     },
     updateScrollPosition(scrollValue) {
-        var innerContainer = this.getScrolledElement();
+        const innerContainer = this.getScrolledElement();
         innerContainer.scrollTop = scrollValue;
         this.setState({
             scrollPos: scrollValue
@@ -148,10 +157,10 @@ module.exports = React.createClass({
         return isEventPosOnDomNode(event, scrollHandle);
     },
     calculateNewScrollHandleTop(clickEvent) {
-        var clickYRelativeToScrollbar = clickEvent.pageY - this.position.top;
-        var scrollHandleTop = this.getScrollHandleStyle().top;
-        var newScrollHandleTop;
-        var isBelowHandle = clickYRelativeToScrollbar > (scrollHandleTop + this.scrollHandleHeight);
+        const clickYRelativeToScrollbar = clickEvent.pageY - this.position.top;
+        const scrollHandleTop = this.getScrollHandleStyle().top;
+        let newScrollHandleTop;
+        const isBelowHandle = clickYRelativeToScrollbar > (scrollHandleTop + this.scrollHandleHeight);
         if (isBelowHandle) {
             newScrollHandleTop = scrollHandleTop + Math.min(this.scrollHandleHeight, this.visibleHeight - this.scrollHandleHeight);
         } else {
@@ -163,7 +172,7 @@ module.exports = React.createClass({
         return (handlePosition) / this.scrollRatio;
     },
     getScrollHandleStyle() {
-        var handlePosition = this.state.scrollPos * this.scrollRatio;
+        const handlePosition = this.state.scrollPos * this.scrollRatio;
         this.scrollHandleHeight = this.visibleHeight * this.scrollRatio;
         return {
             height: this.scrollHandleHeight,
@@ -202,9 +211,9 @@ module.exports = React.createClass({
     },
     onHandleDrag(event) {
         event.preventDefault();
-        var mouseDeltaY = event.pageY - this.startDragMousePos;
-        var handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight);
-        var newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition);
+        const mouseDeltaY = event.pageY - this.startDragMousePos;
+        const handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight);
+        const newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition);
         this.updateScrollPosition(newScrollValue);
     },
     onHandleDragEnd(e) {
@@ -219,10 +228,10 @@ module.exports = React.createClass({
         if (this.props.allowOuterScroll) {
             return;
         }
-        var contentNode = e.currentTarget;
-        var totalHeight = e.currentTarget.scrollHeight;
-        var maxScroll = totalHeight - e.currentTarget.offsetHeight;
-        var delta = e.deltaY % 3 ? (e.deltaY) : (e.deltaY * 10);
+        const contentNode = e.currentTarget;
+        const totalHeight = e.currentTarget.scrollHeight;
+        const maxScroll = totalHeight - e.currentTarget.offsetHeight;
+        const delta = e.deltaY % 3 ? (e.deltaY) : (e.deltaY * 10);
         if (contentNode.scrollTop + delta <= 0) {
             contentNode.scrollTop = 0;
             e.preventDefault();
@@ -233,20 +242,20 @@ module.exports = React.createClass({
         e.stopPropagation();
     },
     getInnerContainerClasses() {
-        var res = 'inner-container';
+        let res = 'inner-container';
         if (this.state.scrollPos && this.props.addScrolledClass) {
             res += ' content-scrolled';
         }
         return res;
     },
     getScrollStyles() {
-        var scrollSize = this.scrollbarYWidth || 20;
-        var marginKey = this.props.rtl ? 'marginLeft' : 'marginRight';
-        var innerContainerStyle = {
+        const scrollSize = this.scrollbarYWidth || 20;
+        const marginKey = this.props.rtl ? 'marginLeft' : 'marginRight';
+        const innerContainerStyle = {
             [marginKey]: (-1 * scrollSize),
             height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
         };
-        var contentWrapperStyle = {
+        const contentWrapperStyle = {
             [marginKey]: this.scrollbarYWidth ? 0 : scrollSize,
             height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
             overflowY: this.props.freezePosition ? 'hidden' : 'visible'
@@ -263,7 +272,7 @@ module.exports = React.createClass({
         };
     },
     getRootStyles() {
-        let result = {};
+        const result = {};
 
         if (this.props.heightRelativeToParent) {
             result.height = this.props.heightRelativeToParent;
@@ -279,7 +288,7 @@ module.exports = React.createClass({
         const scrollHandleStyle = enforceMinHandleHeight.call(this, this.getScrollHandleStyle());
 
         return (
-            <div className={'custom-scroll ' + (this.state.onDrag ? 'scroll-handle-dragged' : '')}
+            <div className={`custom-scroll ${ this.state.onDrag ? 'scroll-handle-dragged' : ''}`}
                  style={rootStyle}>
                 <div className="outer-container"
                      style={this.getOuterContainerStyle()}
@@ -287,7 +296,7 @@ module.exports = React.createClass({
                      onClick={this.onClick}>
                     {this.hasScroll ? (
                         <div ref="customScrollbar"
-                             className={'custom-scrollbar' + (this.props.rtl ? ' custom-scrollbar-rtl' : '')}
+                             className={`custom-scrollbar${ this.props.rtl ? ' custom-scrollbar-rtl' : ''}`}
                              key="scrollbar">
                             <div ref="scrollHandle" className="custom-scroll-handle" style={scrollHandleStyle}>
                                 <div className={this.props.handleClass}></div>
