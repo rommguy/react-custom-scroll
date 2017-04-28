@@ -480,6 +480,21 @@ describe('custom scroll', function () {
 
                     expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
                 });
+
+                it('should allow regular scroll', function () {
+                    this.customScroll = renderCustomScroll(this.customScrollContainer, {
+                        keepAtBottom: true,
+                        scrollTo: this.totalScrollHeight
+                    }, this.visibleHeight, this.totalScrollHeight);
+
+
+                    var contentContainerNode = this.customScroll.refs.innerContainer;
+                    contentContainerNode.scrollTop = 0;
+
+                    TestUtils.Simulate.scroll(contentContainerNode);
+
+                    expect(contentContainerNode.scrollTop).toEqual(0);
+                });
             });
         });
     });

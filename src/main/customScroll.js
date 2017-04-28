@@ -76,17 +76,19 @@ module.exports = React.createClass({
         this.forceUpdate();
     },
     componentDidUpdate(prevProps, prevState) {
+        const prevContentHeight = this.contentHeight;
+        const prevVisibleHeight = this.visibleHeight;
         const domNode = reactDOM.findDOMNode(this);
         const boundingRect = domNode.getBoundingClientRect();
         const innerContainer = this.getScrolledElement();
-        const reachedBottomOnPrevRender = prevState.scrollPos >= this.contentHeight - this.visibleHeight;
+        const reachedBottomOnPrevRender = prevState.scrollPos >= prevContentHeight - prevVisibleHeight;
 
         this.contentHeight = innerContainer.scrollHeight;
-
         this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth;
         this.visibleHeight = innerContainer.clientHeight;
         this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1;
         const reachedBottomOnCurrentRender = this.state.scrollPos >= this.contentHeight - this.visibleHeight;
+        const contentResized = prevContentHeight !== this.contentHeight;
 
         this.toggleScrollIfNeeded();
 
@@ -100,7 +102,7 @@ module.exports = React.createClass({
         }
         if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
             this.updateScrollPosition(this.props.scrollTo);
-        } else if (this.props.keepAtBottom && reachedBottomOnPrevRender && !reachedBottomOnCurrentRender) {
+        } else if (this.props.keepAtBottom && contentResized && reachedBottomOnPrevRender && !reachedBottomOnCurrentRender) {
             this.updateScrollPosition(this.contentHeight - this.visibleHeight);
         }
     },

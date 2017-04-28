@@ -1,6 +1,6 @@
 <rt-require dependency="customScroll" as="customScroll"/>
-<div class="example-wrapper">
-    <div rt-if="!this.isFlexExample()" key="native-example"  class="container native-scroll">
+<div class="example-wrapper" rt-scope="this.getExamplesToDisplay() as exampleTypes">
+    <div rt-if="exampleTypes.standard" key="native-example"  class="container native-scroll">
         <label class="side-title">Native Scroll</label>
 
         <div class="panel">
@@ -13,7 +13,7 @@
         </div>
 
     </div>
-    <div rt-if="!this.isFlexExample()" key="cool-example" class="container custom-scroll-example">
+    <div rt-if="exampleTypes.standard" key="cool-example" class="container custom-scroll-example">
         <label class="side-title">Custom Scroll</label>
 
         <div class="panel">
@@ -27,7 +27,7 @@
             </customScroll>
         </div>
     </div>
-    <div rt-if="!this.isFlexExample()" key="crazy-example"  class="container custom-scroll-example">
+    <div rt-if="exampleTypes.standard" key="crazy-example"  class="container custom-scroll-example">
         <label class="side-title">Crazy Designer</label>
 
         <div class="panel crazy-scroll">
@@ -41,7 +41,7 @@
             </customScroll>
         </div>
     </div>
-    <div rt-if="this.isFlexExample()" key="flex-example" class="container example-flex-wrapper">
+    <div rt-if="exampleTypes.flex" key="flex-example" class="container example-flex-wrapper">
         <label class="side-title">With CSS Flex</label>
 
         <div class="panel flex-scroll">
@@ -55,5 +55,31 @@
             </customScroll>
         </div>
     </div>
+    <div rt-if="exampleTypes.dynamic" key="dynamic-example" class="container example-dynamic-wrapper">
+        <label class="side-title">KeepAtBottom prop</label>
+
+        <div class="panel dynamic-scroll">
+            <div class="panel-header">
+                <label class="panel-title">DYNAMIC CONTENT!!!</label>
+            </div>
+            <customScroll allowOuterScroll="{true}" keepAtBottom="{true}">
+                <div class="panel-content-custom panel-content">
+                    <div class="content-fill">
+                        <div class="dynamic-content" rt-repeat="content in this.getDynamicContent()" key="{content}">{content}</div>
+                    </div>
+                </div>
+            </customScroll>
+        </div>
+
+        <button rt-if="exampleTypes.dynamic"
+                class="dynamic-content-button"
+                key="addContent"
+                onClick="{this.addContent}">Add Content</button>
+        <button rt-if="exampleTypes.dynamic"
+                class="dynamic-content-button"
+                key="removeContent"
+                onClick="{this.removeContent}">Remove Content</button>
+    </div>
+
     <div class="scroll-creator"></div>
 </div>
