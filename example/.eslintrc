@@ -1,7 +1,23 @@
 {
     "rules": {
-        "strict": [2, "function"]
+        "strict": [2, "function"],
+        "lodash/chaining": [2, "always"],
+        "lodash/collection-method-value": 0,
+        "lodash/consistent-compose": 0,
+        "lodash/no-commit": 0,
+        "lodash/path-style": 0,
+        "lodash/prefer-constant": 0,
+        "lodash/prefer-filter": 0,
+        "lodash/prefer-lodash-method": 0,
+        "lodash/prefer-lodash-typecheck": 0,
+        "lodash/prefer-map": 0,
+        "lodash/prefer-matches": 0,
+        "lodash/prefer-noop": 0,
+        "lodash/prefer-startswith": 0
     },
+    "plugins": [
+        "lodash"
+    ],
     "env": {
         "amd": true
     },
