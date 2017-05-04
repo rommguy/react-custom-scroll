@@ -7,9 +7,10 @@
     "test": "karma start --single-run",
     "rtex": "rt -m amd example/firstComp/firstComp.rt -r --react-import-path react",
     "sass": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > src/main/customScroll.css",
+    "sassDist": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > dist/customScroll.css",
     "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
     "lint": "eslint .",
-    "start": "npm run lint && npm run sass && npm run sassex && npm run rtex && webpack -p"
+    "start": "npm run lint && npm run sass && npm run sassDist && npm run sassex && npm run rtex && webpack -p"
   },
   "repository": {
     "type": "git",
