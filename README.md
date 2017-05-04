@@ -14,6 +14,7 @@ Animations and scroll rate **exactly** like native scroll
 Custom scroll component is available in commonJS format so you can just require it after installing.  
 There is also a UMD version - inside dist directory.  
 In both cases **you have to include the customScroll.css** file in your page.  
+It is located in /dist directory  
 
 Wrap your content with the custom scroll component  
 Remove any overflow style properties from your content root component - The custom scroll will take care of it
