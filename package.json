@@ -22,7 +22,9 @@
     "url": "https://github.com/rommguy/react-custom-scroll/issues"
   },
   "homepage": "https://github.com/rommguy/react-custom-scroll#readme",
-  "dependencies": {},
+  "dependencies": {
+    "prop-types": "^15.5.8"
+  },
   "devDependencies": {
     "autoprefixer": "6.3.6",
     "babel-core": "6.5.2",
@@ -44,7 +46,6 @@
     "lodash": "^4.17.4",
     "node-sass": "3.4.2",
     "postcss-cli": "2.5.1",
-    "prop-types": "^15.5.8",
     "react": "^0.14.7",
     "react-addons-test-utils": "0.14.7",
     "react-dom": "^0.14.7",
