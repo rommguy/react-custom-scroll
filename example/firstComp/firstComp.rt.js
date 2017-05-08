@@ -1,7 +1,7 @@
 'use strict';
 var React = require('react');
 var _ = require('lodash');
-var customScroll = require('../../dist/reactCustomScroll');
+var customScroll = require('../../src/main/customScroll');
 module.exports = function () {
     function repeatContent1(exampleTypes, content, contentIndex) {
         return React.createElement('div', {

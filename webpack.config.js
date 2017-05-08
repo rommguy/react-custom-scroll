@@ -1,5 +1,6 @@
 'use strict';
-var path = require('path');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = [{
     entry: ['./src/main/customScroll'],
@@ -25,6 +26,11 @@ module.exports = [{
             }
         }]
     },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: false
+        })
+    ],
     // devtool: 'source-map',
     externals: {
         react: 'react',
@@ -43,17 +49,24 @@ module.exports = [{
     },
     module: {
         loaders: [{
-            loader: 'babel-loader',
-            test: /\.js$/,
-            include: [
-                path.resolve(__dirname, 'example')
-            ],
-            exclude: /\.rt/,
+            test: /\.js?/,
+            include: [path.resolve(__dirname, 'example'), path.resolve(__dirname, 'src')],
+            exclude: '*.rt',
+            loader: 'babel',
             query: {
                 presets: ['es2015', 'react']
             }
         }]
     },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true
+        })
+    ],
     devtool: 'source-map',
-    externals: {}
+    externals: {
+        react: 'react',
+        'react-dom': 'react-dom',
+        lodash: 'lodash'
+    }
 }];
