@@ -65,8 +65,8 @@ module.exports = [{
     ],
     devtool: 'source-map',
     externals: {
-        react: 'react',
-        'react-dom': 'react-dom',
-        lodash: 'lodash'
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        lodash: '_'
     }
 }];
