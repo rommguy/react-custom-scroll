@@ -1,9 +1,8 @@
-define([
-    'react',
-    'lodash',
-    'customScroll'
-], function (React, _, customScroll) {
-    'use strict';
+'use strict';
+var React = require('react');
+var _ = require('lodash');
+var customScroll = require('../../dist/reactCustomScroll');
+module.exports = function () {
     function repeatContent1(exampleTypes, content, contentIndex) {
         return React.createElement('div', {
             'className': 'dynamic-content',
@@ -47,7 +46,5 @@ define([
             'onClick': this.removeContent
         }, 'Remove Content') : null) : null, React.createElement('div', { 'className': 'scroll-creator' }));
     }
-    return function () {
-        return scopeExampleTypes2.apply(this, []);
-    };
-});
+    return scopeExampleTypes2.apply(this, []);
+};

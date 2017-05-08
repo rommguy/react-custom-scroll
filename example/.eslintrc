@@ -1,6 +1,17 @@
 {
     "rules": {
-        "strict": [2, "function"],
+        "no-var": 2,
+        "prefer-arrow-callback": 0,
+        "no-confusing-arrow": 2,
+        "prefer-const": 2,
+        "no-const-assign": 2,
+        "prefer-spread": 0,
+        "prefer-template": 2,
+        "strict": [2, "global"],
+        "arrow-body-style": [2, "as-needed"],
+        "arrow-parens": [2, "as-needed"],
+        "arrow-spacing": [2, { "before": true, "after": true }],
+        "constructor-super": 2,
         "lodash/chaining": [2, "always"],
         "lodash/collection-method-value": 0,
         "lodash/consistent-compose": 0,

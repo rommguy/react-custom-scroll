@@ -5,7 +5,7 @@
   "main": "index",
   "scripts": {
     "test": "karma start --single-run",
-    "rtex": "rt -m amd example/firstComp/firstComp.rt -r --react-import-path react",
+    "rtex": "rt -r -m commonjs example/firstComp/firstComp.rt -r --react-import-path react -t 15.0.1",
     "sass": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > src/main/customScroll.css",
     "sassDist": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > dist/customScroll.css",
     "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
@@ -48,7 +48,7 @@
     "react": "^15.5.0",
     "react-addons-test-utils": "15.5.1",
     "react-dom": "^15.5.4",
-    "react-templates": "^0.4.1",
+    "react-templates": "^0.5.4",
     "style-loader": "0.13.1",
     "webpack": "^1.12.13"
   },

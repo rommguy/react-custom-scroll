@@ -1,4 +1,4 @@
-<rt-require dependency="customScroll" as="customScroll"/>
+<rt-require dependency="../../dist/reactCustomScroll" as="customScroll"/>
 <div class="example-wrapper" rt-scope="this.getExamplesToDisplay() as exampleTypes">
     <div rt-if="exampleTypes.standard" key="native-example"  class="container native-scroll">
         <label class="side-title">Native Scroll</label>
