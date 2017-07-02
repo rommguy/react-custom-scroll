@@ -62,7 +62,11 @@ class CustomScroll extends React.Component {
     }
 
     componentDidMount() {
-        this.forceUpdate();
+        if (typeof this.props.scrollTo !== 'undefined') {
+            this.updateScrollPosition(this.props.scrollTo);
+        } else {
+            this.forceUpdate();
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {

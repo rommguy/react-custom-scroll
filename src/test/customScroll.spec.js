@@ -395,6 +395,16 @@ describe('custom scroll', function () {
             expect(contentContainerNode.scrollTop).toEqual(scrollToValue);
         });
 
+        it('should work on first render', function () {
+            reactDOM.unmountComponentAtNode(this.customScrollContainer);
+
+            customScroll = renderCustomScroll(this.customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
+
+            const contentContainerNode = customScroll.refs.innerContainer;
+
+            expect(contentContainerNode.scrollTop).toEqual(scrollToValue);
+        });
+
         it('should allow scrolling away from position in props, as long as props are the same', () => {
             const innerContainer = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'inner-container');
             const initialHandlePos = customScroll.getScrollHandleStyle().top;
