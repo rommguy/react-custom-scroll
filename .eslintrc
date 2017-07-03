@@ -5,6 +5,7 @@
       2,
       "global"
     ],
+    "semi": 0,
     "no-extra-parens": 0,
     "no-throw-literal": 0
   },
