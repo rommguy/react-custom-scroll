@@ -72,8 +72,6 @@ class CustomScroll extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         const prevContentHeight = this.contentHeight
         const prevVisibleHeight = this.visibleHeight
-        const domNode = reactDOM.findDOMNode(this)
-        const boundingRect = domNode.getBoundingClientRect()
         const innerContainer = this.getScrolledElement()
         const reachedBottomOnPrevRender = prevState.scrollPos >= prevContentHeight - prevVisibleHeight
 
@@ -86,10 +84,7 @@ class CustomScroll extends React.Component {
 
         this.toggleScrollIfNeeded()
 
-        this.position = {
-            top: boundingRect.top + window.pageYOffset,
-            left: boundingRect.left + window.pageXOffset
-        }
+
 
         if (this.props.freezePosition || prevProps.freezePosition) {
             this.adjustFreezePosition(prevProps)
@@ -160,7 +155,10 @@ class CustomScroll extends React.Component {
     }
 
     calculateNewScrollHandleTop(clickEvent) {
-        const clickYRelativeToScrollbar = clickEvent.pageY - this.position.top
+        const domNode = reactDOM.findDOMNode(this)
+        const boundingRect = domNode.getBoundingClientRect()
+        const currentTop = boundingRect.top + window.pageYOffset
+        const clickYRelativeToScrollbar = clickEvent.pageY - currentTop
         const scrollHandleTop = this.getScrollHandleStyle().top
         let newScrollHandleTop
         const isBelowHandle = clickYRelativeToScrollbar > (scrollHandleTop + this.scrollHandleHeight)
