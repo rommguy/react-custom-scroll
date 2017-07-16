@@ -62,6 +62,8 @@ class CustomScroll extends React.Component {
     }
 
     componentDidMount() {
+        const innerContainer = this.getScrolledElement()
+        this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth
         if (typeof this.props.scrollTo !== 'undefined') {
             this.updateScrollPosition(this.props.scrollTo)
         } else {
@@ -76,7 +78,6 @@ class CustomScroll extends React.Component {
         const reachedBottomOnPrevRender = prevState.scrollPos >= prevContentHeight - prevVisibleHeight
 
         this.contentHeight = innerContainer.scrollHeight
-        this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth
         this.visibleHeight = innerContainer.clientHeight
         this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1
         const reachedBottomOnCurrentRender = this.state.scrollPos >= this.contentHeight - this.visibleHeight
