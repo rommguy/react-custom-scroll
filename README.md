@@ -66,6 +66,7 @@ This prop will override any value given to heightRelativeToParent when setting t
 - Check if you forgot to remove 'overflow' properties from the content root element.
 - If you're using JSX, make sure you use Pascal case and not camelCase \<CustomScroll\> and not \<customScroll\>.  
 starting with lower case causes JSX to treat the tag as a native dom element
+- Check that you have a height limit on the content root element (max-height)
 - Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.
 
 
