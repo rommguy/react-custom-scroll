@@ -69,6 +69,10 @@ class CustomScroll extends React.Component {
         }
     }
 
+    componentWillReceiveProps() {
+        this.externalRender = true;
+    }
+
     componentDidUpdate(prevProps, prevState) {
         const prevContentHeight = this.contentHeight
         const prevVisibleHeight = this.visibleHeight
@@ -79,21 +83,22 @@ class CustomScroll extends React.Component {
         this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth
         this.visibleHeight = innerContainer.clientHeight
         this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1
-        const reachedBottomOnCurrentRender = this.state.scrollPos >= this.contentHeight - this.visibleHeight
-        const contentResized = prevContentHeight !== this.contentHeight
 
         this.toggleScrollIfNeeded()
-
-
 
         if (this.props.freezePosition || prevProps.freezePosition) {
             this.adjustFreezePosition(prevProps)
         }
         if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
             this.updateScrollPosition(this.props.scrollTo)
-        } else if (this.props.keepAtBottom && contentResized && reachedBottomOnPrevRender && !reachedBottomOnCurrentRender) {
+        } else if (
+            this.props.keepAtBottom &&
+            this.externalRender &&
+            reachedBottomOnPrevRender
+        ) {
             this.updateScrollPosition(this.contentHeight - this.visibleHeight)
         }
+        this.externalRender = false
     }
 
     componentWillUnmount() {

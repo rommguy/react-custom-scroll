@@ -29,6 +29,7 @@
     "babel-loader": "6.2.4",
     "babel-preset-es2015": "6.13.2",
     "babel-preset-react": "6.11.1",
+    "create-react-class": "^15.6.2",
     "css-loader": "0.23.1",
     "eslint": "^3.6.11",
     "eslint-config-wix-editor": "^0.2.3",

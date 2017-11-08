@@ -6,8 +6,7 @@
     position: relative; }
     .custom-scroll .outer-container:hover .custom-scrollbar {
       opacity: 1;
-      -webkit-transition-duration: 0.2s;
-              transition-duration: 0.2s; }
+      transition-duration: 0.2s; }
   .custom-scroll .inner-container {
     overflow-x: hidden;
     overflow-y: scroll; }
@@ -18,15 +17,12 @@
       right: 0;
       left: 0;
       height: 0;
-      background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 60%, transparent 100%);
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 60%, transparent 100%);
       pointer-events: none;
-      -webkit-transition: height 0.1s ease-in;
       transition: height 0.1s ease-in;
       will-change: height; }
     .custom-scroll .inner-container.content-scrolled:after {
       height: 5px;
-      -webkit-transition: height 0.15s ease-out;
       transition: height 0.15s ease-out; }
   .custom-scroll.scroll-handle-dragged .inner-container {
     -webkit-user-select: none;
@@ -40,7 +36,6 @@
     right: 3px;
     opacity: 0;
     z-index: 1;
-    -webkit-transition: opacity 0.4s ease-out;
     transition: opacity 0.4s ease-out;
     padding: 6px 0;
     box-sizing: border-box;

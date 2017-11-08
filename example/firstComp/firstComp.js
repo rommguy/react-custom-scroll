@@ -1,5 +1,5 @@
 'use strict';
-const React = require('react');
+const createReactClass = require('create-react-class')
 const _ = require('lodash');
 const demoText = require('./demoText');
 const template = require('./firstComp.rt.js');
@@ -19,7 +19,7 @@ function getParameterByName(name) {
 }
 
 
-module.exports = React.createClass({
+module.exports = createReactClass({
     displayName: 'firstComp',
     getInitialState() {
         return {

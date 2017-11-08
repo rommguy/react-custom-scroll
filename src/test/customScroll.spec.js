@@ -6,35 +6,56 @@ var customScrollClass = require('../main/customScroll.js');
 
 describe('custom scroll', function () {
     'use strict';
+    let customScrollContainer;
 
     beforeEach(function () {
-        this.customScrollContainer = document.createElement('div');
-        this.customScrollContainer.id = 'testScrollContainer';
-        document.body.appendChild(this.customScrollContainer);
+        customScrollContainer = document.createElement('div');
+        customScrollContainer.id = 'testScrollContainer';
+        document.body.appendChild(customScrollContainer);
 
         this.totalScrollHeight = 200;
         this.visibleHeight = 100;
-        this.customScroll = renderCustomScroll(this.customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight);
+        this.customScroll = renderCustomScroll(customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight);
     });
 
     afterEach(function () {
-        document.body.removeChild(this.customScrollContainer);
+        reactDOM.unmountComponentAtNode(customScrollContainer);
+        document.body.removeChild(customScrollContainer);
     });
 
     function renderCustomScroll(container, props, visibleHeight, contentHeight) {
-        var scrolledContent = React.createElement('div', {
+        const scrolledContent = React.createElement('div', {
             style: {
                 height: contentHeight,
                 width: 50
             }
         });
-        var content = React.createElement('div', {
+        const content = React.createElement('div', {
             style: {
                 maxHeight: visibleHeight,
                 width: 50
             }
         }, scrolledContent);
-        var customScroll = reactDOM.render(React.createElement(customScrollClass, props, content), container);
+        const customScroll = reactDOM.render(React.createElement(customScrollClass, props, content), container);
+        customScroll.forceUpdate();
+        return customScroll;
+    }
+
+    function renderCustomScrollWithRepeatedContent(container, props, visibleHeight, contentArr) {
+        const scrolledContent = contentArr.map(item => React.createElement('div', {
+            style: {
+                height: item.height,
+                width: 50
+            },
+            key: item.key
+        }));
+        const content = React.createElement('div', {
+            style: {
+                maxHeight: visibleHeight,
+                width: 50
+            }
+        }, scrolledContent);
+        const customScroll = reactDOM.render(React.createElement(customScrollClass, props, content), container);
         customScroll.forceUpdate();
         return customScroll;
     }
@@ -100,7 +121,7 @@ describe('custom scroll', function () {
 
             it('should call onScroll callback from props if defined', function () {
                 var propsOnScroll = jasmine.createSpy('onScroll');
-                this.customScroll = renderCustomScroll(this.customScrollContainer, {
+                this.customScroll = renderCustomScroll(customScrollContainer, {
                     onScroll: propsOnScroll
                 }, this.visibleHeight, this.totalScrollHeight);
                 this.customScroll.forceUpdate();
@@ -135,7 +156,7 @@ describe('custom scroll', function () {
                 beforeEach(function () {
                     this.totalScrollHeight = 2000;
                     this.visibleHeight = 200;
-                    this.customScroll = renderCustomScroll(this.customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight);
+                    this.customScroll = renderCustomScroll(customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight);
                 });
 
                 it('should set the handle size to minimum default height', function () {
@@ -148,7 +169,7 @@ describe('custom scroll', function () {
                 });
 
                 it('should set the handle size to minimum height from props', function () {
-                    this.customScroll = renderCustomScroll(this.customScrollContainer, {
+                    this.customScroll = renderCustomScroll(customScrollContainer, {
                         minScrollHandleHeight: 50
                     }, this.visibleHeight, this.totalScrollHeight);
                     var scrollHandle = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, 'custom-scroll-handle');
@@ -169,7 +190,7 @@ describe('custom scroll', function () {
         beforeEach(function () {
             this.totalScrollHeight = 200;
             this.visibleHeight = 100;
-            this.customScroll = renderCustomScroll(this.customScrollContainer, {
+            this.customScroll = renderCustomScroll(customScrollContainer, {
                 freezePosition: true
             }, this.visibleHeight, this.totalScrollHeight);
         });
@@ -187,7 +208,7 @@ describe('custom scroll', function () {
     describe('heightRelativeToParent', function () {
         describe('when defined', function () {
             beforeEach(function () {
-                this.customScroll = renderCustomScroll(this.customScrollContainer, {
+                this.customScroll = renderCustomScroll(customScrollContainer, {
                     heightRelativeToParent: '70%'
                 }, this.visibleHeight, this.totalScrollHeight);
             });
@@ -206,7 +227,7 @@ describe('custom scroll', function () {
 
         describe('when not defined', function () {
             beforeEach(function () {
-                this.customScroll = renderCustomScroll(this.customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight);
+                this.customScroll = renderCustomScroll(customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight);
             });
 
             it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function () {
@@ -224,7 +245,7 @@ describe('custom scroll', function () {
 
     describe('flex size', function () {
         beforeEach(function () {
-            this.customScroll = renderCustomScroll(this.customScrollContainer, {
+            this.customScroll = renderCustomScroll(customScrollContainer, {
                 flex: '2'
             }, this.visibleHeight, this.totalScrollHeight);
         });
@@ -243,7 +264,7 @@ describe('custom scroll', function () {
 
     describe('Right to left support', function () {
         beforeEach(function () {
-            this.customScroll = renderCustomScroll(this.customScrollContainer, {
+            this.customScroll = renderCustomScroll(customScrollContainer, {
                 rtl: true
             }, this.visibleHeight, this.totalScrollHeight);
         });
@@ -261,7 +282,7 @@ describe('custom scroll', function () {
 
     describe('custom inner handle css class', function () {
         it('should replace the default class', function () {
-            this.customScroll = renderCustomScroll(this.customScrollContainer, {
+            this.customScroll = renderCustomScroll(customScrollContainer, {
                 handleClass: 'some-custom-class'
             }, this.visibleHeight, this.totalScrollHeight);
 
@@ -317,7 +338,7 @@ describe('custom scroll', function () {
         it('should do nothing if there is no scroll', function () {
             const contentHeight = 100;
             const visibleHeight = contentHeight + 100;
-            this.customScroll = renderCustomScroll(this.customScrollContainer, {}, visibleHeight, contentHeight);
+            this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, contentHeight);
 
             const yOnHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height / 2;
             const xInCustomScrollbar = this.scrollHandleLayout.left + this.scrollHandleLayout.width / 2;
@@ -385,7 +406,7 @@ describe('custom scroll', function () {
         let customScroll, scrollToValue, outerContainer;
         beforeEach(function () {
             scrollToValue = 10;
-            customScroll = renderCustomScroll(this.customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
+            customScroll = renderCustomScroll(customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
             outerContainer = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'outer-container');
         });
 
@@ -396,9 +417,9 @@ describe('custom scroll', function () {
         });
 
         it('should work on first render', function () {
-            reactDOM.unmountComponentAtNode(this.customScrollContainer);
+            reactDOM.unmountComponentAtNode(customScrollContainer);
 
-            customScroll = renderCustomScroll(this.customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
+            customScroll = renderCustomScroll(customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
 
             const contentContainerNode = customScroll.refs.innerContainer;
 
@@ -427,20 +448,20 @@ describe('custom scroll', function () {
             expect(innerContainer.scrollTop).toBeGreaterThan(initialScrollPos);
         });
     });
-    
+
     describe('keepAtBottom', function () {
         describe('when false', function () {
             it('should not scroll to bottom if the scroll is at the bottom', function () {
                 const contentContainerNode = this.customScroll.refs.innerContainer;
                 const expectedScrollTop = this.totalScrollHeight - this.visibleHeight;
-                
+
                 // scroll to bottom
-                renderCustomScroll(this.customScrollContainer, {scrollTo: this.totalScrollHeight}, this.visibleHeight, this.totalScrollHeight);
+                renderCustomScroll(customScrollContainer, {scrollTo: this.totalScrollHeight}, this.visibleHeight, this.totalScrollHeight);
 
                 expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
 
                 // add content                
-                renderCustomScroll(this.customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight + 500);
+                renderCustomScroll(customScrollContainer, {}, this.visibleHeight, this.totalScrollHeight + 500);
 
                 expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
             });
@@ -452,14 +473,14 @@ describe('custom scroll', function () {
                     const addedContentHeight = 500;
                     const contentContainerNode = this.customScroll.refs.innerContainer;
                     const expectedScrollTop = this.totalScrollHeight - this.visibleHeight + addedContentHeight;
-                    
+
                     // scroll to bottom
-                    renderCustomScroll(this.customScrollContainer, {scrollTo: this.totalScrollHeight}, this.visibleHeight, this.totalScrollHeight);
+                    renderCustomScroll(customScrollContainer, {scrollTo: this.totalScrollHeight}, this.visibleHeight, this.totalScrollHeight);
 
                     expect(contentContainerNode.scrollTop).toEqual(this.totalScrollHeight - this.visibleHeight);
 
                     // add content                
-                    renderCustomScroll(this.customScrollContainer, {keepAtBottom: true}, this.visibleHeight, this.totalScrollHeight + addedContentHeight);
+                    renderCustomScroll(customScrollContainer, {keepAtBottom: true}, this.visibleHeight, this.totalScrollHeight + addedContentHeight);
 
                     expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
                 });
@@ -470,9 +491,28 @@ describe('custom scroll', function () {
                     const initialScrollTop = contentContainerNode.scrollTop;
 
                     // add content                
-                    renderCustomScroll(this.customScrollContainer, {keepAtBottom: true}, this.visibleHeight, this.totalScrollHeight + addedContentHeight);
+                    renderCustomScroll(customScrollContainer, {keepAtBottom: true}, this.visibleHeight, this.totalScrollHeight + addedContentHeight);
 
                     expect(contentContainerNode.scrollTop).toEqual(initialScrollTop);
+                });
+            });
+
+            describe('when content is replaced, with the same size', () => {
+                it('should keep scroll at bottom', function () {
+                    const contentContainerNode = this.customScroll.refs.innerContainer;
+
+                    const content = [1, 2, 3, 4, 5, 6, 7, 8];
+                    const contentItems = content.map(index => ({key: index, height: 40}));
+                    const newContentItems = content.map(index => ({key: index + 1, height: 40}));
+
+                    // scroll to bottom
+                    renderCustomScrollWithRepeatedContent(customScrollContainer, {keepAtBottom: true, scrollTo: 1500}, 100, contentItems);
+                    const scrollPosAfterFirstRender = contentContainerNode.scrollTop;
+
+                    // replace content
+                    renderCustomScrollWithRepeatedContent(customScrollContainer, {keepAtBottom: true}, 100, newContentItems);
+
+                    expect(contentContainerNode.scrollTop).toEqual(scrollPosAfterFirstRender);
                 });
             });
 
@@ -482,17 +522,17 @@ describe('custom scroll', function () {
                     const expectedScrollTop = this.totalScrollHeight - this.visibleHeight;
 
                     // scroll to bottom
-                    renderCustomScroll(this.customScrollContainer, {scrollTo: this.totalScrollHeight}, this.visibleHeight, this.totalScrollHeight);
+                    renderCustomScroll(customScrollContainer, {scrollTo: this.totalScrollHeight}, this.visibleHeight, this.totalScrollHeight);
 
-                    expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);                    
+                    expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
 
-                    renderCustomScroll(this.customScrollContainer, {keepAtBottom: true}, this.visibleHeight, this.totalScrollHeight);
+                    renderCustomScroll(customScrollContainer, {keepAtBottom: true}, this.visibleHeight, this.totalScrollHeight);
 
                     expect(contentContainerNode.scrollTop).toEqual(expectedScrollTop);
                 });
 
                 it('should allow regular scroll', function () {
-                    this.customScroll = renderCustomScroll(this.customScrollContainer, {
+                    this.customScroll = renderCustomScroll(customScrollContainer, {
                         keepAtBottom: true,
                         scrollTo: this.totalScrollHeight
                     }, this.visibleHeight, this.totalScrollHeight);
