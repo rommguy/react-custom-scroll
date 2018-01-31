@@ -43,7 +43,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "1.7.0",
     "lodash": "^4.17.4",
-    "node-sass": "3.4.2",
+    "node-sass": "4.7.2",
     "postcss-cli": "2.5.1",
     "prop-types": "15.5.8",
     "react": "^15.5.0",
