@@ -1,7 +1,7 @@
-var React = require('react');
-var TestUtils = require('react-addons-test-utils');
-var reactDOM = require('react-dom');
-var customScrollClass = require('../main/customScroll.js');
+const React = require('react');
+const TestUtils = require('react-dom/test-utils')
+const reactDOM = require('react-dom');
+const customScrollClass = require('../main/customScroll.js');
 
 
 describe('custom scroll', function () {

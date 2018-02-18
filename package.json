@@ -46,9 +46,8 @@
     "node-sass": "4.7.2",
     "postcss-cli": "2.5.1",
     "prop-types": "15.5.8",
-    "react": "^15.5.0",
-    "react-addons-test-utils": "15.5.1",
-    "react-dom": "^15.5.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-templates": "^0.5.4",
     "style-loader": "0.13.1",
     "webpack": "^1.12.13"
