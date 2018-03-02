@@ -64,10 +64,14 @@ class CustomScroll extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onClick = this.onClick.bind(this)
     this.setCustomScrollbarRef = this.setCustomScrollbarRef.bind(this)
+    this.setRefElement = elmKey => element => {
+      if (element && !this[elmKey]) {
+        this[elmKey] = element
+      }
+    }
   }
 
   componentDidMount() {
-    this.mounted = true
     if (typeof this.props.scrollTo !== 'undefined') {
       this.updateScrollPosition(this.props.scrollTo)
     } else {
@@ -114,7 +118,7 @@ class CustomScroll extends React.Component {
 
   adjustFreezePosition(prevProps) {
     const innerContainer = this.getScrolledElement()
-    const contentWrapper = this.refs.contentWrapper
+    const contentWrapper = this.contentWrapper
 
     if (this.props.freezePosition) {
       contentWrapper.scrollTop = this.state.scrollPos
@@ -169,7 +173,10 @@ class CustomScroll extends React.Component {
   }
 
   isMouseEventOnScrollHandle(event) {
-    const scrollHandle = reactDOM.findDOMNode(this.refs.scrollHandle)
+    if (!this.scrollHandle) {
+      return false
+    }
+    const scrollHandle = reactDOM.findDOMNode(this.scrollHandle)
     return isEventPosOnDomNode(event, scrollHandle)
   }
 
@@ -219,7 +226,7 @@ class CustomScroll extends React.Component {
   }
 
   getScrolledElement() {
-    return this.refs.innerContainer
+    return this.innerContainer
   }
 
   onMouseDown(event) {
@@ -342,18 +349,18 @@ class CustomScroll extends React.Component {
               <div ref={this.setCustomScrollbarRef}
                    className={`custom-scrollbar${ this.props.rtl ? ' custom-scrollbar-rtl' : ''}`}
                    key="scrollbar">
-                <div ref="scrollHandle" className="custom-scroll-handle" style={scrollHandleStyle}>
+                <div ref={this.setRefElement('scrollHandle')} className="custom-scroll-handle" style={scrollHandleStyle}>
                   <div className={this.props.handleClass}></div>
                 </div>
               </div>
             </div>) : null}
-          <div ref="innerContainer"
+          <div ref={this.setRefElement('innerContainer')}
                className={this.getInnerContainerClasses()}
                style={scrollStyles.innerContainer}
                onScroll={this.onScroll}
                onWheel={this.blockOuterScroll}>
             <div className="content-wrapper"
-                 ref="contentWrapper"
+                 ref={this.setRefElement('contentWrapper')}
                  style={scrollStyles.contentWrapper}>
               {this.props.children}
             </div>

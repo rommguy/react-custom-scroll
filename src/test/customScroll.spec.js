@@ -78,7 +78,7 @@ describe('custom scroll', function () {
                 });
 
                 it('should position the inner container to the right with minus the size of the scrollbar', function () {
-                    var innerContainerStyle = this.customScroll.refs.innerContainer.style;
+                    var innerContainerStyle = this.customScroll.innerContainer.style;
 
                     expect(innerContainerStyle.marginRight).toEqual((-1 * this.nativeScrollWidth) + 'px');
                 });
@@ -99,7 +99,7 @@ describe('custom scroll', function () {
                 });
 
                 it('should position the inner container to the right with minus 20 pixels', function () {
-                    var innerContainerStyle = this.customScroll.refs.innerContainer.style;
+                    var innerContainerStyle = this.customScroll.innerContainer.style;
 
                     expect(innerContainerStyle.marginRight).toEqual('-20px');
                 });
@@ -109,7 +109,7 @@ describe('custom scroll', function () {
         describe('when scrolling content', function () {
             it('should update scroll handle position', function () {
                 var initialHandlePos = this.customScroll.getScrollHandleStyle().top;
-                var contentContainerNode = this.customScroll.refs.innerContainer;
+                var contentContainerNode = this.customScroll.innerContainer;
 
                 contentContainerNode.scrollTop = this.totalScrollHeight / 4;
                 TestUtils.Simulate.scroll(contentContainerNode);
@@ -125,7 +125,7 @@ describe('custom scroll', function () {
                     onScroll: propsOnScroll
                 }, this.visibleHeight, this.totalScrollHeight);
                 this.customScroll.forceUpdate();
-                var contentContainerNode = this.customScroll.refs.innerContainer;
+                var contentContainerNode = this.customScroll.innerContainer;
 
                 TestUtils.Simulate.scroll(contentContainerNode);
 
@@ -196,7 +196,7 @@ describe('custom scroll', function () {
         });
 
         it('should not scroll', function () {
-            var contentContainerNode = this.customScroll.refs.innerContainer;
+            var contentContainerNode = this.customScroll.innerContainer;
 
             contentContainerNode.scrollTop = this.totalScrollHeight / 4;
             TestUtils.Simulate.scroll(contentContainerNode);
@@ -215,8 +215,8 @@ describe('custom scroll', function () {
 
             it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function () {
                 var rootStyle = reactDOM.findDOMNode(this.customScroll).style;
-                var innerContainerStyle = this.customScroll.refs.innerContainer.style;
-                var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+                var innerContainerStyle = this.customScroll.innerContainer.style;
+                var contentWrapperStyle = this.customScroll.contentWrapper.style;
 
 
                 expect(rootStyle.height).toEqual('70%');
@@ -232,8 +232,8 @@ describe('custom scroll', function () {
 
             it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function () {
                 var rootStyle = reactDOM.findDOMNode(this.customScroll).style;
-                var innerContainerStyle = this.customScroll.refs.innerContainer.style;
-                var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+                var innerContainerStyle = this.customScroll.innerContainer.style;
+                var contentWrapperStyle = this.customScroll.contentWrapper.style;
 
 
                 expect(rootStyle.height).toBeFalsy();
@@ -252,8 +252,8 @@ describe('custom scroll', function () {
 
         it('should set value passed as flex on the root element, and 100% on other containers', function () {
             var rootStyle = reactDOM.findDOMNode(this.customScroll).style;
-            var innerContainerStyle = this.customScroll.refs.innerContainer.style;
-            var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+            var innerContainerStyle = this.customScroll.innerContainer.style;
+            var contentWrapperStyle = this.customScroll.contentWrapper.style;
 
 
             expect(rootStyle.flexGrow).toEqual('2');
@@ -271,8 +271,8 @@ describe('custom scroll', function () {
 
         it('should position the custom scrollbar on the left side of the content', function () {
             var customScrollbarStyle = window.getComputedStyle(this.customScroll.customScrollbarRef);
-            var innerContainerStyle = this.customScroll.refs.innerContainer.style;
-            var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
+            var innerContainerStyle = this.customScroll.innerContainer.style;
+            var contentWrapperStyle = this.customScroll.contentWrapper.style;
 
             expect(customScrollbarStyle.left).toEqual('3px');
             expect(innerContainerStyle.marginLeft).toEqual('-20px');
@@ -411,7 +411,7 @@ describe('custom scroll', function () {
         });
 
         it('should scroll content to required position', () => {
-            const contentContainerNode = customScroll.refs.innerContainer;
+            const contentContainerNode = customScroll.innerContainer;
 
             expect(contentContainerNode.scrollTop).toEqual(scrollToValue);
         });
@@ -421,7 +421,7 @@ describe('custom scroll', function () {
 
             customScroll = renderCustomScroll(customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
 
-            const contentContainerNode = customScroll.refs.innerContainer;
+            const contentContainerNode = customScroll.innerContainer;
 
             expect(contentContainerNode.scrollTop).toEqual(scrollToValue);
         });
@@ -452,7 +452,7 @@ describe('custom scroll', function () {
     describe('keepAtBottom', function () {
         describe('when false', function () {
             it('should not scroll to bottom if the scroll is at the bottom', function () {
-                const contentContainerNode = this.customScroll.refs.innerContainer;
+                const contentContainerNode = this.customScroll.innerContainer;
                 const expectedScrollTop = this.totalScrollHeight - this.visibleHeight;
 
                 // scroll to bottom
@@ -471,7 +471,7 @@ describe('custom scroll', function () {
             describe('when content is added', function () {
                 it('should automatically scroll to bottom if the scroll is at the bottom', function () {
                     const addedContentHeight = 500;
-                    const contentContainerNode = this.customScroll.refs.innerContainer;
+                    const contentContainerNode = this.customScroll.innerContainer;
                     const expectedScrollTop = this.totalScrollHeight - this.visibleHeight + addedContentHeight;
 
                     // scroll to bottom
@@ -487,7 +487,7 @@ describe('custom scroll', function () {
 
                 it('should not scroll to bottom if the scroll was not at the bottom', function () {
                     const addedContentHeight = 50;
-                    const contentContainerNode = this.customScroll.refs.innerContainer;
+                    const contentContainerNode = this.customScroll.innerContainer;
                     const initialScrollTop = contentContainerNode.scrollTop;
 
                     // add content                
@@ -499,7 +499,7 @@ describe('custom scroll', function () {
 
             describe('when content is replaced, with the same size', () => {
                 it('should keep scroll at bottom', function () {
-                    const contentContainerNode = this.customScroll.refs.innerContainer;
+                    const contentContainerNode = this.customScroll.innerContainer;
 
                     const content = [1, 2, 3, 4, 5, 6, 7, 8];
                     const contentItems = content.map(index => ({key: index, height: 40}));
@@ -518,7 +518,7 @@ describe('custom scroll', function () {
 
             describe('when content is the same', function () {
                 it('should not scroll to bottom if the scroll is at the bottom', function () {
-                    const contentContainerNode = this.customScroll.refs.innerContainer;
+                    const contentContainerNode = this.customScroll.innerContainer;
                     const expectedScrollTop = this.totalScrollHeight - this.visibleHeight;
 
                     // scroll to bottom
@@ -538,7 +538,7 @@ describe('custom scroll', function () {
                     }, this.visibleHeight, this.totalScrollHeight);
 
 
-                    var contentContainerNode = this.customScroll.refs.innerContainer;
+                    var contentContainerNode = this.customScroll.innerContainer;
                     contentContainerNode.scrollTop = 0;
 
                     TestUtils.Simulate.scroll(contentContainerNode);
