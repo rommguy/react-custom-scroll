@@ -8,7 +8,8 @@
     "semi": 0,
     "no-extra-parens": 0,
     "no-throw-literal": 0,
-    "indent": 0
+    "indent": 0,
+    "react/sort-comp": 2
   },
   "env": {
     "browser": true,

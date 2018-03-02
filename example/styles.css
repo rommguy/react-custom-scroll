@@ -357,8 +357,9 @@ th {
   min-height: 0;
   min-width: 0; }
   .custom-scroll .outer-container {
-    overflow: hidden;
-    position: relative; }
+    overflow: hidden; }
+    .custom-scroll .outer-container .positioning {
+      position: relative; }
     .custom-scroll .outer-container:hover .custom-scrollbar {
       opacity: 1;
       transition-duration: 0.2s; }
@@ -416,14 +417,12 @@ body {
   padding-top: 50px; }
 
 .example-wrapper {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
+  -ms-flex-pack: center;
+      justify-content: center; }
 
 .container {
   text-align: center;
@@ -480,13 +479,10 @@ body {
   background-size: cover; }
 
 .flex-scroll {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
   height: 400px; }
 
 .dynamic-content {

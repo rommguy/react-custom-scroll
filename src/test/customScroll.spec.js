@@ -270,7 +270,7 @@ describe('custom scroll', function () {
         });
 
         it('should position the custom scrollbar on the left side of the content', function () {
-            var customScrollbarStyle = window.getComputedStyle(this.customScroll.refs.customScrollbar);
+            var customScrollbarStyle = window.getComputedStyle(this.customScroll.customScrollbarRef);
             var innerContainerStyle = this.customScroll.refs.innerContainer.style;
             var contentWrapperStyle = this.customScroll.refs.contentWrapper.style;
 

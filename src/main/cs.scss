@@ -6,7 +6,10 @@
 
   .outer-container {
     overflow: hidden;
-    position: relative;
+
+    .positioning {
+      position: relative;
+    }
 
     &:hover .custom-scrollbar {
       opacity: 1;
