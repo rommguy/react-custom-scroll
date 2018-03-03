@@ -25,7 +25,7 @@ function isEventPosOnDomNode(event, domNode) {
 
 function isEventPosOnLayout(event, layout) {
   return (event.clientX > layout.left &&
-    event.clientX < layout.left + layout.width &&
+    event.clientX < layout.right &&
     event.clientY > layout.top &&
     event.clientY < layout.top + layout.height)
 }
@@ -160,15 +160,20 @@ class CustomScroll extends React.Component {
   }
 
   isMouseEventOnCustomScrollbar(event) {
-    const customScrollbar = reactDOM.findDOMNode(this)
-    const customScrollbarWidth = 6
-    const customScrollbarPos = 3
-
-    const nodeClientRect = customScrollbar.getBoundingClientRect().toJSON()
-    const customScrollbarLayout = Object.assign({}, nodeClientRect, {
-      left: nodeClientRect.left + nodeClientRect.width - customScrollbarWidth - customScrollbarPos,
-      right: nodeClientRect.left + nodeClientRect.width
-    })
+    if (!this.customScrollbarRef) {
+      return false;
+    }
+    const customScrollElm = reactDOM.findDOMNode(this)
+    const boundingRect = customScrollElm.getBoundingClientRect().toJSON()
+    const customScrollbarBoundingRect = this.customScrollbarRef.getBoundingClientRect()
+    const horizontalClickArea = this.props.rtl ? {
+      left: boundingRect.left,
+      right: customScrollbarBoundingRect.right
+    } : {
+      left: customScrollbarBoundingRect.left,
+      width: boundingRect.right
+    }
+    const customScrollbarLayout = Object.assign({}, boundingRect, horizontalClickArea)
     return isEventPosOnLayout(event, customScrollbarLayout)
   }
 
@@ -322,13 +327,10 @@ class CustomScroll extends React.Component {
 
     return result
   }
+
   setCustomScrollbarRef(elm) {
     if (elm && !this.customScrollbarRef) {
       this.customScrollbarRef = elm
-    }
-
-    if (this.hasScroll && !this.customScrollbarWidth) {
-      this.customScrollbarWidth = this.customScrollbarRef.offsetWidth
     }
   }
 
@@ -349,7 +351,9 @@ class CustomScroll extends React.Component {
               <div ref={this.setCustomScrollbarRef}
                    className={`custom-scrollbar${ this.props.rtl ? ' custom-scrollbar-rtl' : ''}`}
                    key="scrollbar">
-                <div ref={this.setRefElement('scrollHandle')} className="custom-scroll-handle" style={scrollHandleStyle}>
+                <div ref={this.setRefElement('scrollHandle')}
+                     className="custom-scroll-handle"
+                     style={scrollHandleStyle}>
                   <div className={this.props.handleClass}></div>
                 </div>
               </div>

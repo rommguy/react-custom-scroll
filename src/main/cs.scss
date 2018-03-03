@@ -1,5 +1,5 @@
 .custom-scroll {
-
+  $customScrollBarMargin: 3px;
   $scroll-margin-top: 6px;
   min-height: 0;
   min-width: 0;
@@ -47,7 +47,7 @@
     position: absolute;
     height: 100%;
     width: 6px;
-    right: 3px;
+    right: $customScrollBarMargin;
     opacity: 0;
     z-index: 1;
     transition: opacity 0.4s ease-out;
@@ -58,7 +58,7 @@
 
     &.custom-scrollbar-rtl {
       right: auto;
-      left: 3px;
+      left: $customScrollBarMargin;
     }
   }
 
