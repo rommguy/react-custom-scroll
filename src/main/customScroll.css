@@ -2,8 +2,9 @@
   min-height: 0;
   min-width: 0; }
   .custom-scroll .outer-container {
-    overflow: hidden;
-    position: relative; }
+    overflow: hidden; }
+    .custom-scroll .outer-container .positioning {
+      position: relative; }
     .custom-scroll .outer-container:hover .custom-scrollbar {
       opacity: 1;
       transition-duration: 0.2s; }
