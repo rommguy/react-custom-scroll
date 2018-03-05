@@ -346,8 +346,7 @@ class CustomScroll extends React.Component {
              style={this.getOuterContainerStyle()}
              onMouseDown={this.onMouseDown}
              onClick={this.onClick}>
-          {this.hasScroll ? (
-            <div className="positioning">
+          {this.hasScroll && (
               <div ref={this.setCustomScrollbarRef}
                    className={`custom-scrollbar${ this.props.rtl ? ' custom-scrollbar-rtl' : ''}`}
                    key="scrollbar">
@@ -356,8 +355,7 @@ class CustomScroll extends React.Component {
                      style={scrollHandleStyle}>
                   <div className={this.props.handleClass}></div>
                 </div>
-              </div>
-            </div>) : null}
+            </div>)}
           <div ref={this.setRefElement('innerContainer')}
                className={this.getInnerContainerClasses()}
                style={scrollStyles.innerContainer}

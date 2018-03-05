@@ -357,9 +357,9 @@ th {
   min-height: 0;
   min-width: 0; }
   .custom-scroll .outer-container {
-    overflow: hidden; }
-    .custom-scroll .outer-container .positioning {
-      position: relative; }
+    overflow: hidden;
+    position: relative;
+    transform: translateZ(0); }
     .custom-scroll .outer-container:hover .custom-scrollbar {
       opacity: 1;
       transition-duration: 0.2s; }
