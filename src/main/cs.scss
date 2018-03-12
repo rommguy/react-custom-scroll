@@ -6,8 +6,10 @@
 
   .outer-container {
     overflow: hidden;
-    position: relative;
-    transform: translateZ(0);
+
+    .positioning {
+      position: relative;
+    }
 
     &:hover .custom-scrollbar {
       opacity: 1;
@@ -19,7 +21,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
 
-    &:after {
+    &:after{
       content: '';
       position: absolute;
       top: 0;
