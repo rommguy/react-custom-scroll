@@ -6,6 +6,11 @@ Animations and scroll rate **exactly** like native scroll
 
 ##### See a [working demo](http://rommguy.github.io/react-custom-scroll/example/demo.html) ###
 
+## Installation
+```
+npm install react-custom-scroll --save
+```
+
 ### Why do I need this ?  
 - Same design on all browsers
 - Scrollbar is above the content instead of floating to the side - same layout on scrolled content as not scrolled content
