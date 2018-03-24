@@ -8,7 +8,7 @@ Animations and scroll rate **exactly** like native scroll
 
 ## Installation
 ```
-npm install react-custom-scroll --save
+npm i react-custom-scroll --save
 ```
 
 ### Why do I need this ?  
