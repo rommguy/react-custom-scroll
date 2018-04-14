@@ -46,16 +46,16 @@
     "node-sass": "4.7.2",
     "postcss-cli": "2.5.1",
     "prop-types": "15.5.8",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
     "react-templates": "^0.5.4",
     "style-loader": "0.13.1",
     "webpack": "^1.12.13"
   },
   "peerDependencies": {
+    "prop-types": "*",
     "react": "*",
-    "react-dom": "*",
-    "prop-types": "*"
+    "react-dom": "*"
   },
   "keywords": [
     "react",

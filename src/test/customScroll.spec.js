@@ -180,10 +180,6 @@ describe('custom scroll', function () {
         });
       });
     });
-
-    describe('scroll handle position', function () {
-
-    });
   });
 
   describe('freeze position', function () {
@@ -451,10 +447,12 @@ describe('custom scroll', function () {
   });
 
   describe('scrollTo', function () {
-    let customScroll, scrollToValue, outerContainer;
+    let customScroll, scrollToValue, outerContainer, visibleHeight, totalScrollHeight;
     beforeEach(function () {
       scrollToValue = 10;
-      customScroll = renderCustomScroll(customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
+      visibleHeight = this.visibleHeight;
+      totalScrollHeight = this.totalScrollHeight;
+      customScroll = renderCustomScroll(customScrollContainer, {scrollTo: scrollToValue}, visibleHeight, totalScrollHeight);
       outerContainer = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'outer-container');
     });
 
@@ -467,7 +465,7 @@ describe('custom scroll', function () {
     it('should work on first render', function () {
       reactDOM.unmountComponentAtNode(customScrollContainer);
 
-      customScroll = renderCustomScroll(customScrollContainer, {scrollTo: scrollToValue}, this.visibleHeight, this.totalScrollHeight);
+      customScroll = renderCustomScroll(customScrollContainer, {scrollTo: scrollToValue}, visibleHeight, totalScrollHeight);
 
       const contentContainerNode = customScroll.innerContainer;
 
@@ -492,9 +490,25 @@ describe('custom scroll', function () {
 
       TestUtils.Simulate.click(outerContainer, clickPosition);
 
-      expect(customScroll.getScrollHandleStyle().top).toEqual(initialHandlePos + scrollHandleLayout.height);
+      expect(customScroll.getScrollHandleStyle().top).toBeGreaterThan(initialHandlePos);
       expect(innerContainer.scrollTop).toBeGreaterThan(initialScrollPos);
     });
+
+    it('should limit the top position of the scroll handle to visible area', () => {
+      customScroll = renderCustomScroll(customScrollContainer, {scrollTo: -1000}, visibleHeight, totalScrollHeight);
+
+      const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'custom-scroll-handle');
+
+      expect(scrollHandle.offsetTop).toEqual(0);
+    })
+
+    it('should limit the bottom position of the scroll handle to visible area', () => {
+      customScroll = renderCustomScroll(customScrollContainer, {scrollTo: 5000}, visibleHeight, totalScrollHeight);
+
+      const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScroll, 'custom-scroll-handle');
+
+      expect(scrollHandle.offsetTop).toEqual(visibleHeight - scrollHandle.offsetHeight);
+    })
   });
 
   describe('keepAtBottom', function () {

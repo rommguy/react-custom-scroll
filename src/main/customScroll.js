@@ -30,23 +30,6 @@ function isEventPosOnLayout(event, layout) {
     event.clientY < layout.top + layout.height)
 }
 
-function enforceMinHandleHeight(calculatedStyle) {
-  const minHeight = this.props.minScrollHandleHeight
-  if (calculatedStyle.height >= minHeight) {
-    return calculatedStyle
-  }
-
-  const diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height
-  const scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight)
-  const scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio
-  const handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight
-
-  return {
-    height: minHeight,
-    top: handlePosition
-  }
-}
-
 class CustomScroll extends React.Component {
   constructor(props) {
     super(props)
@@ -143,9 +126,10 @@ class CustomScroll extends React.Component {
 
   updateScrollPosition(scrollValue) {
     const innerContainer = this.getScrolledElement()
-    innerContainer.scrollTop = scrollValue
+    const updatedScrollTop = ensureWithinLimits(scrollValue, 0, this.contentHeight - this.visibleHeight)
+    innerContainer.scrollTop = updatedScrollTop
     this.setState({
-      scrollPos: scrollValue
+      scrollPos: updatedScrollTop
     })
   }
 
@@ -328,6 +312,23 @@ class CustomScroll extends React.Component {
     return result
   }
 
+  enforceMinHandleHeight(calculatedStyle) {
+    const minHeight = this.props.minScrollHandleHeight
+    if (calculatedStyle.height >= minHeight) {
+      return calculatedStyle
+    }
+
+    const diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height
+    const scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight)
+    const scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio
+    const handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight
+
+    return {
+      height: minHeight,
+      top: handlePosition
+    }
+  }
+
   setCustomScrollbarRef(elm) {
     if (elm && !this.customScrollbarRef) {
       this.customScrollbarRef = elm
@@ -337,7 +338,7 @@ class CustomScroll extends React.Component {
   render() {
     const scrollStyles = this.getScrollStyles()
     const rootStyle = this.getRootStyles()
-    const scrollHandleStyle = enforceMinHandleHeight.call(this, this.getScrollHandleStyle())
+    const scrollHandleStyle = this.enforceMinHandleHeight(this.getScrollHandleStyle())
 
     return (
       <div className={`custom-scroll ${ this.state.onDrag ? 'scroll-handle-dragged' : ''}`}
