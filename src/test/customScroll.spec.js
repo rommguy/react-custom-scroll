@@ -79,7 +79,7 @@ describe('custom scroll', function () {
         it('should position the inner container to the right with minus the size of the scrollbar', function () {
           const innerContainerStyle = this.customScroll.innerContainer.style;
 
-          expect(innerContainerStyle.marginRight).toEqual((-1 * this.nativeScrollWidth) + 'px');
+          expect(innerContainerStyle.marginRight).toEqual(`${-1 * this.nativeScrollWidth  }px`);
         });
       });
 

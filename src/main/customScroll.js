@@ -1,5 +1,7 @@
-const React = require('react')
-const reactDOM = require('react-dom')
+import React, {Component} from 'react'
+import reactDOM from 'react-dom'
+import './cs.scss'
+
 
 function ensureWithinLimits(value, min, max) {
   min = (!min && min !== 0) ? value : min
@@ -29,7 +31,7 @@ function isEventPosOnLayout(event, layout) {
     event.clientY < layout.top + layout.height)
 }
 
-class CustomScroll extends React.Component {
+class CustomScroll extends Component {
   constructor(props) {
     super(props)
 
@@ -278,14 +280,14 @@ class CustomScroll extends React.Component {
     const scrollSize = this.scrollbarYWidth || 20
     const marginKey = this.props.rtl ? 'marginLeft' : 'marginRight'
     const innerContainerStyle = {
-      [marginKey]: (-1 * scrollSize),
       height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
     }
+    innerContainerStyle[marginKey] = -1 * scrollSize
     const contentWrapperStyle = {
-      [marginKey]: this.scrollbarYWidth ? 0 : scrollSize,
       height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
       overflowY: this.props.freezePosition ? 'hidden' : 'visible'
     }
+    contentWrapperStyle[marginKey] = this.scrollbarYWidth ? 0 : scrollSize
 
     return {
       innerContainer: innerContainerStyle,
@@ -354,7 +356,7 @@ class CustomScroll extends React.Component {
                 <div ref={this.setRefElement('scrollHandle')}
                      className="custom-scroll-handle"
                      style={scrollHandleStyle}>
-                  <div className={this.props.handleClass}></div>
+                  <div className={this.props.handleClass}/>
                 </div>
               </div>
             </div>) : null}

@@ -1,12 +1,8 @@
 {
-    "rules": {
-        "strict": [2, "function"]
-    },
-    "env": {
-        "amd": true,
-        "jasmine": true
-    },
-    "globals": {
-        "requirejs": true
-    }
+  "env": {
+    "jasmine": true
+  },
+  "rules": {
+    "prefer-arrow-callback": 0
+  }
 }

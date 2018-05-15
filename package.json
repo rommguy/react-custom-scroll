@@ -9,7 +9,7 @@
     "sassDist": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > dist/customScroll.css",
     "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
     "lint": "eslint ./src && eslint ./example/firstComp",
-    "start": "npm run lint && npm run sass && npm run sassDist && npm run sassex && npm run buildExample && webpack",
+    "start": "npm run lint && npm run sass && npm run sassDist && npm run sassex && webpack && npm run buildExample",
     "buildExample": "webpack --config webpack.example.js"
   },
   "repository": {
@@ -31,15 +31,15 @@
     "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "6.13.2",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "create-react-class": "^15.6.2",
-    "css-loader": "0.23.1",
+    "css-loader": "^0.28.11",
     "eslint": "^3.6.11",
     "eslint-plugin-lodash": "2.2.5",
     "eslint-plugin-react": "^6.10.0",
+    "extract-text-webpack-plugin": "4.0.0-beta.0",
     "jasmine": "2.4.1",
     "jasmine-core": "2.4.1",
     "karma": "0.13.21",
@@ -53,8 +53,10 @@
     "prop-types": "15.5.8",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "style-loader": "0.13.1",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
     "webpack": "^4.8.3",
+    "webpack-bundle-analyzer": "^2.12.0",
     "webpack-cli": "^2.1.3"
   },
   "peerDependencies": {

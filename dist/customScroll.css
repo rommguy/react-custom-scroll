@@ -26,10 +26,7 @@
       height: 5px;
       transition: height 0.15s ease-out; }
   .custom-scroll.scroll-handle-dragged .inner-container {
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none; }
+    user-select: none; }
   .custom-scroll .custom-scrollbar {
     position: absolute;
     height: 100%;
