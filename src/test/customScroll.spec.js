@@ -5,7 +5,6 @@ const customScrollClass = require('../main/customScroll.js');
 
 
 describe('custom scroll', function () {
-  'use strict';
   let customScrollContainer;
 
   beforeEach(function () {

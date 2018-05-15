@@ -1,38 +1,59 @@
 {
-    "rules": {
-        "no-var": 2,
-        "prefer-arrow-callback": 0,
-        "no-confusing-arrow": 2,
-        "prefer-const": 2,
-        "no-const-assign": 2,
-        "prefer-spread": 0,
-        "prefer-template": 2,
-        "strict": [2, "global"],
-        "arrow-body-style": [2, "as-needed"],
-        "arrow-parens": [2, "as-needed"],
-        "arrow-spacing": [2, { "before": true, "after": true }],
-        "constructor-super": 2,
-        "lodash/chaining": [2, "always"],
-        "lodash/collection-method-value": 0,
-        "lodash/consistent-compose": 0,
-        "lodash/no-commit": 0,
-        "lodash/path-style": 0,
-        "lodash/prefer-constant": 0,
-        "lodash/prefer-filter": 0,
-        "lodash/prefer-lodash-method": 0,
-        "lodash/prefer-lodash-typecheck": 0,
-        "lodash/prefer-map": 0,
-        "lodash/prefer-matches": 0,
-        "lodash/prefer-noop": 0,
-        "lodash/prefer-startswith": 0
-    },
-    "plugins": [
-        "lodash"
+  "rules": {
+    "no-var": 2,
+    "prefer-arrow-callback": 2,
+    "no-confusing-arrow": 2,
+    "prefer-const": 2,
+    "no-const-assign": 2,
+    "prefer-spread": 0,
+    "prefer-template": 2,
+    "arrow-body-style": [
+      2,
+      "as-needed"
     ],
-    "env": {
-        "amd": true
-    },
-    "globals": {
-        "requirejs": true
+    "arrow-parens": [
+      2,
+      "as-needed"
+    ],
+    "arrow-spacing": [
+      2,
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "constructor-super": 2,
+    "sort-imports": 0,
+    "no-unused-vars": [2, { "varsIgnorePattern": "React$" }],
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+    "react/display-name": 2,
+    "react/no-danger": 2,
+    "react/no-did-mount-set-state": 2,
+    "react/no-did-update-set-state": 2,
+    "react/no-unknown-property": 2,
+    "react/prop-types": [2, {
+      "ignore": [
+        "children"
+      ]
+    }],
+    "react/no-unused-prop-types": 2,
+    "react/sort-comp": 2,
+    "react/self-closing-comp": 2,
+    "react/jsx-wrap-multilines": 2,
+    "react/jsx-key": 2,
+    "react/jsx-pascal-case": 2
+  },
+  "plugins": [
+    "lodash"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "classes": true
     }
+  }
 }

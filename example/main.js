@@ -1,7 +1,6 @@
-'use strict';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {FirstComp} from './firstComp/firstComp'
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const firstComp = require('./firstComp/firstComp');
+ReactDOM.render(React.createElement(FirstComp), document.getElementById('body'));
 
-ReactDOM.render(React.createElement(firstComp), document.getElementById('body'));
