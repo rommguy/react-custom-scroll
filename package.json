@@ -5,12 +5,10 @@
   "main": "index",
   "scripts": {
     "test": "karma start --single-run",
-    "sass": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > src/main/customScroll.css",
-    "sassDist": "node-sass src/main/cs.scss | postcss --use autoprefixer -b 'last 2 versions' > dist/customScroll.css",
     "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
     "lint": "eslint ./src && eslint ./example/firstComp",
-    "start": "npm run lint && npm run sass && npm run sassDist && npm run sassex && webpack && npm run buildExample",
-    "buildExample": "webpack --config webpack.example.js"
+    "build": "npm run lint && npm run sassex && webpack",
+    "develop": "webpack --watch --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
