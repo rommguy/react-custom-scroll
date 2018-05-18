@@ -1,8 +1,8 @@
-const React = require('react');
-const TestUtils = require('react-dom/test-utils')
-const reactDOM = require('react-dom');
-const customScrollClass = require('../main/customScroll.js');
-
+import React from 'react'
+import TestUtils from 'react-dom/test-utils'
+import reactDOM from 'react-dom'
+import CustomScroll from '../main/customScroll.js'
+import '../main/cs.scss'
 
 describe('custom scroll', function () {
   let customScrollContainer;
@@ -35,7 +35,7 @@ describe('custom scroll', function () {
         width: 50
       }
     }, scrolledContent);
-    const customScroll = reactDOM.render(React.createElement(customScrollClass, props, content), container);
+    const customScroll = reactDOM.render(React.createElement(CustomScroll, props, content), container);
     customScroll.forceUpdate();
     return customScroll;
   }
@@ -54,7 +54,7 @@ describe('custom scroll', function () {
         width: 50
       }
     }, scrolledContent);
-    const customScroll = reactDOM.render(React.createElement(customScrollClass, props, content), container);
+    const customScroll = reactDOM.render(React.createElement(CustomScroll, props, content), container);
     customScroll.forceUpdate();
     return customScroll;
   }

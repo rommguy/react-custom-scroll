@@ -1,42 +1,50 @@
-'use strict';
-var path = require('path');
+module.exports = config => {
+  config.set({
+    browsers: ['Chrome'],
+    frameworks: ['jasmine'],
+    singleRun: false,
+    reporters: ['dots'], //report results in this format
+    files: [
+      {pattern: 'src/test/*.spec.js', watched: false}
+      // each file acts as entry point for the webpack configuration
+    ],
 
-module.exports = function (config) {
-    config.set({
-        browsers: ['Chrome'],
-        frameworks: ['jasmine'],
-        plugins: [
-            'karma-chrome-launcher',
-            'karma-jasmine',
-            'karma-webpack',
-            'karma-sourcemap-loader'
-        ],
-        files: [
-            'tests.webpack.js' //just load this file
-        ],
-        preprocessors: {
-            'tests.webpack.js': ['webpack', 'sourcemap']
-        },
-        singleRun: false,
-        reporters: ['dots'], //report results in this format
-        webpack: { //kind of a copy of your webpack config
-            devtool: 'inline-source-map',
-            module: {
-                loaders: [{
-                    loader: 'babel-loader',
-                    test: /\.js$/,
-                    include: [
-                        path.resolve(__dirname, 'src/main')
-                    ],
-                    query: {
-                        presets: ['react']
-                    }},
-                    {test: /\.css$/, loader: 'style-loader!css-loader'}
-                ]
+    preprocessors: {
+      // add webpack as preprocessor
+      'src/test/*.spec.js': ['webpack']
+    },
+
+    webpack: {
+      mode: 'development',
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+              loader: 'babel-loader'
             }
-        },
-        webpackServer: {
-            noInfo: true //please don't spam the console when running in karma!
-        }
-    });
-};
+          },
+          {
+            test: /\.scss$/,
+            use: [
+              {
+                loader: 'style-loader'
+              }, {
+                loader: 'css-loader'
+              }, {
+                loader: 'sass-loader'
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    webpackMiddleware: {
+      // webpack-dev-middleware configuration
+      // i. e.
+      stats: 'errors-only'
+    }
+  })
+}
