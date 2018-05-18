@@ -123,7 +123,7 @@ min-height and min-width are required since flex won't shrink below it's minimum
 
 
 ### Contributing
-To build the project in watch mode, run 'npm run develop or yarn develop'.  
+To build the project in watch mode, run 'npm run develop' or 'yarn develop'.  
 For production build - run yarn build .   
 
 ### Tests
