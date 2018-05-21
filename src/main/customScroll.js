@@ -41,13 +41,6 @@ class CustomScroll extends Component {
       onDrag: false
     }
 
-    this.onHandleDrag = this.onHandleDrag.bind(this)
-    this.onHandleDragEnd = this.onHandleDragEnd.bind(this)
-    this.blockOuterScroll = this.blockOuterScroll.bind(this)
-    this.onScroll = this.onScroll.bind(this)
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onClick = this.onClick.bind(this)
-    this.setCustomScrollbarRef = this.setCustomScrollbarRef.bind(this)
     this.setRefElement = elmKey => element => {
       if (element && !this[elmKey]) {
         this[elmKey] = element
@@ -134,7 +127,7 @@ class CustomScroll extends Component {
     })
   }
 
-  onClick(event) {
+  onClick = event => {
     if (!this.hasScroll || !this.isMouseEventOnCustomScrollbar(event) || this.isMouseEventOnScrollHandle(event)) {
       return
     }
@@ -205,7 +198,7 @@ class CustomScroll extends Component {
     })
   }
 
-  onScroll(event) {
+  onScroll = event => {
     if (this.props.freezePosition) {
       return
     }
@@ -219,7 +212,7 @@ class CustomScroll extends Component {
     return this.innerContainer
   }
 
-  onMouseDown(event) {
+  onMouseDown = event => {
     if (!this.hasScroll || !this.isMouseEventOnScrollHandle(event)) {
       return
     }
@@ -233,7 +226,7 @@ class CustomScroll extends Component {
     document.addEventListener('mouseup', this.onHandleDragEnd)
   }
 
-  onHandleDrag(event) {
+  onHandleDrag = event => {
     event.preventDefault()
     const mouseDeltaY = event.pageY - this.startDragMousePos
     const handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight)
@@ -241,7 +234,7 @@ class CustomScroll extends Component {
     this.updateScrollPosition(newScrollValue)
   }
 
-  onHandleDragEnd(e) {
+  onHandleDragEnd = e => {
     this.setState({
       onDrag: false
     })
@@ -250,7 +243,7 @@ class CustomScroll extends Component {
     document.removeEventListener('mouseup', this.onHandleDragEnd)
   }
 
-  blockOuterScroll(e) {
+  blockOuterScroll = e => {
     if (this.props.allowOuterScroll) {
       return
     }
@@ -330,7 +323,7 @@ class CustomScroll extends Component {
     }
   }
 
-  setCustomScrollbarRef(elm) {
+  setCustomScrollbarRef = elm => {
     if (elm && !this.customScrollbarRef) {
       this.customScrollbarRef = elm
     }
