@@ -54,6 +54,7 @@ class CustomScroll extends Component {
     } else {
       this.forceUpdate()
     }
+    window.addEventListener('resize', this.toggleScrollIfNeeded)
   }
 
   componentWillReceiveProps() {
@@ -63,13 +64,7 @@ class CustomScroll extends Component {
   componentDidUpdate(prevProps, prevState) {
     const prevContentHeight = this.contentHeight
     const prevVisibleHeight = this.visibleHeight
-    const innerContainer = this.getScrolledElement()
     const reachedBottomOnPrevRender = prevState.scrollPos >= prevContentHeight - prevVisibleHeight
-
-    this.contentHeight = innerContainer.scrollHeight
-    this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth
-    this.visibleHeight = innerContainer.clientHeight
-    this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1
 
     this.toggleScrollIfNeeded()
 
@@ -91,6 +86,7 @@ class CustomScroll extends Component {
   componentWillUnmount() {
     document.removeEventListener('mousemove', this.onHandleDrag)
     document.removeEventListener('mouseup', this.onHandleDragEnd)
+    window.removeEventListener('resize', this.toggleScrollIfNeeded)
   }
 
   adjustFreezePosition(prevProps) {
@@ -106,7 +102,13 @@ class CustomScroll extends Component {
     }
   }
 
-  toggleScrollIfNeeded() {
+  toggleScrollIfNeeded = () => {
+    const innerContainer = this.getScrolledElement()
+    this.contentHeight = innerContainer.scrollHeight
+    this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth
+    this.visibleHeight = innerContainer.clientHeight
+    this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1
+
     const shouldHaveScroll = this.contentHeight - this.visibleHeight > 1
     if (this.hasScroll !== shouldHaveScroll) {
       this.hasScroll = shouldHaveScroll
