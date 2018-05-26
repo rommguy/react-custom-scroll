@@ -29,6 +29,9 @@ module.exports = [{
       }
     ]
   },
+  resolve: {
+    modules: [path.resolve(__dirname, "src/main"), "node_modules"]
+  },
   plugins: [
     // new BundleAnalyzerPlugin(),
     new ExtractTextPlugin('customScroll.css')

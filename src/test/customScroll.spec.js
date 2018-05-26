@@ -1,7 +1,7 @@
 import React from 'react'
 import TestUtils from 'react-dom/test-utils'
 import reactDOM from 'react-dom'
-import CustomScroll from '../main/customScroll.js'
+import CustomScroll from 'customScroll.js'
 import '../main/cs.scss'
 
 describe('custom scroll', function () {

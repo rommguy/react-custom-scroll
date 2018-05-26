@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = config => {
   config.set({
     browsers: ['Chrome'],
@@ -38,6 +40,9 @@ module.exports = config => {
             ]
           }
         ]
+      },
+      resolve: {
+        modules: [path.resolve(__dirname, "src/main"), "node_modules"]
       }
     },
 
