@@ -142,7 +142,7 @@ class CustomScroll extends Component {
       return false;
     }
     const customScrollElm = reactDOM.findDOMNode(this)
-    const boundingRect = customScrollElm.getBoundingClientRect().toJSON()
+    const boundingRect = customScrollElm.getBoundingClientRect()
     const customScrollbarBoundingRect = this.customScrollbarRef.getBoundingClientRect()
     const horizontalClickArea = this.props.rtl ? {
       left: boundingRect.left,
@@ -151,7 +151,12 @@ class CustomScroll extends Component {
       left: customScrollbarBoundingRect.left,
       width: boundingRect.right
     }
-    const customScrollbarLayout = Object.assign({}, boundingRect, horizontalClickArea)
+    const customScrollbarLayout = Object.assign({}, {
+      left: boundingRect.left,
+      right: boundingRect.right,
+      top: boundingRect.top,
+      height: boundingRect.height
+    }, horizontalClickArea)
     return isEventPosOnLayout(event, customScrollbarLayout)
   }
 
