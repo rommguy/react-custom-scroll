@@ -1,23 +1,25 @@
-.custom-scroll {
+.rcs {
   $customScrollBarMargin: 3px;
   $scroll-margin-top: 6px;
   min-height: 0;
   min-width: 0;
 
-  .outer-container {
+  .rcs-outer-container {
     overflow: hidden;
 
-    .positioning {
-      position: relative;
+    .rcs-positioning {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
     }
 
-    &:hover .custom-scrollbar {
+    &:hover .rcs-custom-scrollbar.rcs-scrollbar-hide {
       opacity: 1;
-      transition-duration: 0.2s;
     }
   }
 
-  .inner-container {
+  .rcs-inner-container {
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -33,46 +35,49 @@
       transition: height 0.1s ease-in;
       will-change: height;
     }
-    &.content-scrolled:after {
+    &.rcs-content-scrolled:after {
       height: 5px;
       transition: height 0.15s ease-out;
     }
   }
 
-  &.scroll-handle-dragged .inner-container {
+  &.rcs-scroll-handle-dragged .rcs-inner-container {
     user-select: none;
   }
 
-  .custom-scrollbar {
+  .rcs-custom-scrollbar {
     position: absolute;
     height: 100%;
-    width: 6px;
+    width: 6x;
     right: $customScrollBarMargin;
-    opacity: 0;
     z-index: 1;
-    transition: opacity 0.4s ease-out;
-    padding: 6px 0;
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none;
 
-    &.custom-scrollbar-rtl {
+    &.rcs-scrollbar-hide {
+      transition: opacity 0.4s ease-out;
+      opacity: 0;
+      transition-duration: 0.2s;
+    }
+
+    &.rcs-custom-scrollbar-rtl {
       right: auto;
       left: $customScrollBarMargin;
     }
   }
 
-  &.scroll-handle-dragged .custom-scrollbar {
+  &.rcs-scroll-handle-dragged .rcs-custom-scrollbar {
     opacity: 1;
   }
 
-  .custom-scroll-handle {
+  .rcs-custom-scroll-handle {
     position: absolute;
     width: 100%;
     top: 0;
   }
 
-  .inner-handle {
+  .rcs-inner-handle {
     height: calc(100% - #{2 * $scroll-margin-top});
     margin-top: $scroll-margin-top;
     background-color: rgba(#4eb7f5, 0.7);

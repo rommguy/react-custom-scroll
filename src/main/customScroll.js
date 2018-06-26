@@ -1,58 +1,57 @@
-import React, {Component} from 'react'
-import reactDOM from 'react-dom'
-import './cs.scss'
-
+import React, { Component } from 'react';
+import reactDOM from 'react-dom';
+import './cs.scss';
 
 function ensureWithinLimits(value, min, max) {
-  min = (!min && min !== 0) ? value : min
-  max = (!max && max !== 0) ? value : max
+  min = (!min && min !== 0) ? value : min;
+  max = (!max && max !== 0) ? value : max;
   if (min > max) {
-    console.error('min limit is greater than max limit')
-    return value
+    console.error('min limit is greater than max limit');
+    return value;
   }
   if (value < min) {
-    return min
+    return min;
   }
   if (value > max) {
-    return max
+    return max;
   }
-  return value
+  return value;
 }
 
 function isEventPosOnDomNode(event, domNode) {
-  const nodeClientRect = domNode.getBoundingClientRect()
-  return isEventPosOnLayout(event, nodeClientRect)
+  const nodeClientRect = domNode.getBoundingClientRect();
+  return isEventPosOnLayout(event, nodeClientRect);
 }
 
 function isEventPosOnLayout(event, layout) {
   return (event.clientX > layout.left &&
     event.clientX < layout.right &&
     event.clientY > layout.top &&
-    event.clientY < layout.top + layout.height)
+    event.clientY < layout.top + layout.height);
 }
 
 class CustomScroll extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.scrollbarYWidth = 0
+    this.scrollbarYWidth = 0;
     this.state = {
       scrollPos: 0,
-      onDrag: false
-    }
+      onDrag: false,
+    };
 
     this.setRefElement = elmKey => element => {
       if (element && !this[elmKey]) {
-        this[elmKey] = element
+        this[elmKey] = element;
       }
-    }
+    };
   }
 
   componentDidMount() {
     if (typeof this.props.scrollTo !== 'undefined') {
-      this.updateScrollPosition(this.props.scrollTo)
+      this.updateScrollPosition(this.props.scrollTo);
     } else {
-      this.forceUpdate()
+      this.forceUpdate();
     }
   }
 
@@ -61,322 +60,336 @@ class CustomScroll extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const prevContentHeight = this.contentHeight
-    const prevVisibleHeight = this.visibleHeight
-    const innerContainer = this.getScrolledElement()
-    const reachedBottomOnPrevRender = prevState.scrollPos >= prevContentHeight - prevVisibleHeight
+    const prevContentHeight = this.contentHeight;
+    const prevVisibleHeight = this.visibleHeight;
+    const innerContainer = this.getScrolledElement();
+    const reachedBottomOnPrevRender = prevState.scrollPos >= prevContentHeight - prevVisibleHeight;
 
-    this.contentHeight = innerContainer.scrollHeight
-    this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth
-    this.visibleHeight = innerContainer.clientHeight
-    this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1
+    this.contentHeight = innerContainer.scrollHeight;
+    this.scrollbarYWidth = innerContainer.offsetWidth - innerContainer.clientWidth;
+    this.visibleHeight = innerContainer.clientHeight;
+    this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1;
 
-    this.toggleScrollIfNeeded()
+    this.toggleScrollIfNeeded();
 
     if (this.props.freezePosition || prevProps.freezePosition) {
-      this.adjustFreezePosition(prevProps)
+      this.adjustFreezePosition(prevProps);
     }
     if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
-      this.updateScrollPosition(this.props.scrollTo)
+      this.updateScrollPosition(this.props.scrollTo);
     } else if (
       this.props.keepAtBottom &&
       this.externalRender &&
       reachedBottomOnPrevRender
     ) {
-      this.updateScrollPosition(this.contentHeight - this.visibleHeight)
+      this.updateScrollPosition(this.contentHeight - this.visibleHeight);
     }
-    this.externalRender = false
+    this.externalRender = false;
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousemove', this.onHandleDrag)
-    document.removeEventListener('mouseup', this.onHandleDragEnd)
+    document.removeEventListener('mousemove', this.onHandleDrag);
+    document.removeEventListener('mouseup', this.onHandleDragEnd);
   }
 
   adjustFreezePosition(prevProps) {
-    const innerContainer = this.getScrolledElement()
-    const contentWrapper = this.contentWrapper
+    const innerContainer = this.getScrolledElement();
+    const contentWrapper = this.contentWrapper;
 
     if (this.props.freezePosition) {
-      contentWrapper.scrollTop = this.state.scrollPos
+      contentWrapper.scrollTop = this.state.scrollPos;
     }
 
     if (prevProps.freezePosition) {
-      innerContainer.scrollTop = this.state.scrollPos
+      innerContainer.scrollTop = this.state.scrollPos;
     }
   }
 
   toggleScrollIfNeeded() {
-    const shouldHaveScroll = this.contentHeight - this.visibleHeight > 1
+    const shouldHaveScroll = this.contentHeight - this.visibleHeight > 1;
     if (this.hasScroll !== shouldHaveScroll) {
-      this.hasScroll = shouldHaveScroll
-      this.forceUpdate()
+      this.hasScroll = shouldHaveScroll;
+      this.forceUpdate();
     }
   }
 
   getScrollTop() {
-    return this.getScrolledElement().scrollTop
+    return this.getScrolledElement().scrollTop;
   }
 
   updateScrollPosition(scrollValue) {
-    const innerContainer = this.getScrolledElement()
-    const updatedScrollTop = ensureWithinLimits(scrollValue, 0, this.contentHeight - this.visibleHeight)
-    innerContainer.scrollTop = updatedScrollTop
+    const innerContainer = this.getScrolledElement();
+    const updatedScrollTop = ensureWithinLimits(scrollValue, 0, this.contentHeight - this.visibleHeight);
+    innerContainer.scrollTop = updatedScrollTop;
     this.setState({
-      scrollPos: updatedScrollTop
-    })
+      scrollPos: updatedScrollTop,
+    });
   }
 
   onClick = event => {
     if (!this.hasScroll || !this.isMouseEventOnCustomScrollbar(event) || this.isMouseEventOnScrollHandle(event)) {
-      return
+      return;
     }
-    const newScrollHandleTop = this.calculateNewScrollHandleTop(event)
-    const newScrollValue = this.getScrollValueFromHandlePosition(newScrollHandleTop)
+    const newScrollHandleTop = this.calculateNewScrollHandleTop(event);
+    const newScrollValue = this.getScrollValueFromHandlePosition(newScrollHandleTop);
 
-    this.updateScrollPosition(newScrollValue)
+    this.updateScrollPosition(newScrollValue);
   }
 
   isMouseEventOnCustomScrollbar(event) {
     if (!this.customScrollbarRef) {
       return false;
     }
-    const customScrollElm = reactDOM.findDOMNode(this)
-    const boundingRect = customScrollElm.getBoundingClientRect()
-    const customScrollbarBoundingRect = this.customScrollbarRef.getBoundingClientRect()
+    const customScrollElm = reactDOM.findDOMNode(this);
+    const boundingRect = customScrollElm.getBoundingClientRect();
+    const customScrollbarBoundingRect = this.customScrollbarRef.getBoundingClientRect();
     const horizontalClickArea = this.props.rtl ? {
       left: boundingRect.left,
-      right: customScrollbarBoundingRect.right
+      right: customScrollbarBoundingRect.right,
     } : {
       left: customScrollbarBoundingRect.left,
-      width: boundingRect.right
-    }
+      width: boundingRect.right,
+    };
     const customScrollbarLayout = Object.assign({}, {
       left: boundingRect.left,
       right: boundingRect.right,
       top: boundingRect.top,
-      height: boundingRect.height
-    }, horizontalClickArea)
-    return isEventPosOnLayout(event, customScrollbarLayout)
+      height: boundingRect.height,
+    }, horizontalClickArea);
+    return isEventPosOnLayout(event, customScrollbarLayout);
   }
 
   isMouseEventOnScrollHandle(event) {
     if (!this.scrollHandle) {
-      return false
+      return false;
     }
-    const scrollHandle = reactDOM.findDOMNode(this.scrollHandle)
-    return isEventPosOnDomNode(event, scrollHandle)
+    const scrollHandle = reactDOM.findDOMNode(this.scrollHandle);
+    return isEventPosOnDomNode(event, scrollHandle);
   }
 
   calculateNewScrollHandleTop(clickEvent) {
-    const domNode = reactDOM.findDOMNode(this)
-    const boundingRect = domNode.getBoundingClientRect()
-    const currentTop = boundingRect.top + window.pageYOffset
-    const clickYRelativeToScrollbar = clickEvent.pageY - currentTop
-    const scrollHandleTop = this.getScrollHandleStyle().top
-    let newScrollHandleTop
-    const isBelowHandle = clickYRelativeToScrollbar > (scrollHandleTop + this.scrollHandleHeight)
+    const domNode = reactDOM.findDOMNode(this);
+    const boundingRect = domNode.getBoundingClientRect();
+    const currentTop = boundingRect.top + window.pageYOffset;
+    const clickYRelativeToScrollbar = clickEvent.pageY - currentTop;
+    const scrollHandleTop = this.getScrollHandleStyle().top;
+    let newScrollHandleTop;
+    const isBelowHandle = clickYRelativeToScrollbar > (scrollHandleTop + this.scrollHandleHeight);
     if (isBelowHandle) {
-      newScrollHandleTop = scrollHandleTop + Math.min(this.scrollHandleHeight, this.visibleHeight - this.scrollHandleHeight)
+      newScrollHandleTop = scrollHandleTop + Math.min(this.scrollHandleHeight, this.visibleHeight - this.scrollHandleHeight);
     } else {
-      newScrollHandleTop = scrollHandleTop - Math.max(this.scrollHandleHeight, 0)
+      newScrollHandleTop = scrollHandleTop - Math.max(this.scrollHandleHeight, 0);
     }
-    return newScrollHandleTop
+    return newScrollHandleTop;
   }
 
   getScrollValueFromHandlePosition(handlePosition) {
-    return (handlePosition) / this.scrollRatio
+    return (handlePosition) / this.scrollRatio;
   }
 
   getScrollHandleStyle() {
-    const handlePosition = this.state.scrollPos * this.scrollRatio
-    this.scrollHandleHeight = this.visibleHeight * this.scrollRatio
+    const handlePosition = this.state.scrollPos * this.scrollRatio;
+    this.scrollHandleHeight = this.visibleHeight * this.scrollRatio;
     return {
       height: this.scrollHandleHeight,
-      top: handlePosition
-    }
+      top: handlePosition,
+    };
   }
 
   adjustCustomScrollPosToContentPos(scrollPosition) {
     this.setState({
-      scrollPos: scrollPosition
-    })
+      scrollPos: scrollPosition,
+    });
   }
 
   onScroll = event => {
     if (this.props.freezePosition) {
-      return
+      return;
     }
-    this.adjustCustomScrollPosToContentPos(event.currentTarget.scrollTop)
+    this.adjustCustomScrollPosToContentPos(event.currentTarget.scrollTop);
     if (this.props.onScroll) {
-      this.props.onScroll(event)
+      this.props.onScroll(event);
     }
   }
 
   getScrolledElement() {
-    return this.innerContainer
+    return this.innerContainer;
   }
 
   onMouseDown = event => {
     if (!this.hasScroll || !this.isMouseEventOnScrollHandle(event)) {
-      return
+      return;
     }
 
-    this.startDragHandlePos = this.getScrollHandleStyle().top
-    this.startDragMousePos = event.pageY
+    this.startDragHandlePos = this.getScrollHandleStyle().top;
+    this.startDragMousePos = event.pageY;
     this.setState({
-      onDrag: true
-    })
-    document.addEventListener('mousemove', this.onHandleDrag)
-    document.addEventListener('mouseup', this.onHandleDragEnd)
+      onDrag: true,
+    });
+    document.addEventListener('mousemove', this.onHandleDrag);
+    document.addEventListener('mouseup', this.onHandleDragEnd);
   }
 
   onHandleDrag = event => {
-    event.preventDefault()
-    const mouseDeltaY = event.pageY - this.startDragMousePos
-    const handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight)
-    const newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition)
-    this.updateScrollPosition(newScrollValue)
+    event.preventDefault();
+    const mouseDeltaY = event.pageY - this.startDragMousePos;
+    const handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight);
+    const newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition);
+    this.updateScrollPosition(newScrollValue);
   }
 
   onHandleDragEnd = e => {
     this.setState({
-      onDrag: false
-    })
-    e.preventDefault()
-    document.removeEventListener('mousemove', this.onHandleDrag)
-    document.removeEventListener('mouseup', this.onHandleDragEnd)
+      onDrag: false,
+    });
+    e.preventDefault();
+    document.removeEventListener('mousemove', this.onHandleDrag);
+    document.removeEventListener('mouseup', this.onHandleDragEnd);
   }
 
   blockOuterScroll = e => {
     if (this.props.allowOuterScroll) {
-      return
+      return;
     }
-    const contentNode = e.currentTarget
-    const totalHeight = e.currentTarget.scrollHeight
-    const maxScroll = totalHeight - e.currentTarget.offsetHeight
-    const delta = e.deltaY % 3 ? (e.deltaY) : (e.deltaY * 10)
+    const contentNode = e.currentTarget;
+    const totalHeight = e.currentTarget.scrollHeight;
+    const maxScroll = totalHeight - e.currentTarget.offsetHeight;
+    const delta = e.deltaY % 3 ? (e.deltaY) : (e.deltaY * 10);
     if (contentNode.scrollTop + delta <= 0) {
-      contentNode.scrollTop = 0
-      e.preventDefault()
+      contentNode.scrollTop = 0;
+      e.preventDefault();
     } else if (contentNode.scrollTop + delta >= maxScroll) {
-      contentNode.scrollTop = maxScroll
-      e.preventDefault()
+      contentNode.scrollTop = maxScroll;
+      e.preventDefault();
     }
-    e.stopPropagation()
+    e.stopPropagation();
   }
 
   getInnerContainerClasses() {
-    let res = 'inner-container'
+    let res = `${ this.props.cssPrefix }-inner-container`;
     if (this.state.scrollPos && this.props.addScrolledClass) {
-      res += ' content-scrolled'
+      res += ` ${ this.props.cssPrefix }-content-scrolled`;
     }
-    return res
+    return res;
   }
 
   getScrollStyles() {
-    const scrollSize = this.scrollbarYWidth || 20
-    const marginKey = this.props.rtl ? 'marginLeft' : 'marginRight'
+    const scrollSize = this.scrollbarYWidth || 20;
+    const marginKey = this.props.rtl ? 'marginLeft' : 'marginRight';
     const innerContainerStyle = {
-      height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
-    }
-    innerContainerStyle[marginKey] = -1 * scrollSize
+      height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
+    };
+    innerContainerStyle[marginKey] = -1 * scrollSize;
     const contentWrapperStyle = {
       height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
-      overflowY: this.props.freezePosition ? 'hidden' : 'visible'
-    }
-    contentWrapperStyle[marginKey] = this.scrollbarYWidth ? 0 : scrollSize
+      overflowY: this.props.freezePosition ? 'hidden' : 'visible',
+    };
+    contentWrapperStyle[marginKey] = this.scrollbarYWidth ? 0 : scrollSize;
 
     return {
       innerContainer: innerContainerStyle,
-      contentWrapper: contentWrapperStyle
-    }
+      contentWrapper: contentWrapperStyle,
+    };
   }
 
   getOuterContainerStyle() {
     return {
-      height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
-    }
+      height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
+    };
   }
 
   getRootStyles() {
-    const result = {}
+    const result = {};
 
     if (this.props.heightRelativeToParent) {
-      result.height = this.props.heightRelativeToParent
+      result.height = this.props.heightRelativeToParent;
     } else if (this.props.flex) {
-      result.flex = this.props.flex
+      result.flex = this.props.flex;
     }
 
-    return result
+    return result;
   }
 
   enforceMinHandleHeight(calculatedStyle) {
-    const minHeight = this.props.minScrollHandleHeight
+    const minHeight = this.props.minScrollHandleHeight;
     if (calculatedStyle.height >= minHeight) {
-      return calculatedStyle
+      return calculatedStyle;
     }
 
-    const diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height
-    const scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight)
-    const scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio
-    const handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight
+    const diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height;
+    const scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight);
+    const scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio;
+    const handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight;
 
     return {
       height: minHeight,
-      top: handlePosition
-    }
+      top: handlePosition,
+    };
   }
 
   setCustomScrollbarRef = elm => {
     if (elm && !this.customScrollbarRef) {
-      this.customScrollbarRef = elm
+      this.customScrollbarRef = elm;
     }
   }
 
   render() {
-    const scrollStyles = this.getScrollStyles()
-    const rootStyle = this.getRootStyles()
-    const scrollHandleStyle = this.enforceMinHandleHeight(this.getScrollHandleStyle())
+    const scrollStyles = this.getScrollStyles();
+    const rootStyle = this.getRootStyles();
+    const scrollHandleStyle = this.enforceMinHandleHeight(this.getScrollHandleStyle());
+    const { cssPrefix, hideScrollbar } = this.props;
 
     return (
-      <div className={`custom-scroll ${ this.state.onDrag ? 'scroll-handle-dragged' : ''}`}
-           style={rootStyle}>
-        <div className="outer-container"
-             style={this.getOuterContainerStyle()}
-             onMouseDown={this.onMouseDown}
-             onClick={this.onClick}>
-          {this.hasScroll ? (
-            <div className="positioning">
-              <div ref={this.setCustomScrollbarRef}
-                   className={`custom-scrollbar${ this.props.rtl ? ' custom-scrollbar-rtl' : ''}`}
-                   key="scrollbar">
-                <div ref={this.setRefElement('scrollHandle')}
-                     className="custom-scroll-handle"
-                     style={scrollHandleStyle}>
-                  <div className={this.props.handleClass}/>
+      <div
+        className={`${ cssPrefix } ${ this.state.onDrag ? `${ cssPrefix }-scroll-handle-dragged` : ''}`}
+        style={rootStyle}
+      >
+        <div
+          className={`${ cssPrefix }-outer-container`}
+          style={this.getOuterContainerStyle()}
+          onMouseDown={this.onMouseDown}
+          onClick={this.onClick}
+        >
+          {
+            this.hasScroll ? (
+              <div className={`${ cssPrefix }-positioning`}>
+                <div
+                  ref={this.setCustomScrollbarRef}
+                  className={`${this.props.scrollbarClass || `${ cssPrefix }-custom-scrollbar`}${ this.props.rtl ? ` ${ cssPrefix }-custom-scrollbar-rtl` : ''}${hideScrollbar ? ` ${ cssPrefix }-scrollbar-hide` : ''}`}
+                  key="scrollbar"
+                >
+                  <div
+                    ref={this.setRefElement('scrollHandle')}
+                    className={this.props.handleClass || `${ cssPrefix }-custom-scroll-handle`}
+                    style={scrollHandleStyle}
+                  />
                 </div>
               </div>
-            </div>) : null}
-          <div ref={this.setRefElement('innerContainer')}
-               className={this.getInnerContainerClasses()}
-               style={scrollStyles.innerContainer}
-               onScroll={this.onScroll}
-               onWheel={this.blockOuterScroll}>
-            <div className="content-wrapper"
-                 ref={this.setRefElement('contentWrapper')}
-                 style={scrollStyles.contentWrapper}>
+            ) : null
+          }
+          <div
+            ref={this.setRefElement('innerContainer')}
+            className={this.getInnerContainerClasses()}
+            style={scrollStyles.innerContainer}
+            onScroll={this.onScroll}
+            onWheel={this.blockOuterScroll}
+          >
+            <div
+              className={`${ cssPrefix }-content-wrapper`}
+              ref={this.setRefElement('contentWrapper')}
+              style={scrollStyles.contentWrapper}
+            >
               {this.props.children}
             </div>
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 }
 
 try {
-  const PropTypes = require('prop-types')
+  const PropTypes = require('prop-types');
   CustomScroll.propTypes = {
     children: PropTypes.any,
     allowOuterScroll: PropTypes.bool,
@@ -385,17 +398,20 @@ try {
     addScrolledClass: PropTypes.bool,
     freezePosition: PropTypes.bool,
     handleClass: PropTypes.string,
+    scrollbarClass: PropTypes.string,
+    cssPrefix: PropTypes.string,
     minScrollHandleHeight: PropTypes.number,
     flex: PropTypes.string,
     rtl: PropTypes.bool,
     scrollTo: PropTypes.number,
-    keepAtBottom: PropTypes.bool
-  }
+    keepAtBottom: PropTypes.bool,
+    hideScrollbar: PropTypes.bool,
+  };
 } catch (e) {} //eslint-disable-line no-empty
 
 CustomScroll.defaultProps = {
-  handleClass: 'inner-handle',
-  minScrollHandleHeight: 38
-}
+  cssPrefix: 'rcs',
+  minScrollHandleHeight: 38,
+};
 
-module.exports = CustomScroll
+module.exports = CustomScroll;

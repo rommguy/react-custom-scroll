@@ -1,17 +1,19 @@
-.custom-scroll {
+.rcs {
   min-height: 0;
   min-width: 0; }
-  .custom-scroll .outer-container {
+  .rcs .rcs-outer-container {
     overflow: hidden; }
-    .custom-scroll .outer-container .positioning {
-      position: relative; }
-    .custom-scroll .outer-container:hover .custom-scrollbar {
-      opacity: 1;
-      transition-duration: 0.2s; }
-  .custom-scroll .inner-container {
+    .rcs .rcs-outer-container .rcs-positioning {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%; }
+    .rcs .rcs-outer-container:hover .rcs-custom-scrollbar.rcs-scrollbar-hide {
+      opacity: 1; }
+  .rcs .rcs-inner-container {
     overflow-x: hidden;
     overflow-y: scroll; }
-    .custom-scroll .inner-container:after {
+    .rcs .rcs-inner-container:after {
       content: '';
       position: absolute;
       top: 0;
@@ -22,33 +24,34 @@
       pointer-events: none;
       transition: height 0.1s ease-in;
       will-change: height; }
-    .custom-scroll .inner-container.content-scrolled:after {
+    .rcs .rcs-inner-container.rcs-content-scrolled:after {
       height: 5px;
       transition: height 0.15s ease-out; }
-  .custom-scroll.scroll-handle-dragged .inner-container {
+  .rcs.rcs-scroll-handle-dragged .rcs-inner-container {
     user-select: none; }
-  .custom-scroll .custom-scrollbar {
+  .rcs .rcs-custom-scrollbar {
     position: absolute;
     height: 100%;
-    width: 6px;
+    width: 6x;
     right: 3px;
-    opacity: 0;
     z-index: 1;
-    transition: opacity 0.4s ease-out;
-    padding: 6px 0;
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none; }
-    .custom-scroll .custom-scrollbar.custom-scrollbar-rtl {
+    .rcs .rcs-custom-scrollbar.rcs-scrollbar-hide {
+      transition: opacity 0.4s ease-out;
+      opacity: 0;
+      transition-duration: 0.2s; }
+    .rcs .rcs-custom-scrollbar.rcs-custom-scrollbar-rtl {
       right: auto;
       left: 3px; }
-  .custom-scroll.scroll-handle-dragged .custom-scrollbar {
+  .rcs.rcs-scroll-handle-dragged .rcs-custom-scrollbar {
     opacity: 1; }
-  .custom-scroll .custom-scroll-handle {
+  .rcs .rcs-custom-scroll-handle {
     position: absolute;
     width: 100%;
     top: 0; }
-  .custom-scroll .inner-handle {
+  .rcs .rcs-inner-handle {
     height: calc(100% - 12px);
     margin-top: 6px;
     background-color: rgba(78, 183, 245, 0.7);
