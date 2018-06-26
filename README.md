@@ -42,7 +42,7 @@ import CustomScroll from 'react-custom-scroll';
 Your own custom design can be applied by styling these 2 classes in your css:  
 
 - custom-scrollbar - this class styles the container of the scroll handle, you can use it if your handle width is greater than the default.  
-- inner-handle - this class stlyes the handle itself, you can use it to change the color, background, border and such of the handle  
+- inner-handle - this class styles the handle itself, you can use it to change the color, background, border and such of the handle  
 
 You can see a usage example in example/firstComp/firstComp.scss  
 
