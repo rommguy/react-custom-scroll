@@ -8,7 +8,7 @@
       top: 0;
       right: 0;
       height: 100%; }
-    .rcs .rcs-outer-container:hover .rcs-custom-scrollbar.rcs-scrollbar-hide {
+    .rcs .rcs-outer-container:hover .rcs-scrollbar-hide {
       opacity: 1; }
   .rcs .rcs-inner-container {
     overflow-x: hidden;
@@ -29,6 +29,10 @@
       transition: height 0.15s ease-out; }
   .rcs.rcs-scroll-handle-dragged .rcs-inner-container {
     user-select: none; }
+  .rcs .rcs-scrollbar-hide {
+    transition: opacity 0.4s ease-out;
+    opacity: 0;
+    transition-duration: 0.2s; }
   .rcs .rcs-custom-scrollbar {
     position: absolute;
     height: 100%;
@@ -38,10 +42,6 @@
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none; }
-    .rcs .rcs-custom-scrollbar.rcs-scrollbar-hide {
-      transition: opacity 0.4s ease-out;
-      opacity: 0;
-      transition-duration: 0.2s; }
     .rcs .rcs-custom-scrollbar.rcs-custom-scrollbar-rtl {
       right: auto;
       left: 3px; }

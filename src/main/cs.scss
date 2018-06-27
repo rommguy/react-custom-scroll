@@ -14,7 +14,7 @@
       height: 100%;
     }
 
-    &:hover .rcs-custom-scrollbar.rcs-scrollbar-hide {
+    &:hover .rcs-scrollbar-hide {
       opacity: 1;
     }
   }
@@ -45,6 +45,12 @@
     user-select: none;
   }
 
+  .rcs-scrollbar-hide {
+    transition: opacity 0.4s ease-out;
+    opacity: 0;
+    transition-duration: 0.2s;
+  }
+
   .rcs-custom-scrollbar {
     position: absolute;
     height: 100%;
@@ -54,12 +60,6 @@
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none;
-
-    &.rcs-scrollbar-hide {
-      transition: opacity 0.4s ease-out;
-      opacity: 0;
-      transition-duration: 0.2s;
-    }
 
     &.rcs-custom-scrollbar-rtl {
       right: auto;
