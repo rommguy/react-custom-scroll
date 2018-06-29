@@ -65,7 +65,7 @@ class CustomScroll extends Component {
   }
 
   componentWillReceiveProps() {
-    this.externalRender = true;
+    this.externalRender = true
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -147,7 +147,7 @@ class CustomScroll extends Component {
 
   isMouseEventOnCustomScrollbar(event) {
     if (!this.customScrollbarRef) {
-      return false;
+      return false
     }
     const customScrollElm = reactDOM.findDOMNode(this)
     const boundingRect = customScrollElm.getBoundingClientRect()

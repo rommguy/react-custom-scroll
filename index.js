@@ -1,4 +1,4 @@
-'use strict';
-var CustomScroll = require('./dist/reactCustomScroll');
+'use strict'
+const CustomScroll = require('./dist/reactCustomScroll')
 
-module.exports = CustomScroll;
+module.exports = CustomScroll

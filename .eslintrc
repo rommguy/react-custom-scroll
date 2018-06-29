@@ -1,6 +1,7 @@
 {
   "rules": {
     "no-var": 2,
+    "semi": ["error", "never"],
     "prefer-arrow-callback": 2,
     "no-confusing-arrow": 2,
     "prefer-const": 2,
