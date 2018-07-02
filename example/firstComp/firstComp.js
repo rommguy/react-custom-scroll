@@ -1,55 +1,55 @@
-import React, {Component, Fragment} from 'react'
-import {times, map} from 'lodash/fp'
-import {demoText} from './demoText'
-import CustomScroll from '../../dist/reactCustomScroll'
+import React, { Component, Fragment } from 'react';
+import { times, map } from 'lodash/fp';
+import { demoText } from './demoText';
+import CustomScroll from '../../dist/reactCustomScroll';
 
 function getParameterByName(name) {
-  const url = window.location.href
-  name = name.replace(/[\[\]]/g, '\\$&')
-  const regex = new RegExp(`[?&]${ name }(=([^&#]*)|&|#|$)`)
-  const results = regex.exec(url)
+  const url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  const regex = new RegExp(`[?&]${ name }(=([^&#]*)|&|#|$)`);
+  const results = regex.exec(url);
   if (!results) {
-    return null
+    return null;
   }
   if (!results[2]) {
-    return false
+    return false;
   }
-  return decodeURIComponent(results[2].replace(/\+/g, ' '))
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
 export class FirstComp extends Component {
-  static displayName = 'firstComp'
+  static displayName = 'firstComp';
   constructor() {
-    super()
+    super();
     this.state = {
-      dynamicContentCounter: 4
-    }
+      dynamicContentCounter: 4,
+    };
   }
   getText() {
-    return demoText.text
+    return demoText.text;
   }
   getDynamicContent() {
-    return times(index => `Content #${ index}`, this.state.dynamicContentCounter)
+    return times(index => `Content #${ index }`, this.state.dynamicContentCounter);
   }
   addContent = () => {
     this.setState({
-      dynamicContentCounter: this.state.dynamicContentCounter + 1
-    })
+      dynamicContentCounter: this.state.dynamicContentCounter + 1,
+    });
   }
   removeContent = () => {
     this.setState({
-      dynamicContentCounter: Math.max(this.state.dynamicContentCounter - 1, 4)
-    })
+      dynamicContentCounter: Math.max(this.state.dynamicContentCounter - 1, 4),
+    });
   }
   getExamplesToDisplay() {
-    const isFlex = getParameterByName('flex')
-    const isDynamic = getParameterByName('dynamic')
+    const isFlex = getParameterByName('flex');
+    const isDynamic = getParameterByName('dynamic');
 
     return {
       flex: isFlex,
       dynamic: isDynamic,
-      standard: !isFlex && !isDynamic
-    }
+      standard: !isFlex && !isDynamic,
+    };
   }
   renderStandardExample() {
     return (
@@ -96,10 +96,10 @@ export class FirstComp extends Component {
           </div>
         </div>
       </Fragment>
-    )
+    );
   }
   render() {
-    const exampleTypes = this.getExamplesToDisplay()
+    const exampleTypes = this.getExamplesToDisplay();
     return (
       <div className="example-wrapper">
         {exampleTypes.standard && this.renderStandardExample()}
@@ -111,7 +111,7 @@ export class FirstComp extends Component {
               <div className="panel-header">
                 <label className="panel-title">Flexbox!!!</label>
               </div>
-              <CustomScroll allowOuterScroll={true} flex="1">
+              <CustomScroll allowOuterScroll flex="1">
                 <div className="panel-content-custom panel-content">
                   <div className="content-fill">{this.getText()}</div>
                 </div>
@@ -127,7 +127,7 @@ export class FirstComp extends Component {
               <div className="panel-header">
                 <label className="panel-title">DYNAMIC CONTENT!!!</label>
               </div>
-              <CustomScroll allowOuterScroll={true} keepAtBottom={true}>
+              <CustomScroll allowOuterScroll keepAtBottom>
                 <div className="panel-content-custom panel-content">
                   <div className="content-fill">
                     {map(content => <div className="dynamic-content" key={content}>{content}</div>, this.getDynamicContent())}
@@ -136,17 +136,23 @@ export class FirstComp extends Component {
               </CustomScroll>
             </div>
 
-            <button className="dynamic-content-button"
-                    key="addContent"
-                    onClick={this.addContent}>Add Content
+            <button
+              className="dynamic-content-button"
+              key="addContent"
+              onClick={this.addContent}
+            >
+              Add Content
             </button>
-            <button className="dynamic-content-button"
-                    key="removeContent"
-                    onClick={this.removeContent}>Remove Content
+            <button
+              className="dynamic-content-button"
+              key="removeContent"
+              onClick={this.removeContent}
+            >
+              Remove Content
             </button>
           </div>
         )}
         <div className="scroll-creator"/>
-      </div>)
+      </div>);
   }
 }

@@ -1,26 +1,34 @@
 {
-  "name": "react-custom-scroll",
-  "version": "3.2.1",
-  "description": "An easily designable, cross browser (!!), custom scroll with ReactJS Animations and scroll rate **exactly** like native scroll",
-  "main": "index",
-  "scripts": {
-    "test": "karma start --single-run",
-    "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
-    "lint": "eslint ./src && eslint ./example/firstComp",
-    "build": "npm run lint && npm run sassex && webpack",
-    "develop": "webpack --watch --config webpack.dev.js"
-  },
-  "repository": {
+  "_from": "git+https://github.com/orangecoloured/react-custom-scroll.git",
+  "_id": "react-custom-scroll@3.2.1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/react-custom-scroll",
+  "_phantomChildren": {},
+  "_requested": {
     "type": "git",
-    "url": "git@github.com:rommguy/react-custom-scroll.git"
+    "raw": "https://github.com/orangecoloured/react-custom-scroll.git",
+    "rawSpec": "https://github.com/orangecoloured/react-custom-scroll.git",
+    "saveSpec": "git+https://github.com/orangecoloured/react-custom-scroll.git",
+    "fetchSpec": "https://github.com/orangecoloured/react-custom-scroll.git",
+    "gitCommittish": null
   },
-  "author": "Guy Romm",
-  "license": "MIT",
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/orangecoloured/react-custom-scroll.git#16851d44e00f435079c42e8633527c072833409a",
+  "_spec": "https://github.com/orangecoloured/react-custom-scroll.git",
+  "_where": "/media/rckt/Storage/Development/mrp-front",
+  "author": {
+    "name": "Guy Romm"
+  },
   "bugs": {
     "url": "https://github.com/rommguy/react-custom-scroll/issues"
   },
-  "homepage": "https://github.com/rommguy/react-custom-scroll#readme",
-  "dependencies": {},
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "An easily designable, cross browser (!!), custom scroll with ReactJS Animations and scroll rate **exactly** like native scroll",
   "devDependencies": {
     "autoprefixer": "6.3.6",
     "babel-core": "^6.26.3",
@@ -55,11 +63,7 @@
     "webpack-bundle-analyzer": "^2.12.0",
     "webpack-cli": "^2.1.3"
   },
-  "peerDependencies": {
-    "prop-types": "*",
-    "react": "*",
-    "react-dom": "*"
-  },
+  "homepage": "https://github.com/rommguy/react-custom-scroll#readme",
   "keywords": [
     "react",
     "react-custom-scroll",
@@ -69,5 +73,25 @@
     "ui component",
     "ui",
     "component"
-  ]
+  ],
+  "license": "MIT",
+  "main": "index",
+  "name": "react-custom-scroll",
+  "peerDependencies": {
+    "prop-types": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rommguy/react-custom-scroll.git"
+  },
+  "scripts": {
+    "build": "npm run lint && npm run sassex && webpack",
+    "develop": "webpack --watch --config webpack.dev.js",
+    "lint": "eslint ./src && eslint ./example/firstComp",
+    "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
+    "test": "karma start --single-run"
+  },
+  "version": "3.2.1"
 }
