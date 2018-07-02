@@ -36,7 +36,7 @@
   .rcs .rcs-custom-scrollbar {
     position: absolute;
     height: 100%;
-    width: 6x;
+    width: 6px;
     right: 3px;
     z-index: 1;
     box-sizing: border-box;
