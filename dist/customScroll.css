@@ -10,7 +10,8 @@
       transition-duration: 0.2s; }
   .custom-scroll .inner-container {
     overflow-x: hidden;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; }
     .custom-scroll .inner-container:after {
       content: '';
       position: absolute;

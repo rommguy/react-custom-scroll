@@ -21,6 +21,8 @@
     overflow-x: hidden;
     overflow-y: scroll;
 
+    -webkit-overflow-scrolling: touch;
+
     &:after{
       content: '';
       position: absolute;
