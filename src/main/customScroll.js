@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import reactDOM from 'react-dom'
+import debounce from 'lodash/debounce';
+
 import './cs.scss'
 
 
@@ -46,6 +48,12 @@ class CustomScroll extends Component {
         this[elmKey] = element
       }
     }
+
+    this.hideScrollThumb = debounce(() => {
+      this.setState({
+        onDrag: false,
+      });
+    }, 500);
   }
 
   componentDidMount() {
@@ -207,6 +215,7 @@ class CustomScroll extends Component {
     if (this.props.freezePosition) {
       return
     }
+    this.hideScrollThumb();
     this.adjustCustomScrollPosToContentPos(event.currentTarget.scrollTop)
     if (this.props.onScroll) {
       this.props.onScroll(event)
@@ -230,6 +239,12 @@ class CustomScroll extends Component {
     document.addEventListener('mousemove', this.onHandleDrag)
     document.addEventListener('mouseup', this.onHandleDragEnd)
   }
+
+  onTouchStart = () => {
+    this.setState({
+      onDrag: true
+    });
+  }  
 
   onHandleDrag = event => {
     event.preventDefault()
@@ -345,6 +360,7 @@ class CustomScroll extends Component {
         <div className="outer-container"
              style={this.getOuterContainerStyle()}
              onMouseDown={this.onMouseDown}
+             onTouchStart={this.onTouchStart}
              onClick={this.onClick}>
           {this.hasScroll ? (
             <div className="positioning">
