@@ -1,11 +1,19 @@
 import React, {Component} from 'react'
 import reactDOM from 'react-dom'
-import debounce from 'lodash/debounce';
-
 import './cs.scss'
 
+const simpleDebounce = (func, delay) => {
+  let timer
 
-function ensureWithinLimits(value, min, max) {
+  return function() {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      func()
+    }, delay)
+  }
+}
+
+const ensureWithinLimits = (value, min, max) => {
   min = (!min && min !== 0) ? value : min
   max = (!max && max !== 0) ? value : max
   if (min > max) {
@@ -49,11 +57,11 @@ class CustomScroll extends Component {
       }
     }
 
-    this.hideScrollThumb = debounce(() => {
+    this.hideScrollThumb = simpleDebounce(() => {
       this.setState({
         onDrag: false,
-      });
-    }, 500);
+      })
+    }, 500)
   }
 
   componentDidMount() {
@@ -65,7 +73,7 @@ class CustomScroll extends Component {
   }
 
   componentWillReceiveProps() {
-    this.externalRender = true;
+    this.externalRender = true
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -147,7 +155,7 @@ class CustomScroll extends Component {
 
   isMouseEventOnCustomScrollbar(event) {
     if (!this.customScrollbarRef) {
-      return false;
+      return false
     }
     const customScrollElm = reactDOM.findDOMNode(this)
     const boundingRect = customScrollElm.getBoundingClientRect()
@@ -215,7 +223,7 @@ class CustomScroll extends Component {
     if (this.props.freezePosition) {
       return
     }
-    this.hideScrollThumb();
+    this.hideScrollThumb()
     this.adjustCustomScrollPosToContentPos(event.currentTarget.scrollTop)
     if (this.props.onScroll) {
       this.props.onScroll(event)
@@ -243,7 +251,7 @@ class CustomScroll extends Component {
   onTouchStart = () => {
     this.setState({
       onDrag: true
-    });
+    })
   }  
 
   onHandleDrag = event => {

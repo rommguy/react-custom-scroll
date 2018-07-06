@@ -65,4 +65,4 @@ module.exports = [{
     'react-dom': 'ReactDOM',
     lodash: '_'
   }
-}];
+}]
