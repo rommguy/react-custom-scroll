@@ -33,7 +33,7 @@ module.exports = config => {
               {
                 loader: 'style-loader'
               }, {
-                loader: 'css-loader'
+                loader: 'css-loader?sourceMap&modules&camelCase=dashes&localIdentName=rcs-[local]'
               }, {
                 loader: 'sass-loader'
               }

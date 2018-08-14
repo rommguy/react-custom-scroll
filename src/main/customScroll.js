@@ -373,7 +373,7 @@ class CustomScroll extends Component {
           {this.hasScroll ? (
             <div className={styles.positioning}>
               <div ref={this.setCustomScrollbarRef}
-                   className={`${styles.customScrollbar}${ this.props.rtl ? styles.customScrollbarRtl : ''}`}
+                   className={`${styles.customScrollbar} ${ this.props.rtl ? styles.customScrollbarRtl : ''}`}
                    key="scrollbar">
                 <div ref={this.setRefElement('scrollHandle')}
                      className={styles.customScrollHandle}
@@ -418,7 +418,7 @@ try {
 } catch (e) {} //eslint-disable-line no-empty
 
 CustomScroll.defaultProps = {
-  handleClass: 'inner-handle',
+  handleClass: styles.innerHandle,
   minScrollHandleHeight: 38
 }
 
