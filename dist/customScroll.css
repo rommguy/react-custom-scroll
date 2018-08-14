@@ -1,18 +1,18 @@
-.custom-scroll {
+.rcs-custom-scroll {
   min-height: 0;
   min-width: 0; }
-  .custom-scroll .outer-container {
+  .rcs-custom-scroll .rcs-outer-container {
     overflow: hidden; }
-    .custom-scroll .outer-container .positioning {
+    .rcs-custom-scroll .rcs-outer-container .rcs-positioning {
       position: relative; }
-    .custom-scroll .outer-container:hover .custom-scrollbar {
+    .rcs-custom-scroll .rcs-outer-container:hover .rcs-custom-scrollbar {
       opacity: 1;
       transition-duration: 0.2s; }
-  .custom-scroll .inner-container {
+  .rcs-custom-scroll .rcs-inner-container {
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch; }
-    .custom-scroll .inner-container:after {
+    .rcs-custom-scroll .rcs-inner-container:after {
       content: '';
       position: absolute;
       top: 0;
@@ -23,12 +23,12 @@
       pointer-events: none;
       transition: height 0.1s ease-in;
       will-change: height; }
-    .custom-scroll .inner-container.content-scrolled:after {
+    .rcs-custom-scroll .rcs-inner-container.rcs-content-scrolled:after {
       height: 5px;
       transition: height 0.15s ease-out; }
-  .custom-scroll.scroll-handle-dragged .inner-container {
+  .rcs-custom-scroll.rcs-scroll-handle-dragged .rcs-inner-container {
     user-select: none; }
-  .custom-scroll .custom-scrollbar {
+  .rcs-custom-scroll .rcs-custom-scrollbar {
     position: absolute;
     height: 100%;
     width: 6px;
@@ -40,16 +40,16 @@
     box-sizing: border-box;
     will-change: opacity;
     pointer-events: none; }
-    .custom-scroll .custom-scrollbar.custom-scrollbar-rtl {
+    .rcs-custom-scroll .rcs-custom-scrollbar.rcs-custom-scrollbar-rtl {
       right: auto;
       left: 3px; }
-  .custom-scroll.scroll-handle-dragged .custom-scrollbar {
+  .rcs-custom-scroll.rcs-scroll-handle-dragged .rcs-custom-scrollbar {
     opacity: 1; }
-  .custom-scroll .custom-scroll-handle {
+  .rcs-custom-scroll .rcs-custom-scroll-handle {
     position: absolute;
     width: 100%;
     top: 0; }
-  .custom-scroll .inner-handle {
+  .rcs-custom-scroll .rcs-inner-handle {
     height: calc(100% - 12px);
     margin-top: 6px;
     background-color: rgba(78, 183, 245, 0.7);
