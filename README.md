@@ -32,7 +32,7 @@ Remove any overflow style properties from your content root component - The cust
 import CustomScroll from 'react-custom-scroll';
 ```
 
-```html
+```jxs
 <CustomScroll>
   your content
 </CustomScroll>
@@ -63,7 +63,7 @@ This prop will override any value given to heightRelativeToParent when setting t
 
 ##### Example for heightRelativeToParent
 
-```html
+```jxs
 <CustomScroll heightRelativeToParent="calc(100% - 20px)">
   your content
 </CustomScroll>  
@@ -82,7 +82,7 @@ starting with lower case causes JSX to treat the tag as a native dom element
 ##### See a [demo with Flex](http://rommguy.github.io/react-custom-scroll/example/demo.html?flex=true) ###
 There are some details that apply when using customScroll on elements with size set by css flex.  
 Here is an example for an HTML structure before using customScroll:  
-```html
+```jxs
 <someParent style="display: flex; height: 500px;">
   <fixedHeightElement style="height: 100px"><fixedHeightElement/>
   <flexibleHeightElement style="flex:1; overflow:scroll">
@@ -99,7 +99,7 @@ There are 2 options to use customScroll with this structure:
 - Wrapping the content:  
 For this solution, the overflow property should be removed from the flex size element, since the customScroll will take care of that. 
 Instead, min-height and min-width should be set to 0.
-```html
+```jxs
 <someParent style="display: flex; height: 500px;">
   <fixedHeightElement style="height: 100px"><fixedHeightElement/>
   <flexibleHeightElement style="flex:1; min-height: 0; min-width: 0">
@@ -112,7 +112,7 @@ Instead, min-height and min-width should be set to 0.
 min-height and min-width are required since flex won't shrink below it's minimum content size ([flex box spec](https://www.w3.org/TR/css-flexbox/#flex-common)).  
 
 - Replacing the flex-size element with customScroll
-```html
+```jxs
 <someParent style="display: flex; height: 500px;">
   <fixedHeightElement style="height: 100px"><fixedHeightElement/>
   <CustomScroll flex="1">
