@@ -290,11 +290,10 @@ class CustomScroll extends Component {
   }
 
   getInnerContainerClasses() {
-    let res = styles.innerContainer
     if (this.state.scrollPos && this.props.addScrolledClass) {
-      res += ` ${styles.contentScrolled}`
+      return `${styles.innerContainer} ${styles.contentScrolled}`
     }
-    return res
+    return styles.innerContainer
   }
 
   getScrollStyles() {

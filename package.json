@@ -7,7 +7,8 @@
     "test": "karma start --single-run",
     "sassex": "node-sass example/main.scss | postcss --use autoprefixer -b 'last 2 versions' > example/styles.css",
     "lint": "eslint ./src && eslint ./example/firstComp",
-    "build": "npm run lint && npm run sassex && webpack",
+    "example-sass": "npm run sassex",
+    "build": "npm run lint && webpack",
     "develop": "webpack --watch --config webpack.dev.js"
   },
   "repository": {
