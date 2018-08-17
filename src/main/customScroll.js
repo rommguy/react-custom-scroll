@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import reactDOM from 'react-dom'
-import './cs.scss'
+import styles from './cs.scss'
 
 const simpleDebounce = (func, delay) => {
   let timer
@@ -290,9 +290,9 @@ class CustomScroll extends Component {
   }
 
   getInnerContainerClasses() {
-    let res = 'inner-container'
+    let res = styles.innerContainer
     if (this.state.scrollPos && this.props.addScrolledClass) {
-      res += ' content-scrolled'
+      res += ` ${styles.contentScrolled}`
     }
     return res
   }
@@ -363,20 +363,20 @@ class CustomScroll extends Component {
     const scrollHandleStyle = this.enforceMinHandleHeight(this.getScrollHandleStyle())
 
     return (
-      <div className={`custom-scroll ${ this.state.onDrag ? 'scroll-handle-dragged' : ''}`}
+      <div className={`${styles.customScroll} ${this.state.onDrag ? styles.scrollHandleDragged : ''}`}
            style={rootStyle}>
-        <div className="outer-container"
+        <div className={styles.outerContainer}
              style={this.getOuterContainerStyle()}
              onMouseDown={this.onMouseDown}
              onTouchStart={this.onTouchStart}
              onClick={this.onClick}>
           {this.hasScroll ? (
-            <div className="positioning">
+            <div className={styles.positioning}>
               <div ref={this.setCustomScrollbarRef}
-                   className={`custom-scrollbar${ this.props.rtl ? ' custom-scrollbar-rtl' : ''}`}
+                   className={`${styles.customScrollbar} ${ this.props.rtl ? styles.customScrollbarRtl : ''}`}
                    key="scrollbar">
                 <div ref={this.setRefElement('scrollHandle')}
-                     className="custom-scroll-handle"
+                     className={styles.customScrollHandle}
                      style={scrollHandleStyle}>
                   <div className={this.props.handleClass}/>
                 </div>
@@ -387,7 +387,7 @@ class CustomScroll extends Component {
                style={scrollStyles.innerContainer}
                onScroll={this.onScroll}
                onWheel={this.blockOuterScroll}>
-            <div className="content-wrapper"
+            <div className={styles.contentWrapper}
                  ref={this.setRefElement('contentWrapper')}
                  style={scrollStyles.contentWrapper}>
               {this.props.children}
@@ -418,7 +418,7 @@ try {
 } catch (e) {} //eslint-disable-line no-empty
 
 CustomScroll.defaultProps = {
-  handleClass: 'inner-handle',
+  handleClass: styles.innerHandle,
   minScrollHandleHeight: 38
 }
 
