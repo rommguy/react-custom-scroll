@@ -52,7 +52,7 @@ class CustomScroll extends Component {
     }
 
     this.setRefElement = elmKey => element => {
-      if (element && !this[elmKey]) {
+      if (element) {
         this[elmKey] = element
       }
     }
@@ -351,7 +351,7 @@ class CustomScroll extends Component {
   }
 
   setCustomScrollbarRef = elm => {
-    if (elm && !this.customScrollbarRef) {
+    if (elm) {
       this.customScrollbarRef = elm
     }
   }
