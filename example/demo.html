@@ -15,29 +15,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.3.2/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.3.2/umd/react-dom.production.min.js"></script>
-<script>
-  window.addEventListener("fbNativeReady", function() {
-    window.alert('fbNativeReady dispatched')
-  })
-</script>
-
-<script>
-  window.fbAsyncInit = function() {
-
-}
-
-;(function(d, s, id) {
-  var js,
-      fjs = d.getElementsByTagName(s)[0]
-  if (d.getElementById(id)) {
-    return
-  }
-  js = d.createElement(s)
-  js.id = id
-  js.src = 'https://connect.facebook.net/en_US/sdk.js'
-  fjs.parentNode.insertBefore(js, fjs)
-})(document, 'script', 'facebook-jssdk')
-</script>
 <script src="./exampleDist/example.js"></script>
 </body>
 </html>
