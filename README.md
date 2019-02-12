@@ -7,7 +7,7 @@ Animations and scroll rate **exactly** like native scroll
 ##### See a [working demo](http://rommguy.github.io/react-custom-scroll/example/demo.html) ###
 
 ## Installation
-```
+```sh
 npm i react-custom-scroll --save
 ```
 
@@ -28,11 +28,11 @@ Wrap your content with the custom scroll component
 Remove any overflow style properties from your content root component - The custom scroll will take care of it
 
 
-```
+```js
 import CustomScroll from 'react-custom-scroll';
 ```
 
-```jxs
+```jsx
 <CustomScroll>
   your content
 </CustomScroll>
@@ -63,7 +63,7 @@ This prop will override any value given to heightRelativeToParent when setting t
 
 ##### Example for heightRelativeToParent
 
-```jxs
+```jsx
 <CustomScroll heightRelativeToParent="calc(100% - 20px)">
   your content
 </CustomScroll>  
@@ -82,13 +82,14 @@ starting with lower case causes JSX to treat the tag as a native dom element
 ##### See a [demo with Flex](http://rommguy.github.io/react-custom-scroll/example/demo.html?flex=true) ###
 There are some details that apply when using customScroll on elements with size set by css flex.  
 Here is an example for an HTML structure before using customScroll:  
-```jxs
-<someParent style="display: flex; height: 500px;">
-  <fixedHeightElement style="height: 100px"><fixedHeightElement/>
-  <flexibleHeightElement style="flex:1; overflow:scroll">
-   your content (with enough height to cause a scroll)
-  <flexibleHeightElement/>
-</someParent>  
+
+```jsx
+<SomeParent style="display: flex; height: 500px;">
+  <FixedHeightElement style="height: 100px"><FixedHeightElement />
+  <FlexibleHeightElement style="flex:1; overflow:scroll">
+    your content (with enough height to cause a scroll)
+  <FlexibleHeightElement />
+</SomeParent>  
 ```
 
 In this example, a scroll is active on the flexibleHeightElement, where the flex size sets it's height to 400px, after the fixedHeight element took 100px.  
@@ -99,7 +100,8 @@ There are 2 options to use customScroll with this structure:
 - Wrapping the content:  
 For this solution, the overflow property should be removed from the flex size element, since the customScroll will take care of that. 
 Instead, min-height and min-width should be set to 0.
-```jxs
+
+```jsx
 <someParent style="display: flex; height: 500px;">
   <fixedHeightElement style="height: 100px"><fixedHeightElement/>
   <flexibleHeightElement style="flex:1; min-height: 0; min-width: 0">
@@ -109,10 +111,12 @@ Instead, min-height and min-width should be set to 0.
   <flexibleHeightElement/>
 </someParent>  
 ```
+
 min-height and min-width are required since flex won't shrink below it's minimum content size ([flex box spec](https://www.w3.org/TR/css-flexbox/#flex-common)).  
 
 - Replacing the flex-size element with customScroll
-```jxs
+
+```jsx
 <someParent style="display: flex; height: 500px;">
   <fixedHeightElement style="height: 100px"><fixedHeightElement/>
   <CustomScroll flex="1">
@@ -121,13 +125,12 @@ min-height and min-width are required since flex won't shrink below it's minimum
 </someParent>  
 ```
 
-
 ### Contributing
 To build the project in watch mode, run 'npm run develop' or 'yarn develop'.  
 For production build - run yarn build .   
 
 ### Tests
-```bash
+```sh
 npm install
 npm test
 # Or for continuous run
