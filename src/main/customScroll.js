@@ -148,7 +148,7 @@ class CustomScroll extends Component {
       return
     }
     const newScrollHandleTop = this.calculateNewScrollHandleTop(event)
-    const newScrollValue = this.getScrollValueFromHandlePosition(newScrollHandleTop)
+    const newScrollValue = Math.abs(this.getScrollValueFromHandlePosition(newScrollHandleTop))
 
     this.updateScrollPosition(newScrollValue)
   }
@@ -252,7 +252,7 @@ class CustomScroll extends Component {
     this.setState({
       onDrag: true
     })
-  }  
+  }
 
   onHandleDrag = event => {
     event.preventDefault()
