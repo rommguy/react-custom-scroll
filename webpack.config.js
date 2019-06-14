@@ -9,7 +9,8 @@ module.exports = [{
     path: path.join(__dirname, 'dist'),
     filename: 'reactCustomScroll.js',
     library: 'ReactCustomScroll',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    globalObject: 'typeof self !== \'undefined\' ? self : this'
   },
   module: {
     rules: [
