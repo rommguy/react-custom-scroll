@@ -247,8 +247,8 @@ class CustomScroll extends Component {
     this.setState({
       onDrag: true
     })
-    document.addEventListener('mousemove', this.onHandleDrag)
-    document.addEventListener('mouseup', this.onHandleDragEnd)
+    document.addEventListener('mousemove', this.onHandleDrag, { passive: false })
+    document.addEventListener('mouseup', this.onHandleDragEnd, { passive: false })
   }
 
   onTouchStart = () => {
