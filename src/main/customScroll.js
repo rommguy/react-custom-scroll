@@ -54,9 +54,7 @@ class CustomScroll extends Component {
     }
 
     this.setRefElement = elmKey => element => {
-      if (element && !this[elmKey]) {
-        this[elmKey] = element
-      }
+      this[elmKey] = element
     }
 
     this.hideScrollThumb = simpleDebounce(() => {
