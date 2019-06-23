@@ -1,79 +1,81 @@
 const path = require('path')
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = [{
-  mode: 'production',
-  entry: ['./src/main/customScroll'],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'reactCustomScroll.js',
-    library: 'ReactCustomScroll',
-    libraryTarget: 'umd',
-    globalObject: 'typeof self !== \'undefined\' ? self : this'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
+module.exports = [
+  {
+    mode: 'production',
+    entry: ['./src/main/customScroll'],
+    output: {
+      path: path.join(__dirname, 'dist'),
+      filename: 'reactCustomScroll.js',
+      library: 'ReactCustomScroll',
+      libraryTarget: 'umd',
+      globalObject: "typeof self !== 'undefined' ? self : this"
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader'
+          }
+        },
+        {
+          test: /\.scss$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true,
+                  camelCase: 'dashes',
+                  localIdentName: 'rcs-[local]'
+                }
+              },
+              { loader: 'sass-loader' }
+            ]
+          })
         }
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                camelCase: 'dashes',
-                localIdentName: 'rcs-[local]'
-              }
-            },
-            { loader: 'sass-loader' }
-          ]
-        })
-      }
-    ]
+      ]
+    },
+    resolve: {
+      modules: [path.resolve(__dirname, 'src/main'), 'node_modules']
+    },
+    plugins: [
+      // new BundleAnalyzerPlugin(),
+      new ExtractTextPlugin('customScroll.css')
+    ],
+    externals: {
+      react: 'react',
+      'react-dom': 'react-dom',
+      'prop-types': 'prop-types',
+      lodash: 'lodash'
+    }
   },
-  resolve: {
-    modules: [path.resolve(__dirname, "src/main"), "node_modules"]
-  },
-  plugins: [
-    // new BundleAnalyzerPlugin(),
-    new ExtractTextPlugin('customScroll.css')
-  ],
-  externals: {
-    react: 'react',
-    'react-dom': 'react-dom',
-    'prop-types': 'prop-types',
-    lodash: 'lodash'
-  }
-}, {
-  mode: 'production',
-  entry: './example/main.js',
-  output: {
-    filename: 'example.js',
-    path: path.resolve(__dirname, 'example/exampleDist')
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
+  {
+    mode: 'production',
+    entry: './example/main.js',
+    output: {
+      filename: 'example.js',
+      path: path.resolve(__dirname, 'example/exampleDist')
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader'
+          }
         }
-      }
-    ]
-  },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    lodash: '_'
+      ]
+    },
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      lodash: '_'
+    }
   }
-}]
+]
