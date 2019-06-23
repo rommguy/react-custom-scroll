@@ -1,12 +1,12 @@
-import React, {Component, Fragment} from 'react'
-import {times, map} from 'lodash/fp'
-import {demoText} from './demoText'
+import React, { Component, Fragment } from 'react'
+import { times, map } from 'lodash/fp'
+import { demoText } from './demoText'
 import CustomScroll from '../../dist/reactCustomScroll'
 
 function getParameterByName(name) {
   const url = window.location.href
   name = name.replace(/[\[\]]/g, '\\$&')
-  const regex = new RegExp(`[?&]${ name }(=([^&#]*)|&|#|$)`)
+  const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)
   const results = regex.exec(url)
   if (!results) {
     return null
@@ -29,7 +29,7 @@ export class FirstComp extends Component {
     return demoText.text
   }
   getDynamicContent() {
-    return times(index => `Content #${ index}`, this.state.dynamicContentCounter)
+    return times(index => `Content #${index}`, this.state.dynamicContentCounter)
   }
   addContent = () => {
     this.setState({
@@ -65,7 +65,6 @@ export class FirstComp extends Component {
               <div className="content-fill">{this.getText()}</div>
             </div>
           </div>
-
         </div>
         <div key="cool-example" className="container custom-scroll-example">
           <label className="side-title">Custom Scroll</label>
@@ -130,23 +129,29 @@ export class FirstComp extends Component {
               <CustomScroll allowOuterScroll={true} keepAtBottom={true}>
                 <div className="panel-content-custom panel-content">
                   <div className="content-fill">
-                    {map(content => <div className="dynamic-content" key={content}>{content}</div>, this.getDynamicContent())}
+                    {map(
+                      content => (
+                        <div className="dynamic-content" key={content}>
+                          {content}
+                        </div>
+                      ),
+                      this.getDynamicContent()
+                    )}
                   </div>
                 </div>
               </CustomScroll>
             </div>
 
-            <button className="dynamic-content-button"
-                    key="addContent"
-                    onClick={this.addContent}>Add Content
+            <button className="dynamic-content-button" key="addContent" onClick={this.addContent}>
+              Add Content
             </button>
-            <button className="dynamic-content-button"
-                    key="removeContent"
-                    onClick={this.removeContent}>Remove Content
+            <button className="dynamic-content-button" key="removeContent" onClick={this.removeContent}>
+              Remove Content
             </button>
           </div>
         )}
-        <div className="scroll-creator"/>
-      </div>)
+        <div className="scroll-creator" />
+      </div>
+    )
   }
 }
