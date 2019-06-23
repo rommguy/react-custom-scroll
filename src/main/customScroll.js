@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import reactDOM from 'react-dom'
 import styles from './cs.scss'
 
@@ -14,8 +14,8 @@ const simpleDebounce = (func, delay) => {
 }
 
 const ensureWithinLimits = (value, min, max) => {
-  min = (!min && min !== 0) ? value : min
-  max = (!max && max !== 0) ? value : max
+  min = !min && min !== 0 ? value : min
+  max = !max && max !== 0 ? value : max
   if (min > max) {
     console.error('min limit is greater than max limit')
     return value
@@ -35,10 +35,12 @@ function isEventPosOnDomNode(event, domNode) {
 }
 
 function isEventPosOnLayout(event, layout) {
-  return (event.clientX > layout.left &&
+  return (
+    event.clientX > layout.left &&
     event.clientX < layout.right &&
     event.clientY > layout.top &&
-    event.clientY < layout.top + layout.height)
+    event.clientY < layout.top + layout.height
+  )
 }
 
 class CustomScroll extends Component {
@@ -59,7 +61,7 @@ class CustomScroll extends Component {
 
     this.hideScrollThumb = simpleDebounce(() => {
       this.setState({
-        onDrag: false,
+        onDrag: false
       })
     }, 500)
   }
@@ -94,11 +96,7 @@ class CustomScroll extends Component {
     }
     if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
       this.updateScrollPosition(this.props.scrollTo)
-    } else if (
-      this.props.keepAtBottom &&
-      this.externalRender &&
-      reachedBottomOnPrevRender
-    ) {
+    } else if (this.props.keepAtBottom && this.externalRender && reachedBottomOnPrevRender) {
       this.updateScrollPosition(this.contentHeight - this.visibleHeight)
     }
     this.externalRender = false
@@ -160,19 +158,25 @@ class CustomScroll extends Component {
     const customScrollElm = reactDOM.findDOMNode(this)
     const boundingRect = customScrollElm.getBoundingClientRect()
     const customScrollbarBoundingRect = this.customScrollbarRef.getBoundingClientRect()
-    const horizontalClickArea = this.props.rtl ? {
-      left: boundingRect.left,
-      right: customScrollbarBoundingRect.right
-    } : {
-      left: customScrollbarBoundingRect.left,
-      width: boundingRect.right
-    }
-    const customScrollbarLayout = Object.assign({}, {
-      left: boundingRect.left,
-      right: boundingRect.right,
-      top: boundingRect.top,
-      height: boundingRect.height
-    }, horizontalClickArea)
+    const horizontalClickArea = this.props.rtl
+      ? {
+          left: boundingRect.left,
+          right: customScrollbarBoundingRect.right
+        }
+      : {
+          left: customScrollbarBoundingRect.left,
+          width: boundingRect.right
+        }
+    const customScrollbarLayout = Object.assign(
+      {},
+      {
+        left: boundingRect.left,
+        right: boundingRect.right,
+        top: boundingRect.top,
+        height: boundingRect.height
+      },
+      horizontalClickArea
+    )
     return isEventPosOnLayout(event, customScrollbarLayout)
   }
 
@@ -191,9 +195,10 @@ class CustomScroll extends Component {
     const clickYRelativeToScrollbar = clickEvent.pageY - currentTop
     const scrollHandleTop = this.getScrollHandleStyle().top
     let newScrollHandleTop
-    const isBelowHandle = clickYRelativeToScrollbar > (scrollHandleTop + this.scrollHandleHeight)
+    const isBelowHandle = clickYRelativeToScrollbar > scrollHandleTop + this.scrollHandleHeight
     if (isBelowHandle) {
-      newScrollHandleTop = scrollHandleTop + Math.min(this.scrollHandleHeight, this.visibleHeight - this.scrollHandleHeight)
+      newScrollHandleTop =
+        scrollHandleTop + Math.min(this.scrollHandleHeight, this.visibleHeight - this.scrollHandleHeight)
     } else {
       newScrollHandleTop = scrollHandleTop - Math.max(this.scrollHandleHeight, 0)
     }
@@ -201,7 +206,7 @@ class CustomScroll extends Component {
   }
 
   getScrollValueFromHandlePosition(handlePosition) {
-    return (handlePosition) / this.scrollRatio
+    return handlePosition / this.scrollRatio
   }
 
   getScrollHandleStyle() {
@@ -252,12 +257,16 @@ class CustomScroll extends Component {
     this.setState({
       onDrag: true
     })
-  }  
+  }
 
   onHandleDrag = event => {
     event.preventDefault()
     const mouseDeltaY = event.pageY - this.startDragMousePos
-    const handleTopPosition = ensureWithinLimits(this.startDragHandlePos + mouseDeltaY, 0, this.visibleHeight - this.scrollHandleHeight)
+    const handleTopPosition = ensureWithinLimits(
+      this.startDragHandlePos + mouseDeltaY,
+      0,
+      this.visibleHeight - this.scrollHandleHeight
+    )
     const newScrollValue = this.getScrollValueFromHandlePosition(handleTopPosition)
     this.updateScrollPosition(newScrollValue)
   }
@@ -278,7 +287,7 @@ class CustomScroll extends Component {
     const contentNode = e.currentTarget
     const totalHeight = e.currentTarget.scrollHeight
     const maxScroll = totalHeight - e.currentTarget.offsetHeight
-    const delta = e.deltaY % 3 ? (e.deltaY) : (e.deltaY * 10)
+    const delta = e.deltaY % 3 ? e.deltaY : e.deltaY * 10
     if (contentNode.scrollTop + delta <= 0) {
       contentNode.scrollTop = 0
       e.preventDefault()
@@ -300,11 +309,11 @@ class CustomScroll extends Component {
     const scrollSize = this.scrollbarYWidth || 20
     const marginKey = this.props.rtl ? 'marginLeft' : 'marginRight'
     const innerContainerStyle = {
-      height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
+      height: this.props.heightRelativeToParent || this.props.flex ? '100%' : ''
     }
     innerContainerStyle[marginKey] = -1 * scrollSize
     const contentWrapperStyle = {
-      height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : '',
+      height: this.props.heightRelativeToParent || this.props.flex ? '100%' : '',
       overflowY: this.props.freezePosition ? 'hidden' : 'visible'
     }
     contentWrapperStyle[marginKey] = this.scrollbarYWidth ? 0 : scrollSize
@@ -317,7 +326,7 @@ class CustomScroll extends Component {
 
   getOuterContainerStyle() {
     return {
-      height: (this.props.heightRelativeToParent || this.props.flex) ? '100%' : ''
+      height: this.props.heightRelativeToParent || this.props.flex ? '100%' : ''
     }
   }
 
@@ -341,7 +350,8 @@ class CustomScroll extends Component {
 
     const diffHeightBetweenMinAndCalculated = minHeight - calculatedStyle.height
     const scrollPositionToAvailableScrollRatio = this.state.scrollPos / (this.contentHeight - this.visibleHeight)
-    const scrollHandlePosAdjustmentForMinHeight = diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio
+    const scrollHandlePosAdjustmentForMinHeight =
+      diffHeightBetweenMinAndCalculated * scrollPositionToAvailableScrollRatio
     const handlePosition = calculatedStyle.top - scrollHandlePosAdjustmentForMinHeight
 
     return {
@@ -351,9 +361,7 @@ class CustomScroll extends Component {
   }
 
   setCustomScrollbarRef = elm => {
-    if (elm && !this.customScrollbarRef) {
-      this.customScrollbarRef = elm
-    }
+    this.customScrollbarRef = elm
   }
 
   render() {
@@ -362,33 +370,46 @@ class CustomScroll extends Component {
     const scrollHandleStyle = this.enforceMinHandleHeight(this.getScrollHandleStyle())
 
     return (
-      <div className={`${styles.customScroll} ${this.state.onDrag ? styles.scrollHandleDragged : ''}`}
-           style={rootStyle}>
-        <div className={styles.outerContainer}
-             style={this.getOuterContainerStyle()}
-             onMouseDown={this.onMouseDown}
-             onTouchStart={this.onTouchStart}
-             onClick={this.onClick}>
+      <div
+        className={`${styles.customScroll} ${this.state.onDrag ? styles.scrollHandleDragged : ''}`}
+        style={rootStyle}
+      >
+        <div
+          className={styles.outerContainer}
+          style={this.getOuterContainerStyle()}
+          onMouseDown={this.onMouseDown}
+          onTouchStart={this.onTouchStart}
+          onClick={this.onClick}
+        >
           {this.hasScroll ? (
             <div className={styles.positioning}>
-              <div ref={this.setCustomScrollbarRef}
-                   className={`${styles.customScrollbar} ${ this.props.rtl ? styles.customScrollbarRtl : ''}`}
-                   key="scrollbar">
-                <div ref={this.setRefElement('scrollHandle')}
-                     className={styles.customScrollHandle}
-                     style={scrollHandleStyle}>
-                  <div className={this.props.handleClass}/>
+              <div
+                ref={this.setCustomScrollbarRef}
+                className={`${styles.customScrollbar} ${this.props.rtl ? styles.customScrollbarRtl : ''}`}
+                key="scrollbar"
+              >
+                <div
+                  ref={this.setRefElement('scrollHandle')}
+                  className={styles.customScrollHandle}
+                  style={scrollHandleStyle}
+                >
+                  <div className={this.props.handleClass} />
                 </div>
               </div>
-            </div>) : null}
-          <div ref={this.setRefElement('innerContainer')}
-               className={this.getInnerContainerClasses()}
-               style={scrollStyles.innerContainer}
-               onScroll={this.onScroll}
-               onWheel={this.blockOuterScroll}>
-            <div className={styles.contentWrapper}
-                 ref={this.setRefElement('contentWrapper')}
-                 style={scrollStyles.contentWrapper}>
+            </div>
+          ) : null}
+          <div
+            ref={this.setRefElement('innerContainer')}
+            className={this.getInnerContainerClasses()}
+            style={scrollStyles.innerContainer}
+            onScroll={this.onScroll}
+            onWheel={this.blockOuterScroll}
+          >
+            <div
+              className={styles.contentWrapper}
+              ref={this.setRefElement('contentWrapper')}
+              style={scrollStyles.contentWrapper}
+            >
               {this.props.children}
             </div>
           </div>
