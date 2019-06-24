@@ -72,10 +72,6 @@ class CustomScroll extends Component {
     }
   }
 
-  componentWillReceiveProps() {
-    this.externalRender = true
-  }
-
   componentDidUpdate(prevProps, prevState) {
     const prevContentHeight = this.contentHeight
     const prevVisibleHeight = this.visibleHeight
@@ -88,16 +84,15 @@ class CustomScroll extends Component {
     this.scrollRatio = this.contentHeight ? this.visibleHeight / this.contentHeight : 1
 
     this.toggleScrollIfNeeded()
-
+    const isExternalRender = this.state === prevState
     if (this.props.freezePosition || prevProps.freezePosition) {
       this.adjustFreezePosition(prevProps)
     }
     if (typeof this.props.scrollTo !== 'undefined' && this.props.scrollTo !== prevProps.scrollTo) {
       this.updateScrollPosition(this.props.scrollTo)
-    } else if (this.props.keepAtBottom && this.externalRender && reachedBottomOnPrevRender) {
+    } else if (this.props.keepAtBottom && isExternalRender && reachedBottomOnPrevRender) {
       this.updateScrollPosition(this.contentHeight - this.visibleHeight)
     }
-    this.externalRender = false
   }
 
   componentWillUnmount() {
