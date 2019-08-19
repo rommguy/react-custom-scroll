@@ -5,12 +5,19 @@ import styles from './cs.scss'
 const simpleDebounce = (func, delay) => {
   let timer
 
-  return function() {
+  function cancel() {
     clearTimeout(timer)
+  }
+
+  function debounced() {
+    cancel()
     timer = setTimeout(() => {
       func()
     }, delay)
   }
+
+  debounced.cancel = cancel
+  return debounced
 }
 
 const ensureWithinLimits = (value, min, max) => {
@@ -96,6 +103,7 @@ class CustomScroll extends Component {
   }
 
   componentWillUnmount() {
+    this.hideScrollThumb.cancel()
     document.removeEventListener('mousemove', this.onHandleDrag)
     document.removeEventListener('mouseup', this.onHandleDragEnd)
   }
