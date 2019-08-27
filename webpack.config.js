@@ -29,9 +29,10 @@ module.exports = [
               {
                 loader: 'css-loader',
                 options: {
-                  modules: true,
-                  camelCase: 'dashes',
-                  localIdentName: 'rcs-[local]'
+                  modules: {
+                    localIdentName: 'rcs-[local]'
+                  },
+                  localsConvention: 'dashes'
                 }
               },
               { loader: 'sass-loader' }
