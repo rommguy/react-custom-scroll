@@ -241,7 +241,7 @@ describe('custom scroll', function() {
       it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function() {
         const rootStyle = reactDOM.findDOMNode(this.customScroll).style
         const innerContainerStyle = this.customScroll.innerContainerRef.current.style
-        const contentWrapperStyle = this.customScroll.contentWrapper.style
+        const contentWrapperStyle = this.customScroll.contentWrapperRef.current.style
 
         expect(rootStyle.height).toEqual('70%')
         expect(innerContainerStyle.height).toEqual('100%')
@@ -257,7 +257,7 @@ describe('custom scroll', function() {
       it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function() {
         const rootStyle = reactDOM.findDOMNode(this.customScroll).style
         const innerContainerStyle = this.customScroll.innerContainerRef.current.style
-        const contentWrapperStyle = this.customScroll.contentWrapper.style
+        const contentWrapperStyle = this.customScroll.contentWrapperRef.current.style
 
         expect(rootStyle.height).toBeFalsy()
         expect(innerContainerStyle.height).toBeFalsy()
@@ -281,7 +281,7 @@ describe('custom scroll', function() {
     it('should set value passed as flex on the root element, and 100% on other containers', function() {
       const rootStyle = reactDOM.findDOMNode(this.customScroll).style
       const innerContainerStyle = this.customScroll.innerContainerRef.current.style
-      const contentWrapperStyle = this.customScroll.contentWrapper.style
+      const contentWrapperStyle = this.customScroll.contentWrapperRef.current.style
 
       expect(rootStyle.flexGrow).toEqual('2')
       expect(innerContainerStyle.height).toEqual('100%')
@@ -303,9 +303,9 @@ describe('custom scroll', function() {
     })
 
     it('should position the custom scrollbar on the left side of the content', function() {
-      const customScrollbarStyle = window.getComputedStyle(customScroll.customScrollbarRef)
+      const customScrollbarStyle = window.getComputedStyle(customScroll.customScrollbarRef.current)
       const innerContainerStyle = customScroll.innerContainerRef.current.style
-      const contentWrapperStyle = customScroll.contentWrapper.style
+      const contentWrapperStyle = customScroll.contentWrapperRef.current.style
 
       expect(customScrollbarStyle.left).toEqual('3px')
       expect(innerContainerStyle.marginLeft).toEqual('-20px')
