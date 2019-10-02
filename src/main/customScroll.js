@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 import reactDOM from 'react-dom'
 import styles from './cs.scss'
 
@@ -60,10 +60,6 @@ class CustomScroll extends Component {
       onDrag: false
     }
 
-    this.setRefElement = elmKey => element => {
-      this[elmKey] = element
-    }
-
     this.hideScrollThumb = simpleDebounce(() => {
       this.setState({
         onDrag: false
@@ -76,6 +72,9 @@ class CustomScroll extends Component {
       this.updateScrollPosition(this.props.scrollTo)
     } else {
       this.forceUpdate()
+    }
+    if (this.innerContainerRef.current) {
+      this.innerContainerRef.current.addEventListener('wheel', this.blockOuterScroll, { passive: false })
     }
   }
 
@@ -106,11 +105,23 @@ class CustomScroll extends Component {
     this.hideScrollThumb.cancel()
     document.removeEventListener('mousemove', this.onHandleDrag)
     document.removeEventListener('mouseup', this.onHandleDragEnd)
+    
+    if (this.innerContainerRef.current) {
+      this.innerContainerRef.current.removeEventListener('wheel', this.blockOuterScroll)
+    }
   }
 
+  innerContainerRef = createRef()
+  customScrollbarRef = createRef()
+  scrollHandleRef = createRef()
+  contentWrapperRef = createRef()
+
   adjustFreezePosition = prevProps => {
+    if (!this.contentWrapperRef.current) {
+      return
+    }
     const innerContainer = this.getScrolledElement()
-    const contentWrapper = this.contentWrapper
+    const contentWrapper = this.contentWrapperRef.current
 
     if (this.props.freezePosition) {
       contentWrapper.scrollTop = this.state.scrollPos
@@ -128,8 +139,6 @@ class CustomScroll extends Component {
       this.forceUpdate()
     }
   }
-
-  getScrollTop = () => this.getScrolledElement().scrollTop
 
   updateScrollPosition = scrollValue => {
     const innerContainer = this.getScrolledElement()
@@ -151,12 +160,12 @@ class CustomScroll extends Component {
   }
 
   isMouseEventOnCustomScrollbar = event => {
-    if (!this.customScrollbarRef) {
+    if (!this.customScrollbarRef.current) {
       return false
     }
     const customScrollElm = reactDOM.findDOMNode(this)
     const boundingRect = customScrollElm.getBoundingClientRect()
-    const customScrollbarBoundingRect = this.customScrollbarRef.getBoundingClientRect()
+    const customScrollbarBoundingRect = this.customScrollbarRef.current.getBoundingClientRect()
     const horizontalClickArea = this.props.rtl
       ? {
           left: boundingRect.left,
@@ -180,10 +189,10 @@ class CustomScroll extends Component {
   }
 
   isMouseEventOnScrollHandle = event => {
-    if (!this.scrollHandle) {
+    if (!this.scrollHandleRef.current) {
       return false
     }
-    const scrollHandle = reactDOM.findDOMNode(this.scrollHandle)
+    const scrollHandle = reactDOM.findDOMNode(this.scrollHandleRef.current)
     return isEventPosOnDomNode(event, scrollHandle)
   }
 
@@ -232,7 +241,7 @@ class CustomScroll extends Component {
     }
   }
 
-  getScrolledElement = () => this.innerContainer
+  getScrolledElement = () => this.innerContainerRef.current
 
   onMouseDown = event => {
     if (!this.hasScroll || !this.isMouseEventOnScrollHandle(event)) {
@@ -353,10 +362,6 @@ class CustomScroll extends Component {
     }
   }
 
-  setCustomScrollbarRef = elm => {
-    this.customScrollbarRef = elm
-  }
-
   render() {
     const scrollStyles = this.getScrollStyles()
     const rootStyle = this.getRootStyles()
@@ -377,12 +382,12 @@ class CustomScroll extends Component {
           {this.hasScroll ? (
             <div className={styles.positioning}>
               <div
-                ref={this.setCustomScrollbarRef}
+                ref={this.customScrollbarRef}
                 className={`${styles.customScrollbar} ${this.props.rtl ? styles.customScrollbarRtl : ''}`}
                 key="scrollbar"
               >
                 <div
-                  ref={this.setRefElement('scrollHandle')}
+                  ref={this.scrollHandleRef}
                   className={styles.customScrollHandle}
                   style={scrollHandleStyle}
                 >
@@ -392,15 +397,14 @@ class CustomScroll extends Component {
             </div>
           ) : null}
           <div
-            ref={this.setRefElement('innerContainer')}
+            ref={this.innerContainerRef}
             className={this.getInnerContainerClasses()}
             style={scrollStyles.innerContainer}
             onScroll={this.onScroll}
-            onWheel={this.blockOuterScroll}
           >
             <div
               className={styles.contentWrapper}
-              ref={this.setRefElement('contentWrapper')}
+              ref={this.contentWrapperRef}
               style={scrollStyles.contentWrapper}
             >
               {this.props.children}
