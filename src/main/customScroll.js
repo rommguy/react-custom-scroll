@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 import reactDOM from 'react-dom'
 import styles from './cs.scss'
 
@@ -77,6 +77,9 @@ class CustomScroll extends Component {
     } else {
       this.forceUpdate()
     }
+    if (this.innerContainerRef.current) {
+      this.innerContainerRef.current.addEventListener('wheel', this.blockOuterScroll, { passive: false })
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -106,8 +109,14 @@ class CustomScroll extends Component {
     this.hideScrollThumb.cancel()
     document.removeEventListener('mousemove', this.onHandleDrag)
     document.removeEventListener('mouseup', this.onHandleDragEnd)
+    
+    if (this.innerContainerRef.current) {
+      this.innerContainerRef.current.removeEventListener('wheel', this.blockOuterScroll)
+    }
   }
 
+  innerContainerRef = createRef()
+  
   adjustFreezePosition = prevProps => {
     const innerContainer = this.getScrolledElement()
     const contentWrapper = this.contentWrapper
@@ -128,8 +137,6 @@ class CustomScroll extends Component {
       this.forceUpdate()
     }
   }
-
-  getScrollTop = () => this.getScrolledElement().scrollTop
 
   updateScrollPosition = scrollValue => {
     const innerContainer = this.getScrolledElement()
@@ -232,7 +239,7 @@ class CustomScroll extends Component {
     }
   }
 
-  getScrolledElement = () => this.innerContainer
+  getScrolledElement = () => this.innerContainerRef.current
 
   onMouseDown = event => {
     if (!this.hasScroll || !this.isMouseEventOnScrollHandle(event)) {
@@ -392,11 +399,10 @@ class CustomScroll extends Component {
             </div>
           ) : null}
           <div
-            ref={this.setRefElement('innerContainer')}
+            ref={this.innerContainerRef}
             className={this.getInnerContainerClasses()}
             style={scrollStyles.innerContainer}
             onScroll={this.onScroll}
-            onWheel={this.blockOuterScroll}
           >
             <div
               className={styles.contentWrapper}
