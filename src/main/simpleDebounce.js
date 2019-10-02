@@ -1,10 +1,17 @@
 export const simpleDebounce = (func, delay) => {
   let timer
 
-  return function() {
+  function cancel() {
     clearTimeout(timer)
+  }
+
+  function debounced() {
+    cancel()
     timer = setTimeout(() => {
       func()
     }, delay)
   }
+
+  debounced.cancel = cancel
+  return debounced
 }

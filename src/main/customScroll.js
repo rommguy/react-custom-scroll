@@ -1,24 +1,7 @@
 import React, { Component, createRef } from 'react'
 import reactDOM from 'react-dom'
 import styles from './cs.scss'
-
-const simpleDebounce = (func, delay) => {
-  let timer
-
-  function cancel() {
-    clearTimeout(timer)
-  }
-
-  function debounced() {
-    cancel()
-    timer = setTimeout(() => {
-      func()
-    }, delay)
-  }
-
-  debounced.cancel = cancel
-  return debounced
-}
+import { simpleDebounce } from './simpleDebounce'
 
 const ensureWithinLimits = (value, min, max) => {
   min = !min && min !== 0 ? value : min

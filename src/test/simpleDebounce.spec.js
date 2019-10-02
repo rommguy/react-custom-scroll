@@ -41,4 +41,16 @@ describe('simple debounce', () => {
     jasmine.clock().tick(10)
     expect(counter).toEqual(1)
   })
+
+  it('should cancel scheduled function call on debounced.cancel call', () => {
+    let counter = 0
+
+    const debounced = simpleDebounce(() => counter++, 10)
+    debounced()
+    jasmine.clock().tick(5)
+    debounced.cancel()
+    jasmine.clock().tick(15)
+
+    expect(counter).toEqual(0)
+  })
 })
