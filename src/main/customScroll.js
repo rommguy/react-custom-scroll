@@ -422,4 +422,4 @@ CustomScroll.defaultProps = {
   minScrollHandleHeight: 38
 }
 
-module.exports = CustomScroll
+export default CustomScroll
