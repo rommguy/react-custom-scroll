@@ -134,7 +134,7 @@ For production build - run yarn build .
 npm install
 npm test
 # Or for continuous run
-karma start
+npx karma start
 ```
 
 [npm-image]: https://img.shields.io/npm/v/react-custom-scroll.svg?style=flat-square
