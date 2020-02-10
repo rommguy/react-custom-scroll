@@ -308,7 +308,8 @@ describe('custom scroll', function() {
       const contentWrapperStyle = customScroll.contentWrapperRef.current.style
 
       expect(customScrollbarStyle.left).toEqual('3px')
-      expect(innerContainerStyle.marginLeft).toEqual('-20px')
+      // expect(innerContainerStyle.marginLeft).toEqual('-20px')
+      expect(innerContainerStyle.marginLeft).toEqual(-1 * customScroll.scrollbarYWidth)
       expect(contentWrapperStyle.marginLeft).toEqual('20px')
     })
 
