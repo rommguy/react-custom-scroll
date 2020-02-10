@@ -21,8 +21,8 @@ There is also a UMD version - inside dist directory.
 In both cases **you have to include the customScroll.css** file in your page.  
 It is located in /dist directory       
 **From unpkg cdn:**      
-* [Js file](https://unpkg.com/react-custom-scroll@4.1.5/dist/reactCustomScroll)
-* [css file](https://unpkg.com/react-custom-scroll@4.1.5/dist/customScroll.css) 
+* [Js file](https://unpkg.com/react-custom-scroll@4.2.0/dist/reactCustomScroll)
+* [css file](https://unpkg.com/react-custom-scroll@4.2.0/dist/customScroll.css) 
 
 Wrap your content with the custom scroll component  
 Remove any overflow style properties from your content root component - The custom scroll will take care of it
