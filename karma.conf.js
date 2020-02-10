@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = config => {
   config.set({
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadless', 'FirefoxHeadless'],
     frameworks: ['jasmine'],
     singleRun: false,
     reporters: ['dots'], //report results in this format
