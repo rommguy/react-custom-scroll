@@ -1,4 +1,4 @@
-name: react-custom-scroll
+name: build
 
 on: [push]
 
