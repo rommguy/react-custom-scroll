@@ -307,10 +307,13 @@ describe('custom scroll', function() {
       const innerContainerStyle = customScroll.innerContainerRef.current.style
       const contentWrapperStyle = customScroll.contentWrapperRef.current.style
 
+      const expectedInnerContainerMargin = customScroll.scrollbarYWidth || 20
+      const expectedContentWrapperMargin = customScroll.scrollbarYWidth ? 0 : expectedInnerContainerMargin
+
       expect(customScrollbarStyle.left).toEqual('3px')
       // expect(innerContainerStyle.marginLeft).toEqual('-20px')
-      expect(innerContainerStyle.marginLeft).toEqual(`${-1 * customScroll.scrollbarYWidth}px`)
-      expect(contentWrapperStyle.marginLeft).toEqual('20px')
+      expect(innerContainerStyle.marginLeft).toEqual(`${-1 * expectedInnerContainerMargin}px`)
+      expect(contentWrapperStyle.marginLeft).toEqual(`${expectedContentWrapperMargin}px`)
     })
 
     describe('respond to click', function() {
