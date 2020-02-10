@@ -1,4 +1,6 @@
 [![NPM version][npm-image]][npm-url]
+[https://github.com/rommguy/react-custom-scroll/workflows/react-custom-scroll/badge.svg]
+
 
 # React-Custom-Scroll
 An easily designable, cross browser (!!), custom scroll with ReactJS  
