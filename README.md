@@ -79,6 +79,8 @@ starting with lower case causes JSX to treat the tag as a native dom element
 - Make sure you have a height limit on the content root element (max-height)
 - Check if your height limit is relative to parent, and you didn't use heightRelativeToParent prop.
 
+### Typescript
+- You can use CustomScroll types by installing @types/react-custom-scroll from npm
 
 ### Usage with flexbox
 ##### See a [demo with Flex](http://rommguy.github.io/react-custom-scroll/example/demo.html?flex=true) ###
