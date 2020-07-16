@@ -1,5 +1,6 @@
 [![NPM version][npm-image]][npm-url]
 ![](https://github.com/rommguy/react-custom-scroll/workflows/build/badge.svg)
+![](https://img.shields.io/npm/dw/react-custom-scroll)
 
 
 # React-Custom-Scroll
