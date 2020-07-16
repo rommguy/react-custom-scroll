@@ -86,8 +86,8 @@ class CustomScroll extends Component {
 
   componentWillUnmount() {
     this.hideScrollThumb.cancel()
-    document.removeEventListener('mousemove', this.onHandleDrag)
-    document.removeEventListener('mouseup', this.onHandleDragEnd)
+    document.removeEventListener('mousemove', this.onHandleDrag, { passive: false })
+    document.removeEventListener('mouseup', this.onHandleDragEnd, { passive: false })
     
     if (this.innerContainerRef.current) {
       this.innerContainerRef.current.removeEventListener('wheel', this.blockOuterScroll)
@@ -263,8 +263,8 @@ class CustomScroll extends Component {
       onDrag: false
     })
     e.preventDefault()
-    document.removeEventListener('mousemove', this.onHandleDrag)
-    document.removeEventListener('mouseup', this.onHandleDragEnd)
+    document.removeEventListener('mousemove', this.onHandleDrag, { passive: false })
+    document.removeEventListener('mouseup', this.onHandleDragEnd, { passive: false })
   }
 
   blockOuterScroll = e => {
