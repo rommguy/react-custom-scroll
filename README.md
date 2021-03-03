@@ -57,6 +57,8 @@ You can see a usage example in example/firstComp/firstComp.scss
 This prop represents flex size. It is only relevant if the parent of customScroll has display: flex. See example below.  
 This prop will override any value given to heightRelativeToParent when setting the height of customScroll.
 - **onScroll** - function, default undefined. Listener that will be called on each scroll.
+- **onDragStart** - function, default undefined. Listener that will be called on drag start.
+- **onDragEnd** - function, default undefined. Listener that will be called on drag end.
 - **addScrolledClass** : boolean, default false. If true, will add a css class 'content-scrolled' while being scrolled.
 - **freezePosition** : boolean, default false. When true, will prevent scrolling. 
 - **minScrollHandleHeight** : number, sets the mimimum height of the scroll handle. Default is 38, as in Chrome on OSX.
