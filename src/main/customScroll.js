@@ -379,11 +379,7 @@ class CustomScroll extends Component {
                 className={`${styles.customScrollbar} ${this.props.rtl ? styles.customScrollbarRtl : ''}`}
                 key="scrollbar"
               >
-                <div
-                  ref={this.scrollHandleRef}
-                  className={styles.customScrollHandle}
-                  style={scrollHandleStyle}
-                  >
+                <div ref={this.scrollHandleRef} className={styles.customScrollHandle} style={scrollHandleStyle}>
                   <div className={this.props.handleClass} />
                 </div>
               </div>
@@ -395,11 +391,7 @@ class CustomScroll extends Component {
             style={scrollStyles.innerContainer}
             onScroll={this.onScroll}
           >
-            <div
-              className={styles.contentWrapper}
-              ref={this.contentWrapperRef}
-              style={scrollStyles.contentWrapper}
-              >
+            <div className={styles.contentWrapper} ref={this.contentWrapperRef} style={scrollStyles.contentWrapper}>
               {this.props.children}
             </div>
           </div>
