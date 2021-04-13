@@ -418,7 +418,8 @@ try {
     flex: PropTypes.string,
     rtl: PropTypes.bool,
     scrollTo: PropTypes.number,
-    keepAtBottom: PropTypes.bool
+    keepAtBottom: PropTypes.bool,
+    className: PropTypes.string
   }
 } catch (e) {} //eslint-disable-line no-empty
 
