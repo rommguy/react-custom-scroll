@@ -1,6 +1,7 @@
 const path = require('path')
+const KarmaWebpack = require('karma-webpack')
 
-module.exports = config => {
+module.exports = (config) => {
   config.set({
     browsers: ['ChromeHeadless', 'FirefoxHeadless'],
     // browsers: ['Chrome'],
@@ -8,7 +9,7 @@ module.exports = config => {
     singleRun: false,
     reporters: ['dots'], //report results in this format
     files: [
-      {pattern: 'src/test/*.spec.js', watched: false}
+      { pattern: 'src/test/*.spec.js', watched: false }
       // each file acts as entry point for the webpack configuration
     ],
 
@@ -33,15 +34,17 @@ module.exports = config => {
             use: [
               {
                 loader: 'style-loader'
-              }, {
+              },
+              {
                 loader: 'css-loader',
                 options: {
                   modules: {
-                    localIdentName: 'rcs-[local]'
-                  },
-                  localsConvention: 'dashes'
+                    localIdentName: 'rcs-[local]',
+                    exportLocalsConvention: 'dashes'
+                  }
                 }
-              }, {
+              },
+              {
                 loader: 'sass-loader'
               }
             ]
@@ -49,7 +52,7 @@ module.exports = config => {
         ]
       },
       resolve: {
-        modules: [path.resolve(__dirname, "src/main"), "node_modules"]
+        modules: [path.resolve(__dirname, 'src/main'), 'node_modules']
       }
     },
 

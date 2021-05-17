@@ -29,7 +29,7 @@ export class FirstComp extends Component {
     return demoText.text
   }
   getDynamicContent() {
-    return times(index => `Content #${index}`, this.state.dynamicContentCounter)
+    return times((index) => `Content #${index}`, this.state.dynamicContentCounter)
   }
   addContent = () => {
     this.setState({
@@ -130,7 +130,7 @@ export class FirstComp extends Component {
                 <div className="panel-content-custom panel-content">
                   <div className="content-fill">
                     {map(
-                      content => (
+                      (content) => (
                         <div className="dynamic-content" key={content}>
                           {content}
                         </div>
