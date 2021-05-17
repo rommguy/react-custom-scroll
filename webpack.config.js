@@ -54,7 +54,7 @@ module.exports = [
     }
   },
   {
-    mode: 'development',
+    mode: 'production',
     entry: './example/main.js',
     output: {
       filename: 'example.js',
