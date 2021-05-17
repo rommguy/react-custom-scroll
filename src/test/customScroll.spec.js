@@ -199,6 +199,13 @@ describe('custom scroll', function () {
         })
       })
     })
+
+    describe('persistentScrollbar is injected to class', function(){
+      it('class rcs-persistent-scrollbar should be inejcted to customScrollbar is props.persistentScrollbar is true', function () {
+        const customScroll = renderCustomScroll(customScrollContainer, { persistentScrollbar: true }, visibleHeight, totalScrollHeight)
+        expect(customScroll.customScrollbarRef.current).toHaveClass('rcs-persistent-scrollbar')
+      })
+    })
   })
 
   describe('freeze position', function () {

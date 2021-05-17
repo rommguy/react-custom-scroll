@@ -63,6 +63,7 @@ This prop will override any value given to heightRelativeToParent when setting t
 - **rtl** : boolean, default false. Right to left document, will place the custom scrollbar on the left side of the content, and assume the native one is also there.
 - **scrollTo**: number, default undefined. Will scroll content to the given value.
 - **keepAtBottom**: boolean, default false. For dynamic content, will keep the scroll position at the bottom of the content, when the content changes, if the position was at the bottom before the change. [See example here](http://rommguy.github.io/react-custom-scroll/example/demo.html?dynamic=true)
+- **persistentScrollbar**: boolean, default false. When true, scrollbar will show even while the content is not hovered.
 - **className**: string, default undefined. Allows adding your own class name to the root element.
 
 ##### Example for heightRelativeToParent

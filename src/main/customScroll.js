@@ -368,8 +368,8 @@ class CustomScroll extends Component {
             <div className={styles.positioning}>
               <div
                 ref={this.customScrollbarRef}
-                className={`${styles.customScrollbar} ${this.props.rtl ? styles.customScrollbarRtl : ''}`}
-                key="scrollbar"
+                className={`${styles.customScrollbar} ${this.props.rtl ? styles.customScrollbarRtl : ''} ${this.props.persistentScrollbar ? styles.persistentScrollbar : ''}`}
+                key='scrollbar'
               >
                 <div ref={this.scrollHandleRef} className={styles.customScrollHandle} style={scrollHandleStyle}>
                   <div className={this.props.handleClass} />
@@ -408,6 +408,7 @@ try {
     rtl: PropTypes.bool,
     scrollTo: PropTypes.number,
     keepAtBottom: PropTypes.bool,
+    persistentScrollbar: PropTypes.bool,
     className: PropTypes.string
   }
 } catch (e) {} //eslint-disable-line no-empty
