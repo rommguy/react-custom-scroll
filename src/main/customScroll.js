@@ -349,10 +349,15 @@ class CustomScroll extends Component {
     const scrollStyles = this.getScrollStyles()
     const rootStyle = this.getRootStyles()
     const scrollHandleStyle = this.enforceMinHandleHeight(this.getScrollHandleStyle())
+    const className = [
+      this.props.className || '',
+      styles.customScroll,
+      this.state.onDrag ? styles.scrollHandleDragged : '',
+    ].join('')
 
     return (
       <div
-        className={`${styles.customScroll} ${this.state.onDrag ? styles.scrollHandleDragged : ''}`}
+        className={className}
         style={rootStyle}
       >
         <div
@@ -413,7 +418,8 @@ try {
     flex: PropTypes.string,
     rtl: PropTypes.bool,
     scrollTo: PropTypes.number,
-    keepAtBottom: PropTypes.bool
+    keepAtBottom: PropTypes.bool,
+    className: PropTypes.string
   }
 } catch (e) {} //eslint-disable-line no-empty
 
