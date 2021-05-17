@@ -80,6 +80,20 @@ export class FirstComp extends Component {
             </CustomScroll>
           </div>
         </div>
+        <div key="persistent-example" className="container custom-scroll-example">
+          <label className="side-title">Persistent Scroll</label>
+
+          <div className="panel">
+            <div className="panel-header">
+              <label className="panel-title">Hover or not, I'm here!</label>
+            </div>
+            <CustomScroll allowOuterScroll={true} persistentScrollbar>
+              <div className="panel-content-custom panel-content">
+                <div className="content-fill">{this.getText()}</div>
+              </div>
+            </CustomScroll>
+          </div>
+        </div>
         <div key="crazy-example" className="container custom-scroll-example">
           <label className="side-title">Crazy Designer</label>
 
