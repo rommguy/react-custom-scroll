@@ -24,8 +24,8 @@ There is also a UMD version - inside dist directory.
 In both cases **you have to include the customScroll.css** file in your page.  
 It is located in /dist directory       
 **From unpkg cdn:**      
-* [Js file](https://unpkg.com/react-custom-scroll@4.2.1/dist/reactCustomScroll)
-* [css file](https://unpkg.com/react-custom-scroll@4.2.1/dist/customScroll.css) 
+* [Js file](https://unpkg.com/react-custom-scroll@4.3.0/dist/reactCustomScroll)
+* [css file](https://unpkg.com/react-custom-scroll@4.3.0/dist/customScroll.css) 
 
 Wrap your content with the custom scroll component  
 Remove any overflow style properties from your content root component - The custom scroll will take care of it
@@ -63,6 +63,7 @@ This prop will override any value given to heightRelativeToParent when setting t
 - **rtl** : boolean, default false. Right to left document, will place the custom scrollbar on the left side of the content, and assume the native one is also there.
 - **scrollTo**: number, default undefined. Will scroll content to the given value.
 - **keepAtBottom**: boolean, default false. For dynamic content, will keep the scroll position at the bottom of the content, when the content changes, if the position was at the bottom before the change. [See example here](http://rommguy.github.io/react-custom-scroll/example/demo.html?dynamic=true)
+- **className**: string, default undefined. Allows adding your own class name to the root element.
 
 ##### Example for heightRelativeToParent
 
