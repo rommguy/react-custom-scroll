@@ -71,7 +71,7 @@ export class FirstComp extends Component {
 
           <div className="panel">
             <div className="panel-header">
-              <label className="panel-title">Cool Scrollbar !</label>
+              <label className="panel-title">Cool Scrollbar!</label>
             </div>
             <CustomScroll allowOuterScroll={true}>
               <div className="panel-content-custom panel-content">
@@ -85,7 +85,7 @@ export class FirstComp extends Component {
 
           <div className="panel crazy-scroll">
             <div className="panel-header">
-              <label className="panel-title">Who designed this ???</label>
+              <label className="panel-title">Who designed this???</label>
             </div>
             <CustomScroll allowOuterScroll={true}>
               <div className="panel-content-custom panel-content">
