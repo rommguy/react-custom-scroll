@@ -5,7 +5,7 @@ import CustomScroll from '../main/customScroll.js'
 import styles from '../main/cs.scss'
 
 describe('custom scroll', function () {
-  let customScrollContainer, visibleHeight, totalScrollHeight
+  let customScrollContainer, visibleHeight, totalScrollHeight, customScrollInst
 
   beforeEach(function () {
     customScrollContainer = document.createElement('div')
@@ -14,7 +14,7 @@ describe('custom scroll', function () {
 
     totalScrollHeight = 200
     visibleHeight = 100
-    this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
+    customScrollInst = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
   })
 
   afterEach(function () {
@@ -72,24 +72,25 @@ describe('custom scroll', function () {
   describe('general functionality', function () {
     describe('getScrollStyles', function () {
       describe('when native scrollbar exists', function () {
+        let nativeScrollWidth
         beforeEach(function () {
-          this.nativeScrollWidth = 15
+          nativeScrollWidth = 15
           const innerContainer = {
             scrollTop: 0,
             offsetWidth: 0,
             clientWidth: 0
           }
-          spyOn(this.customScroll, 'getScrolledElement').and.returnValue(innerContainer)
+          spyOn(customScrollInst, 'getScrolledElement').and.returnValue(innerContainer)
 
           innerContainer.clientWidth = 50
-          innerContainer.offsetWidth = innerContainer.clientWidth + this.nativeScrollWidth
-          this.customScroll.forceUpdate()
+          innerContainer.offsetWidth = innerContainer.clientWidth + nativeScrollWidth
+          customScrollInst.forceUpdate()
         })
 
         it('should position the inner container to the right with minus the size of the scrollbar', function () {
-          const innerContainerStyle = this.customScroll.innerContainerRef.current.style
+          const innerContainerStyle = customScrollInst.innerContainerRef.current.style
 
-          expect(innerContainerStyle.marginRight).toEqual(`${-1 * this.nativeScrollWidth}px`)
+          expect(innerContainerStyle.marginRight).toEqual(`${-1 * nativeScrollWidth}px`)
         })
       })
 
@@ -100,15 +101,15 @@ describe('custom scroll', function () {
             offsetWidth: 0,
             clientWidth: 0
           }
-          spyOn(this.customScroll, 'getScrolledElement').and.returnValue(innerContainer)
+          spyOn(customScrollInst, 'getScrolledElement').and.returnValue(innerContainer)
           innerContainer.clientWidth = 50
           innerContainer.offsetWidth = innerContainer.clientWidth
 
-          this.customScroll.forceUpdate()
+          customScrollInst.forceUpdate()
         })
 
         it('should position the inner container to the right with minus 20 pixels', function () {
-          const innerContainerStyle = this.customScroll.innerContainerRef.current.style
+          const innerContainerStyle = customScrollInst.innerContainerRef.current.style
 
           expect(innerContainerStyle.marginRight).toEqual('-20px')
         })
@@ -117,20 +118,20 @@ describe('custom scroll', function () {
 
     describe('when scrolling content', function () {
       it('should update scroll handle position', function () {
-        const initialHandlePos = this.customScroll.getScrollHandleStyle().top
-        const contentContainerNode = this.customScroll.innerContainerRef.current
+        const initialHandlePos = customScrollInst.getScrollHandleStyle().top
+        const contentContainerNode = customScrollInst.innerContainerRef.current
 
         contentContainerNode.scrollTop = totalScrollHeight / 4
         TestUtils.Simulate.scroll(contentContainerNode)
 
-        const newHandlePos = this.customScroll.getScrollHandleStyle().top
+        const newHandlePos = customScrollInst.getScrollHandleStyle().top
 
         expect(newHandlePos).toEqual(initialHandlePos + visibleHeight / 4)
       })
 
       it('should call onScroll callback from props if defined', function () {
         const propsOnScroll = jasmine.createSpy('onScroll')
-        this.customScroll = renderCustomScroll(
+        customScrollInst = renderCustomScroll(
           customScrollContainer,
           {
             onScroll: propsOnScroll
@@ -138,8 +139,8 @@ describe('custom scroll', function () {
           visibleHeight,
           totalScrollHeight
         )
-        this.customScroll.forceUpdate()
-        const contentContainerNode = this.customScroll.innerContainerRef.current
+        customScrollInst.forceUpdate()
+        const contentContainerNode = customScrollInst.innerContainerRef.current
 
         TestUtils.Simulate.scroll(contentContainerNode)
 
@@ -159,7 +160,7 @@ describe('custom scroll', function () {
 
     describe('scroll handle size', function () {
       it('should set the size of the handle relative to the visible area, in the same ratio as the visible area to the content size', function () {
-        const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.customScrollHandle)
+        const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.customScrollHandle)
         const handleHeight = parseInt(scrollHandle.style.height, 10)
 
         expect(scrollHandle).toBeTruthy()
@@ -170,12 +171,12 @@ describe('custom scroll', function () {
         beforeEach(function () {
           totalScrollHeight = 2000
           visibleHeight = 200
-          this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
+          customScrollInst = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
         })
 
         it('should set the handle size to minimum default height', function () {
           const defaultMinHeight = 38
-          const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.customScrollHandle)
+          const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.customScrollHandle)
           const handleHeight = parseInt(scrollHandle.style.height, 10)
 
           expect(scrollHandle).toBeTruthy()
@@ -183,7 +184,7 @@ describe('custom scroll', function () {
         })
 
         it('should set the handle size to minimum height from props', function () {
-          this.customScroll = renderCustomScroll(
+          customScrollInst = renderCustomScroll(
             customScrollContainer,
             {
               minScrollHandleHeight: 50
@@ -191,7 +192,7 @@ describe('custom scroll', function () {
             visibleHeight,
             totalScrollHeight
           )
-          const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.customScrollHandle)
+          const scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.customScrollHandle)
           const handleHeight = parseInt(scrollHandle.style.height, 10)
 
           expect(scrollHandle).toBeTruthy()
@@ -205,7 +206,7 @@ describe('custom scroll', function () {
     beforeEach(function () {
       totalScrollHeight = 200
       visibleHeight = 100
-      this.customScroll = renderCustomScroll(
+      customScrollInst = renderCustomScroll(
         customScrollContainer,
         {
           freezePosition: true
@@ -216,7 +217,7 @@ describe('custom scroll', function () {
     })
 
     it('should not scroll', function () {
-      const contentContainerNode = this.customScroll.innerContainerRef.current
+      const contentContainerNode = customScrollInst.innerContainerRef.current
 
       contentContainerNode.scrollTop = totalScrollHeight / 4
       TestUtils.Simulate.scroll(contentContainerNode)
@@ -228,7 +229,7 @@ describe('custom scroll', function () {
   describe('heightRelativeToParent', function () {
     describe('when defined', function () {
       beforeEach(function () {
-        this.customScroll = renderCustomScroll(
+        customScrollInst = renderCustomScroll(
           customScrollContainer,
           {
             heightRelativeToParent: '70%'
@@ -239,9 +240,9 @@ describe('custom scroll', function () {
       })
 
       it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function () {
-        const rootStyle = reactDOM.findDOMNode(this.customScroll).style
-        const innerContainerStyle = this.customScroll.innerContainerRef.current.style
-        const contentWrapperStyle = this.customScroll.contentWrapperRef.current.style
+        const rootStyle = reactDOM.findDOMNode(customScrollInst).style
+        const innerContainerStyle = customScrollInst.innerContainerRef.current.style
+        const contentWrapperStyle = customScrollInst.contentWrapperRef.current.style
 
         expect(rootStyle.height).toEqual('70%')
         expect(innerContainerStyle.height).toEqual('100%')
@@ -251,13 +252,13 @@ describe('custom scroll', function () {
 
     describe('when not defined', function () {
       beforeEach(function () {
-        this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
+        customScrollInst = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
       })
 
       it('should set value passed as heightRelativeToParent on the root element, and 100% on other containers', function () {
-        const rootStyle = reactDOM.findDOMNode(this.customScroll).style
-        const innerContainerStyle = this.customScroll.innerContainerRef.current.style
-        const contentWrapperStyle = this.customScroll.contentWrapperRef.current.style
+        const rootStyle = reactDOM.findDOMNode(customScrollInst).style
+        const innerContainerStyle = customScrollInst.innerContainerRef.current.style
+        const contentWrapperStyle = customScrollInst.contentWrapperRef.current.style
 
         expect(rootStyle.height).toBeFalsy()
         expect(innerContainerStyle.height).toBeFalsy()
@@ -268,7 +269,7 @@ describe('custom scroll', function () {
 
   describe('flex size', function () {
     beforeEach(function () {
-      this.customScroll = renderCustomScroll(
+      customScrollInst = renderCustomScroll(
         customScrollContainer,
         {
           flex: '2'
@@ -279,9 +280,9 @@ describe('custom scroll', function () {
     })
 
     it('should set value passed as flex on the root element, and 100% on other containers', function () {
-      const rootStyle = reactDOM.findDOMNode(this.customScroll).style
-      const innerContainerStyle = this.customScroll.innerContainerRef.current.style
-      const contentWrapperStyle = this.customScroll.contentWrapperRef.current.style
+      const rootStyle = reactDOM.findDOMNode(customScrollInst).style
+      const innerContainerStyle = customScrollInst.innerContainerRef.current.style
+      const contentWrapperStyle = customScrollInst.contentWrapperRef.current.style
 
       expect(rootStyle.flexGrow).toEqual('2')
       expect(innerContainerStyle.height).toEqual('100%')
@@ -366,7 +367,7 @@ describe('custom scroll', function () {
 
   describe('custom inner handle css class', function () {
     it('should replace the default class', function () {
-      this.customScroll = renderCustomScroll(
+      customScrollInst = renderCustomScroll(
         customScrollContainer,
         {
           handleClass: 'some-custom-class'
@@ -376,11 +377,11 @@ describe('custom scroll', function () {
       )
 
       const scrollHandleWithDefaultClass = TestUtils.scryRenderedDOMComponentsWithClass(
-        this.customScroll,
+        customScrollInst,
         styles.innerHandle
       )
       const scrollHandleWithCustomClass = TestUtils.findRenderedDOMComponentWithClass(
-        this.customScroll,
+        customScrollInst,
         'some-custom-class'
       )
 
@@ -390,13 +391,14 @@ describe('custom scroll', function () {
   })
 
   describe('on click events', function () {
+    let initialHandlePos, innerContainer
     beforeEach(function () {
-      this.initialHandlePos = this.customScroll.getScrollHandleStyle().top
-      this.outerContainer = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.outerContainer)
-      this.scrollHandle = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.customScrollHandle)
+      initialHandlePos = customScrollInst.getScrollHandleStyle().top
+      this.outerContainer = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.outerContainer)
+      this.scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.customScrollHandle)
       this.scrollHandleLayout = this.scrollHandle.getBoundingClientRect()
-      this.innerContainer = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.innerContainer)
-      this.initialScrollPos = this.innerContainer.scrollTop
+      innerContainer = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.innerContainer)
+      this.initialScrollPos = innerContainer.scrollTop
     })
 
     it('should do nothing if the click is out of the custom scrollbar area', function () {
@@ -410,8 +412,8 @@ describe('custom scroll', function () {
 
       TestUtils.Simulate.click(this.outerContainer, clickPosition)
 
-      expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos)
-      expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos)
+      expect(customScrollInst.getScrollHandleStyle().top).toEqual(initialHandlePos)
+      expect(innerContainer.scrollTop).toEqual(this.initialScrollPos)
     })
 
     it('should do nothing if the click is on the custom scroll handle element', function () {
@@ -426,14 +428,14 @@ describe('custom scroll', function () {
 
       TestUtils.Simulate.click(this.outerContainer, clickPosition)
 
-      expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos)
-      expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos)
+      expect(customScrollInst.getScrollHandleStyle().top).toEqual(initialHandlePos)
+      expect(innerContainer.scrollTop).toEqual(this.initialScrollPos)
     })
 
     it('should do nothing if there is no scroll', function () {
       const contentHeight = 100
       const visibleHeight = contentHeight + 100
-      this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, contentHeight)
+      customScrollInst = renderCustomScroll(customScrollContainer, {}, visibleHeight, contentHeight)
 
       const yOnHandle = this.scrollHandleLayout.top + this.scrollHandleLayout.height / 2
       const xInCustomScrollbar = this.scrollHandleLayout.left + this.scrollHandleLayout.width / 2
@@ -446,8 +448,8 @@ describe('custom scroll', function () {
 
       TestUtils.Simulate.click(this.outerContainer, clickPosition)
 
-      expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos)
-      expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos)
+      expect(customScrollInst.getScrollHandleStyle().top).toEqual(initialHandlePos)
+      expect(innerContainer.scrollTop).toEqual(this.initialScrollPos)
     })
 
     describe('when click is on the custom scrollbar area, and not on the handle itself', function () {
@@ -463,10 +465,8 @@ describe('custom scroll', function () {
 
         TestUtils.Simulate.click(this.outerContainer, clickPosition)
 
-        expect(this.customScroll.getScrollHandleStyle().top).toEqual(
-          this.initialHandlePos + this.scrollHandleLayout.height
-        )
-        expect(this.innerContainer.scrollTop).toBeGreaterThan(this.initialScrollPos)
+        expect(customScrollInst.getScrollHandleStyle().top).toEqual(initialHandlePos + this.scrollHandleLayout.height)
+        expect(innerContainer.scrollTop).toBeGreaterThan(this.initialScrollPos)
       })
 
       it('should scroll upwards and update handle position, if click is above the handle', function () {
@@ -480,10 +480,10 @@ describe('custom scroll', function () {
         }
 
         TestUtils.Simulate.click(this.outerContainer, clickPositionBelowHandle)
-        const newHandlePosition = this.customScroll.getScrollHandleStyle().top
-        const newScrollPos = this.innerContainer.scrollTop
+        const newHandlePosition = customScrollInst.getScrollHandleStyle().top
+        const newScrollPos = innerContainer.scrollTop
 
-        const yAboveHandle = this.customScroll.getScrollHandleStyle().top - 20
+        const yAboveHandle = customScrollInst.getScrollHandleStyle().top - 20
         const clickPositionAboveHandle = {
           clientY: yAboveHandle,
           pageY: yAboveHandle,
@@ -493,8 +493,8 @@ describe('custom scroll', function () {
 
         TestUtils.Simulate.click(this.outerContainer, clickPositionAboveHandle)
 
-        expect(this.customScroll.getScrollHandleStyle().top).toEqual(newHandlePosition - this.scrollHandleLayout.height)
-        expect(this.innerContainer.scrollTop).toBeLessThan(newScrollPos)
+        expect(customScrollInst.getScrollHandleStyle().top).toEqual(newHandlePosition - this.scrollHandleLayout.height)
+        expect(innerContainer.scrollTop).toBeLessThan(newScrollPos)
       })
     })
   })
@@ -575,7 +575,7 @@ describe('custom scroll', function () {
   describe('keepAtBottom', function () {
     describe('when false', function () {
       it('should not scroll to bottom if the scroll is at the bottom', function () {
-        const contentContainerNode = this.customScroll.innerContainerRef.current
+        const contentContainerNode = customScrollInst.innerContainerRef.current
         const expectedScrollTop = totalScrollHeight - visibleHeight
 
         // scroll to bottom
@@ -594,7 +594,7 @@ describe('custom scroll', function () {
       describe('when content is added', function () {
         it('should automatically scroll to bottom if the scroll is at the bottom', function () {
           const addedContentHeight = 500
-          const contentContainerNode = this.customScroll.innerContainerRef.current
+          const contentContainerNode = customScrollInst.innerContainerRef.current
           const expectedScrollTop = totalScrollHeight - visibleHeight + addedContentHeight
 
           // scroll to bottom
@@ -615,7 +615,7 @@ describe('custom scroll', function () {
 
         it('should not scroll to bottom if the scroll was not at the bottom', function () {
           const addedContentHeight = 50
-          const contentContainerNode = this.customScroll.innerContainerRef.current
+          const contentContainerNode = customScrollInst.innerContainerRef.current
           const initialScrollTop = contentContainerNode.scrollTop
 
           // add content
@@ -632,7 +632,7 @@ describe('custom scroll', function () {
 
       describe('when content is replaced, with the same size', () => {
         it('should keep scroll at bottom', function () {
-          const contentContainerNode = this.customScroll.innerContainerRef.current
+          const contentContainerNode = customScrollInst.innerContainerRef.current
 
           const content = [1, 2, 3, 4, 5, 6, 7, 8]
           const contentItems = content.map((index) => ({ key: index, height: 40 }))
@@ -659,7 +659,7 @@ describe('custom scroll', function () {
 
       describe('when content is the same', function () {
         it('should not scroll to bottom if the scroll is at the bottom', function () {
-          const contentContainerNode = this.customScroll.innerContainerRef.current
+          const contentContainerNode = customScrollInst.innerContainerRef.current
           const expectedScrollTop = totalScrollHeight - visibleHeight
 
           // scroll to bottom
@@ -673,7 +673,7 @@ describe('custom scroll', function () {
         })
 
         it('should allow regular scroll', function () {
-          this.customScroll = renderCustomScroll(
+          customScrollInst = renderCustomScroll(
             customScrollContainer,
             {
               keepAtBottom: true,
@@ -683,7 +683,7 @@ describe('custom scroll', function () {
             totalScrollHeight
           )
 
-          const contentContainerNode = this.customScroll.innerContainerRef.current
+          const contentContainerNode = customScrollInst.innerContainerRef.current
           contentContainerNode.scrollTop = 0
 
           TestUtils.Simulate.scroll(contentContainerNode)
@@ -695,24 +695,25 @@ describe('custom scroll', function () {
   })
 
   describe('dynamic content size', () => {
+    let initialHandlePos, initialScrollPos, innerContainer
     beforeEach(() => {
-      this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
-      this.initialHandlePos = this.customScroll.getScrollHandleStyle().top
-      this.outerContainer = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.outerContainer)
-      this.scrollHandle = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.customScrollHandle)
+      customScrollInst = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
+      initialHandlePos = customScrollInst.getScrollHandleStyle().top
+      this.outerContainer = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.outerContainer)
+      this.scrollHandle = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.customScrollHandle)
       this.scrollHandleLayout = this.scrollHandle.getBoundingClientRect()
-      this.innerContainer = TestUtils.findRenderedDOMComponentWithClass(this.customScroll, styles.innerContainer)
-      this.initialScrollPos = this.innerContainer.scrollTop
+      innerContainer = TestUtils.findRenderedDOMComponentWithClass(customScrollInst, styles.innerContainer)
+      initialScrollPos = innerContainer.scrollTop
     })
 
     describe('after content is resized to non scroll state and back to scroll state', () => {
       beforeEach(() => {
-        this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, 10)
-        this.customScroll = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
+        customScrollInst = renderCustomScroll(customScrollContainer, {}, visibleHeight, 10)
+        customScrollInst = renderCustomScroll(customScrollContainer, {}, visibleHeight, totalScrollHeight)
       })
 
       it('should not respond to click on content area', () => {
-        const innerContainerLayout = this.innerContainer.getBoundingClientRect()
+        const innerContainerLayout = innerContainer.getBoundingClientRect()
         const yOnContent = innerContainerLayout.top + 70
         const xOnContent = innerContainerLayout.left + 10
         const clickPosition = {
@@ -724,8 +725,8 @@ describe('custom scroll', function () {
 
         TestUtils.Simulate.click(this.outerContainer, clickPosition)
 
-        expect(this.customScroll.getScrollHandleStyle().top).toEqual(this.initialHandlePos)
-        expect(this.innerContainer.scrollTop).toEqual(this.initialScrollPos)
+        expect(customScrollInst.getScrollHandleStyle().top).toEqual(initialHandlePos)
+        expect(innerContainer.scrollTop).toEqual(initialScrollPos)
       })
     })
   })
