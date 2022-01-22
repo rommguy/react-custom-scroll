@@ -69,5 +69,8 @@
     "ui",
     "component"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "resolutions": {
+    "follow-redirects": "^1.14.7"
+  }
 }
