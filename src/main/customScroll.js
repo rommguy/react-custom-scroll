@@ -1,5 +1,4 @@
 import React, { Component, createRef } from 'react'
-import reactDOM from 'react-dom'
 import styles from './cs.scss'
 import { simpleDebounce } from './simpleDebounce'
 
@@ -94,6 +93,7 @@ class CustomScroll extends Component {
     }
   }
 
+  customScrollRef = createRef()
   innerContainerRef = createRef()
   customScrollbarRef = createRef()
   scrollHandleRef = createRef()
@@ -146,7 +146,7 @@ class CustomScroll extends Component {
     if (!this.customScrollbarRef.current) {
       return false
     }
-    const customScrollElm = reactDOM.findDOMNode(this)
+    const customScrollElm = this.customScrollRef.current
     const boundingRect = customScrollElm.getBoundingClientRect()
     const customScrollbarBoundingRect = this.customScrollbarRef.current.getBoundingClientRect()
     const horizontalClickArea = this.props.rtl
@@ -175,12 +175,12 @@ class CustomScroll extends Component {
     if (!this.scrollHandleRef.current) {
       return false
     }
-    const scrollHandle = reactDOM.findDOMNode(this.scrollHandleRef.current)
+    const scrollHandle = this.scrollHandleRef.current
     return isEventPosOnDomNode(event, scrollHandle)
   }
 
   calculateNewScrollHandleTop = (clickEvent) => {
-    const domNode = reactDOM.findDOMNode(this)
+    const domNode = this.customScrollRef.current
     const boundingRect = domNode.getBoundingClientRect()
     const currentTop = boundingRect.top + window.pageYOffset
     const clickYRelativeToScrollbar = clickEvent.pageY - currentTop
@@ -356,7 +356,7 @@ class CustomScroll extends Component {
     ].join(' ')
 
     return (
-      <div className={className} style={rootStyle}>
+      <div className={className} style={rootStyle} ref={this.customScrollRef}>
         <div
           className={styles.outerContainer}
           style={this.getOuterContainerStyle()}

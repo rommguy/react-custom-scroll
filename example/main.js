@@ -1,5 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { FirstComp } from './firstComp/firstComp'
 
-ReactDOM.render(React.createElement(FirstComp), document.getElementById('body'))
+debugger
+const root = createRoot(document.getElementById('body'))
+root.render(React.createElement(FirstComp))
