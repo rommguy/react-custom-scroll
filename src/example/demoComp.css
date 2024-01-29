@@ -1,0 +1,117 @@
+.example-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container {
+  text-align: center;
+  padding: 0 2%;
+}
+
+.container .side-title {
+  display: block;
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.scroll-creator {
+  background: linear-gradient(to bottom, #bdeafc, #fcbdc9);
+}
+
+.panel {
+  display: inline-block;
+  width: 288px;
+  box-shadow: 0 0 1px #ddd;
+  border-radius: 8px;
+}
+
+.panel-header {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+  background-color: #333;
+  text-align: left;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel-content,
+.outer-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.panel-content-native {
+  max-height: 525px;
+  overflow: auto;
+}
+
+.panel-content-custom {
+  max-height: 525px;
+}
+
+.content-fill {
+  background: #d6eff5;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px 20px;
+}
+
+.crazy-scroll .rcs-custom-scrollbar {
+  width: 45px;
+}
+
+.crazy-scroll .rcs-inner-handle {
+  background-color: inherit;
+  background-image: url("http://rommguy.github.io/react-custom-scroll/example/giraffe-icon.png");
+  background-repeat: no-repeat no-repeat;
+  background-size: cover;
+}
+
+.flex-scroll {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}
+
+.dynamic-content {
+  padding: 30px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.example-dynamic-wrapper .panel-content-custom {
+  max-height: 250px;
+}
+
+.example-dynamic-wrapper .dynamic-content-button {
+  display: block;
+  border: 10px;
+  font-family: Roboto, sans-serif;
+  cursor: pointer;
+  padding: 0px;
+  outline: none;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 2px;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  background-color: rgb(0, 188, 212);
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  margin: 10px auto;
+  min-width: 200px;
+  user-select: none;
+  padding-left: 16px;
+  padding-right: 16px;
+  color: rgb(255, 255, 255);
+}
+
+.example-dynamic-wrapper .dynamic-content-button:hover {
+  background-color: rgba(0, 188, 212, 0.6);
+}

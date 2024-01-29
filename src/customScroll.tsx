@@ -7,10 +7,9 @@ import {
   WheelEvent,
   PropsWithChildren,
 } from "react";
+import "./customScroll.css";
 
 import { ensureWithinLimits, simpleDebounce } from "./utils.ts";
-
-// TODO guyromm 29/01/2024 generate class names to avoid collisions
 
 interface ElementLayout {
   top: number;
@@ -35,18 +34,18 @@ function isEventPosOnLayout(event: MouseEvent, layout: ElementLayout) {
 }
 
 interface CustomScrollProps extends PropsWithChildren {
-  allowOuterScroll: boolean;
-  heightRelativeToParent: string;
-  onScroll: (event: UIEvent) => void;
-  addScrolledClass: boolean;
-  freezePosition: boolean;
-  handleClass: string;
-  minScrollHandleHeight: number;
-  flex: string;
-  rtl: boolean;
-  scrollTo: number;
-  keepAtBottom: boolean;
-  className: string;
+  allowOuterScroll?: boolean;
+  heightRelativeToParent?: string;
+  onScroll?: (event: UIEvent) => void;
+  addScrolledClass?: boolean;
+  freezePosition?: boolean;
+  handleClass?: string;
+  minScrollHandleHeight?: number;
+  flex?: string;
+  rtl?: boolean;
+  scrollTo?: number;
+  keepAtBottom?: boolean;
+  className?: string;
 }
 
 interface CustomScrollState {
@@ -371,9 +370,9 @@ export class CustomScroll extends Component<
 
   getInnerContainerClasses = () => {
     if (this.state.scrollPos && this.props.addScrolledClass) {
-      return "inner-container content-scrolled";
+      return "rcs-inner-container rcs-content-scrolled";
     }
-    return "inner-container";
+    return "rcs-inner-container";
   };
 
   getScrollStyles = () => {
@@ -445,32 +444,34 @@ export class CustomScroll extends Component<
     );
     const className = [
       this.props.className || "",
-      "custom-scroll",
-      this.state.onDrag ? "scroll-handle-dragged" : "",
+      "rcs-custom-scroll",
+      this.state.onDrag ? "rcs-scroll-handle-dragged" : "",
     ].join(" ");
 
     return (
       <div className={className} style={rootStyle} ref={this.customScrollRef}>
         <div
-          className="outer-container"
+          className="rcs-outer-container"
           style={this.getOuterContainerStyle()}
           onMouseDown={this.onMouseDown}
           onTouchStart={this.onTouchStart}
           onClick={this.onClick}
         >
           {this.hasScroll ? (
-            <div className="positioning">
+            <div className="rcs-positioning">
               <div
                 ref={this.customScrollbarRef}
-                className={`custom-scrollbar ${this.props.rtl ? "custom-scrollbar-rtl" : ""}`}
+                className={`rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""}`}
                 key="scrollbar"
               >
                 <div
                   ref={this.scrollHandleRef}
-                  className="custom-scroll-handle"
+                  className="rcs-custom-scroll-handle"
                   style={scrollHandleStyle}
                 >
-                  <div className={this.props.handleClass || "inner-handle"} />
+                  <div
+                    className={this.props.handleClass || "rcs-inner-handle"}
+                  />
                 </div>
               </div>
             </div>
