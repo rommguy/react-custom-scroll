@@ -7,12 +7,14 @@
   "module": "dist/index.es.js",
   "types": "dist/src/customScroll.d.ts",
   "exports": {
-    ".":  {
+    ".": {
       "import": "./dist/index.es.js",
       "require": "./dist/index.umd.js"
     }
   },
-  "files": ["/dist"],
+  "files": [
+    "/dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -24,6 +26,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.202",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
