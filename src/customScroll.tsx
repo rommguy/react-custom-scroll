@@ -7,9 +7,95 @@ import {
   WheelEvent,
   PropsWithChildren,
 } from "react";
-import "./customScroll.css";
-
+import styled from "styled-components";
 import { ensureWithinLimits, simpleDebounce } from "./utils.ts";
+
+const CustomScrollbar = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 6px;
+  right: 3px;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.4s ease-out;
+  padding: 6px 0;
+  box-sizing: border-box;
+  will-change: opacity;
+  pointer-events: none;
+
+  &.rcs-custom-scrollbar-rtl {
+    right: auto;
+    left: 3px;
+  }
+`;
+
+const ScrollHandle = styled.div`
+  height: calc(100% - 12px);
+  margin-top: 6px;
+  background-color: rgba(78, 183, 245, 0.7);
+  border-radius: 3px;
+`;
+
+const CustomScrollRoot = styled.div`
+  min-height: 0;
+  min-width: 0;
+
+  & .rcs-outer-container {
+    overflow: hidden;
+
+    & .rcs-positioning {
+      position: relative;
+    }
+
+    &:hover ${CustomScrollbar} {
+      opacity: 1;
+      transition-duration: 0.2s;
+    }
+  }
+
+  & .rcs-inner-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 0;
+      background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.05) 60%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      pointer-events: none;
+      transition: height 0.1s ease-in;
+      will-change: height;
+    }
+
+    &.rcs-content-scrolled:after {
+      height: 5px;
+      transition: height 0.15s ease-out;
+    }
+  }
+
+  &.rcs-scroll-handle-dragged .rcs-inner-container {
+    user-select: none;
+  }
+
+  &.rcs-scroll-handle-dragged ${CustomScrollbar} {
+    opacity: 1;
+  }
+
+  & .rcs-custom-scroll-handle {
+    position: absolute;
+    width: 100%;
+    top: 0;
+  }
+`;
 
 interface ElementLayout {
   top: number;
@@ -449,7 +535,11 @@ export class CustomScroll extends Component<
     ].join(" ");
 
     return (
-      <div className={className} style={rootStyle} ref={this.customScrollRef}>
+      <CustomScrollRoot
+        className={className}
+        style={rootStyle}
+        ref={this.customScrollRef}
+      >
         <div
           className="rcs-outer-container"
           style={this.getOuterContainerStyle()}
@@ -459,7 +549,7 @@ export class CustomScroll extends Component<
         >
           {this.hasScroll ? (
             <div className="rcs-positioning">
-              <div
+              <CustomScrollbar
                 ref={this.customScrollbarRef}
                 className={`rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""}`}
                 key="scrollbar"
@@ -469,11 +559,9 @@ export class CustomScroll extends Component<
                   className="rcs-custom-scroll-handle"
                   style={scrollHandleStyle}
                 >
-                  <div
-                    className={this.props.handleClass || "rcs-inner-handle"}
-                  />
+                  <ScrollHandle className={this.props.handleClass || ""} />
                 </div>
-              </div>
+              </CustomScrollbar>
             </div>
           ) : null}
           <div
@@ -490,7 +578,7 @@ export class CustomScroll extends Component<
             </div>
           </div>
         </div>
-      </div>
+      </CustomScrollRoot>
     );
   }
 }

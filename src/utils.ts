@@ -1,5 +1,5 @@
 export const simpleDebounce = (func: () => void, delay: number) => {
-  let timer: number;
+  let timer: ReturnType<typeof setTimeout>;
 
   function cancel() {
     clearTimeout(timer);
