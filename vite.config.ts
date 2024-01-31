@@ -24,4 +24,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   plugins: [react(), dts()],
+  server: {
+    port: 5174,
+  },
 });

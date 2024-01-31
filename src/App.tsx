@@ -13,7 +13,7 @@ export const App = () => {
         it doesn't take up any space. This enables the same results regardless
         of browser or operating system.
       </div>
-      <div className="example-wrapper">
+      <div data-testid="first-example" className="example-wrapper">
         <DemoComp demoType="compare-with-native" />
       </div>
       <div id="with-crazy-design">

@@ -541,6 +541,7 @@ export class CustomScroll extends Component<
         ref={this.customScrollRef}
       >
         <div
+          data-testid="outer-container"
           className="rcs-outer-container"
           style={this.getOuterContainerStyle()}
           onMouseDown={this.onMouseDown}
@@ -550,11 +551,13 @@ export class CustomScroll extends Component<
           {this.hasScroll ? (
             <div className="rcs-positioning">
               <CustomScrollbar
+                data-testid="custom-scrollbar"
                 ref={this.customScrollbarRef}
                 className={`rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""}`}
                 key="scrollbar"
               >
                 <div
+                  data-testid="custom-scroll-handle"
                   ref={this.scrollHandleRef}
                   className="rcs-custom-scroll-handle"
                   style={scrollHandleStyle}
@@ -565,6 +568,7 @@ export class CustomScroll extends Component<
             </div>
           ) : null}
           <div
+            data-testid="inner-container"
             ref={this.innerContainerRef}
             className={this.getInnerContainerClasses()}
             style={scrollStyles.innerContainer}
