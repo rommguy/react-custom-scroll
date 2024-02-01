@@ -4,11 +4,16 @@ import {
   createRef,
   UIEvent,
   MouseEvent,
-  WheelEvent,
   PropsWithChildren,
 } from "react";
 import styled from "styled-components";
-import { ensureWithinLimits, simpleDebounce } from "./utils.ts";
+import {
+  ElementLayout,
+  ensureWithinLimits,
+  isEventPosOnDomNode,
+  isEventPosOnLayout,
+  simpleDebounce,
+} from "./utils.ts";
 
 const CustomScrollbar = styled.div`
   position: absolute;
@@ -97,28 +102,6 @@ const CustomScrollRoot = styled.div`
   }
 `;
 
-interface ElementLayout {
-  top: number;
-  right: number;
-  height: number;
-  left: number;
-  width?: number;
-}
-
-function isEventPosOnDomNode(event: MouseEvent, domNode: HTMLElement) {
-  const nodeClientRect = domNode.getBoundingClientRect();
-  return isEventPosOnLayout(event, nodeClientRect);
-}
-
-function isEventPosOnLayout(event: MouseEvent, layout: ElementLayout) {
-  return (
-    event.clientX > layout.left &&
-    event.clientX < layout.right &&
-    event.clientY > layout.top &&
-    event.clientY < layout.top + layout.height
-  );
-}
-
 interface CustomScrollProps extends PropsWithChildren {
   allowOuterScroll?: boolean;
   heightRelativeToParent?: string;
@@ -175,14 +158,6 @@ export class CustomScroll extends Component<
     } else {
       this.forceUpdate();
     }
-    if (this.innerContainerRef.current) {
-      this.innerContainerRef.current.addEventListener(
-        "wheel",
-        // @ts-expect-error problem typing event handlers
-        this.blockOuterScroll,
-        { passive: false },
-      );
-    }
   }
 
   componentDidUpdate(
@@ -228,14 +203,6 @@ export class CustomScroll extends Component<
     document.removeEventListener("mousemove", this.onHandleDrag);
     // @ts-expect-error problem typing event handlers
     document.removeEventListener("mouseup", this.onHandleDragEnd);
-
-    if (this.innerContainerRef.current) {
-      this.innerContainerRef.current.removeEventListener(
-        "wheel",
-        // @ts-expect-error problem typing event handlers
-        this.blockOuterScroll,
-      );
-    }
   }
 
   customScrollRef = createRef<HTMLDivElement>();
@@ -436,24 +403,6 @@ export class CustomScroll extends Component<
     document.removeEventListener("mouseup", this.onHandleDragEnd);
   };
 
-  blockOuterScroll = (e: WheelEvent<HTMLElement>) => {
-    if (this.props.allowOuterScroll) {
-      return;
-    }
-    const contentNode = e.currentTarget as HTMLElement;
-    const totalHeight = contentNode.scrollHeight;
-    const maxScroll = totalHeight - contentNode.offsetHeight;
-    const delta = e.deltaY % 3 ? e.deltaY : e.deltaY * 10;
-    if (contentNode.scrollTop + delta <= 0) {
-      contentNode.scrollTop = 0;
-      e.preventDefault();
-    } else if (contentNode.scrollTop + delta >= maxScroll) {
-      contentNode.scrollTop = maxScroll;
-      e.preventDefault();
-    }
-    e.stopPropagation();
-  };
-
   getInnerContainerClasses = () => {
     if (this.state.scrollPos && this.props.addScrolledClass) {
       return "rcs-inner-container rcs-content-scrolled";
@@ -467,6 +416,7 @@ export class CustomScroll extends Component<
     const innerContainerStyle: CSSProperties = {
       height:
         this.props.heightRelativeToParent || this.props.flex ? "100%" : "",
+      overscrollBehavior: this.props.allowOuterScroll ? "auto" : "none",
     };
     innerContainerStyle[marginKey] = -1 * scrollSize;
     const contentWrapperStyle: CSSProperties = {

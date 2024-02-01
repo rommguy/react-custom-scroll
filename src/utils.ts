@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+
 export const simpleDebounce = (func: () => void, delay: number) => {
   let timer: ReturnType<typeof setTimeout>;
 
@@ -30,4 +32,26 @@ export const ensureWithinLimits = (value: number, min: number, max: number) => {
     return max;
   }
   return value;
+};
+
+export interface ElementLayout {
+  top: number;
+  right: number;
+  height: number;
+  left: number;
+  width?: number;
+}
+
+export const isEventPosOnLayout = (event: MouseEvent, layout: ElementLayout) =>
+  event.clientX > layout.left &&
+  event.clientX < layout.right &&
+  event.clientY > layout.top &&
+  event.clientY < layout.top + layout.height;
+
+export const isEventPosOnDomNode = (
+  event: MouseEvent,
+  domNode: HTMLElement,
+) => {
+  const nodeClientRect = domNode.getBoundingClientRect();
+  return isEventPosOnLayout(event, nodeClientRect);
 };

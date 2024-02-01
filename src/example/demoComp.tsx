@@ -43,7 +43,7 @@ export const DemoComp = ({ demoType }: DemoCompProps) => {
               <div className="panel-header">
                 <label className="panel-title">Cool Scrollbar!</label>
               </div>
-              <CustomScroll allowOuterScroll={false}>
+              <CustomScroll allowOuterScroll={true}>
                 <div className="panel-content-custom panel-content">
                   <div className="content-fill">{demoText.text}</div>
                 </div>

@@ -3,7 +3,7 @@ import { DemoComp } from "./example/demoComp.tsx";
 
 export const App = () => {
   return (
-    <div>
+    <div data-testid="app-root">
       <div>
         When designing a scrollbar, we don't want to take control on the
         scrolling mechanism. react-custom-scroll uses the existing native
