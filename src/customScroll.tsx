@@ -32,6 +32,11 @@ const CustomScrollbar = styled.div`
     right: auto;
     left: 3px;
   }
+
+  &.scroll-visible {
+    opacity: 1;
+    transition-duration: 0.2s;
+  }
 `;
 
 const ScrollHandle = styled.div`
@@ -50,11 +55,6 @@ const CustomScrollRoot = styled.div`
 
     & .rcs-positioning {
       position: relative;
-    }
-
-    &:hover ${CustomScrollbar} {
-      opacity: 1;
-      transition-duration: 0.2s;
     }
   }
 
@@ -120,6 +120,7 @@ interface CustomScrollProps extends PropsWithChildren {
 interface CustomScrollState {
   scrollPos: number;
   onDrag: boolean;
+  visible: boolean;
 }
 
 export class CustomScroll extends Component<
@@ -143,6 +144,7 @@ export class CustomScroll extends Component<
     this.state = {
       scrollPos: 0,
       onDrag: false,
+      visible: false,
     };
 
     this.hideScrollThumb = simpleDebounce(() => {
@@ -472,6 +474,14 @@ export class CustomScroll extends Component<
     };
   };
 
+  onMouseEnter = () => {
+    this.setState({ visible: true });
+  };
+
+  onMouseLeave = () => {
+    this.setState({ visible: false });
+  };
+
   render() {
     const scrollStyles = this.getScrollStyles();
     const rootStyle = this.getRootStyles();
@@ -497,13 +507,15 @@ export class CustomScroll extends Component<
           onMouseDown={this.onMouseDown}
           onTouchStart={this.onTouchStart}
           onClick={this.onClick}
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave}
         >
           {this.hasScroll ? (
             <div className="rcs-positioning">
               <CustomScrollbar
                 data-testid="custom-scrollbar"
                 ref={this.customScrollbarRef}
-                className={`rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""}`}
+                className={`rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""} ${this.state.visible ? "scroll-visible" : ""}`}
                 key="scrollbar"
               >
                 <div

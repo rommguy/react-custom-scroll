@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import {
   assertCustomScrollBarVisible,
   assertDomElementProperty,
+  getExamplePanel,
   getInnerContainer,
   getScrollHandle,
 } from "./customScrollDriver";
@@ -18,7 +19,7 @@ test.describe("basic functionality", () => {
   test("Custom scrollbar appears when hovering the container", async ({
     page,
   }) => {
-    const examplePanel = page.getByTestId("first-example");
+    const examplePanel = getExamplePanel(page);
     await examplePanel.getByTestId("outer-container").hover();
 
     await assertCustomScrollBarVisible(examplePanel);
@@ -27,7 +28,7 @@ test.describe("basic functionality", () => {
   test("Updates the position of the scroll handle when scrolling", async ({
     page,
   }) => {
-    const examplePanel = page.getByTestId("first-example");
+    const examplePanel = getExamplePanel(page);
     await examplePanel.getByTestId("outer-container").hover();
 
     await assertDomElementProperty(
@@ -50,6 +51,25 @@ test.describe("basic functionality", () => {
       "offsetTop",
       28,
     );
+  });
+});
+
+test.describe("mouse interactions with custom scrollbar", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(APP_URL);
+  });
+
+  test("Should scroll when clicking on the scrollbar area", async ({
+    page,
+  }) => {
+    const examplePanel = getExamplePanel(page);
+
+    const customHandle = getScrollHandle(examplePanel);
+    await customHandle.hover();
+    // click below the handle
+    page.mouse.click(0, 50);
+
+    // check the scroll moved downwards
   });
 });
 

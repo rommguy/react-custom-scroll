@@ -16,6 +16,9 @@ export const getInnerContainer = (container: Locator) =>
 export const getScrollHandle = (container: Locator) =>
   container.getByTestId("custom-scroll-handle");
 
+export const getExamplePanel = (page: Page) =>
+  page.getByTestId("first-example");
+
 export const assertDomElementProperty = async (
   element: Locator,
   elmProperty: "scrollTop" | "offsetTop",

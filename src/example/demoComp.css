@@ -1,3 +1,12 @@
+.example-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin: 50px 0;
+  padding: 50px 0;
+}
+
 .container {
   text-align: center;
   padding: 0 2%;
@@ -108,4 +117,10 @@
 
 .example-dynamic-wrapper .dynamic-content-button:hover {
   background-color: rgba(0, 188, 212, 0.6);
+}
+
+.example-description {
+  margin: 20px 0;
+  font-size: 18px;
+  width: 288px;
 }
