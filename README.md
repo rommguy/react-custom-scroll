@@ -9,8 +9,7 @@ An easily designable, cross browser (!!), custom scroll with ReactJS.
 The actual scroll is still the native one - Meaning the scroll animations and scroll rate work as always
 The only thin that is different is the visible design and scrollbar layout. 
 
-##### See a [working demo](http://rommguy.github.io/react-custom-scroll/example/demo.html) ###
-
+##### See a [working demo](http://rommguy.github.io/react-custom-scroll/exampleDist/index.html) ###
 ## Installation
 ```sh
 npm i react-custom-scroll --save
@@ -64,7 +63,7 @@ This prop will override any value given to heightRelativeToParent when setting t
 - **minScrollHandleHeight** : number, sets the mimimum height of the scroll handle. Default is 38, as in Chrome on OSX.
 - **rtl** : boolean, default false. Right to left document, will place the custom scrollbar on the left side of the content, and assume the native one is also there.
 - **scrollTo**: number, default undefined. Will scroll content to the given value.
-- **keepAtBottom**: boolean, default false. For dynamic content, will keep the scroll position at the bottom of the content, when the content changes, if the position was at the bottom before the change. [See example here](http://rommguy.github.io/react-custom-scroll/example/demo.html#dynamic-content-example)
+- **keepAtBottom**: boolean, default false. For dynamic content, will keep the scroll position at the bottom of the content, when the content changes, if the position was at the bottom before the change. [See example here](http://rommguy.github.io/react-custom-scroll/exampleDist/index.html#dynamic-content-example)
 - **className**: string, default undefined. Allows adding your own class name to the root element.
 
 ##### Example for heightRelativeToParent
@@ -87,7 +86,7 @@ starting with lower case causes JSX to treat the tag as a native dom element
 - You can use CustomScroll types by installing @types/react-custom-scroll from npm
 
 ### Usage with flexbox
-##### See a [demo with Flex](http://rommguy.github.io/react-custom-scroll/example/demo.html#flex-example) ###
+##### See a [demo with Flex](http://rommguy.github.io/react-custom-scroll/exampleDist/index.html#flex-example) ###
 There are some details that apply when using customScroll on elements with size set by css flex.  
 Here is an example for an HTML structure before using customScroll:  
 
@@ -147,9 +146,9 @@ npx karma start
 
 [npm-image]: https://img.shields.io/npm/v/react-custom-scroll.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/react-custom-scroll
-[travis-image]: https://img.shields.io/travis/wix/react-custom-scroll/gh-pages.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/wix/react-custom-scroll/main.svg?style=flat-square
 [travis-url]: https://travis-ci.org/wix/react-custom-scroll
-[coveralls-image]: https://img.shields.io/coveralls/wix/react-custom-scroll/gh-pages.svg?style=flat-square
+[coveralls-image]: https://img.shields.io/coveralls/wix/react-custom-scroll/main.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/wix/react-custom-scroll?branch=gh-pages
 [downloads-image]: http://img.shields.io/npm/dm/react-custom-scroll.svg?style=flat-square
 [downloads-url]: https://npmjs.org/package/react-custom-scroll
