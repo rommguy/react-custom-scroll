@@ -524,7 +524,9 @@ export class CustomScroll extends Component<
                   className="rcs-custom-scroll-handle"
                   style={scrollHandleStyle}
                 >
-                  <ScrollHandle className={this.props.handleClass || ""} />
+                  <ScrollHandle
+                    className={this.props.handleClass || "rcs-inner-handle"}
+                  />
                 </div>
               </CustomScrollbar>
             </div>

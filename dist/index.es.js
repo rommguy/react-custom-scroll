@@ -2076,7 +2076,12 @@ class Ao extends gn {
                       ref: this.scrollHandleRef,
                       className: "rcs-custom-scroll-handle",
                       style: i,
-                      children: /* @__PURE__ */ ce.jsx(xo, { className: this.props.handleClass || "" })
+                      children: /* @__PURE__ */ ce.jsx(
+                        xo,
+                        {
+                          className: this.props.handleClass || "rcs-inner-handle"
+                        }
+                      )
                     }
                   )
                 },
