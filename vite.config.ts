@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     return {
       plugins: [react()],
       build: { outDir: "exampleDist" },
-      base: "exampleDist",
+      base: "react-custom-scroll/exampleDist",
     };
   }
 
