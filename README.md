@@ -6,7 +6,7 @@
 # React-Custom-Scroll
 An easily designable, cross browser (!!), custom scroll with ReactJS.    
 
-The  actual scroll is still the native one - Meaning the scroll animations and scroll rate work as always
+The actual scroll is still the native one - Meaning the scroll animations and scroll rate work as always
 The only thin that is different is the visible design and scrollbar layout. 
 
 ##### See a [working demo](http://rommguy.github.io/react-custom-scroll/example/demo.html) ###
