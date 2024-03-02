@@ -7,7 +7,21 @@
 }
 
 .app-root {
-  max-height: 100vh;
+  max-height: calc(100vh - 70px);
   max-width: 900px;
   margin: 0 auto;
+  padding-top: 90px;
+}
+
+.demo-title {
+  font-size: 32px;
+  margin: 24px 0;
+  padding: 0 24px;
+}
+
+.demo-subtitle {
+  max-width: 606px;
+  margin: 0 auto 50px;
+  text-align: center;
+  padding: 0 24px;
 }

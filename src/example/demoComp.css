@@ -3,18 +3,20 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  margin: 50px 0;
-  padding: 50px 0;
+  margin: 70px auto;
+}
+
+.example-wrapper:last-child {
+  padding-bottom: 70px;
 }
 
 .container {
   text-align: center;
-  padding: 0 2%;
 }
 
 .container .side-title {
   display: block;
-  margin: 20px 0;
+  margin: 0 0 20px;
   font-size: 18px;
 }
 
@@ -122,5 +124,23 @@
 .example-description {
   margin: 20px 0;
   font-size: 18px;
-  width: 288px;
+  width: 248px;
+  padding: 0 20px;
+  text-align: start;
+}
+
+.example-description img {
+  height: 130px;
+  display: block;
+  margin: 20px auto;
+}
+
+@media only screen and (max-width: 580px) {
+  .native-scroll {
+    margin-bottom: 35px;
+  }
+
+  .example-wrapper {
+    margin: 35px auto;
+  }
 }

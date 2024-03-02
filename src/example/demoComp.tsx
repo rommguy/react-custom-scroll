@@ -64,6 +64,7 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
           style={descriptionStyle}
         >
           <div className="example-description">
+            <img src="src/example/giraffe-icon.png" />
             There are no limits for your design.
           </div>
           <div className="panel crazy-scroll">
