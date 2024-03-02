@@ -3,6 +3,7 @@ import { demoText } from "./demoText.ts";
 import { times, map } from "lodash/fp";
 import "./demoComp.css";
 import { CSSProperties, useState } from "react";
+import Giraffe from "./giraffe-icon.png";
 
 interface DemoCompProps {
   demoType:
@@ -64,7 +65,7 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
           style={descriptionStyle}
         >
           <div className="example-description">
-            <img src="src/example/giraffe-icon.png" />
+            <img src={Giraffe} />
             There are no limits for your design.
           </div>
           <div className="panel crazy-scroll">
