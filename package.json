@@ -1,6 +1,6 @@
 {
   "name": "react-custom-scroll",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "private": false,
   "type": "module",
   "main": "dist/index.umd.js",
