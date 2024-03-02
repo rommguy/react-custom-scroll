@@ -6,12 +6,6 @@
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/src/customScroll.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js"
-    }
-  },
   "files": [
     "/dist"
   ],
@@ -21,6 +15,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:example": "tsc && vite build --mode example",
     "prepare": "npm run build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
