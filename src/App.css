@@ -7,7 +7,6 @@
 }
 
 .app-root {
-  max-height: calc(100vh - 70px);
   max-width: 900px;
   margin: 0 auto;
   padding-top: 90px;
