@@ -131,8 +131,9 @@ min-height and min-width are required since flex won't shrink below it's minimum
 ```
 
 ### Contributing
-To build the project in watch mode, run 'npm run develop' or 'yarn develop'.  
-For production build - run yarn build .   
+This project is built using Vite.
+To run in dev mode - "yarn dev" or "npm run dev".
+To build the project - "yarn build" or "npm run build". 
 
 ### Tests
 ```sh
