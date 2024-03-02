@@ -7,7 +7,11 @@ export default defineConfig(({ mode }) => {
   const isProdBuild = mode !== "example";
 
   if (!isProdBuild) {
-    return { plugins: [react()], build: { outDir: "exampleDist" } };
+    return {
+      plugins: [react()],
+      build: { outDir: "exampleDist" },
+      publicDir: "exampleDist",
+    };
   }
 
   return {
