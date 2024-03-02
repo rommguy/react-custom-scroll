@@ -71,7 +71,7 @@
 
 .crazy-scroll .scroll-handle-override {
   background-color: inherit;
-  background-image: url("http://rommguy.github.io/react-custom-scroll/example/giraffe-icon.png");
+  background-image: url("http://rommguy.github.io/react-custom-scroll/giraffe-icon.png");
   background-repeat: no-repeat no-repeat;
   background-size: cover;
 }
