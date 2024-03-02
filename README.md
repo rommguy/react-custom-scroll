@@ -23,7 +23,7 @@ npm i react-custom-scroll --save
 Custom scroll component is available in module or commonJS format.   
 It is located in /dist directory       
 **From unpkg cdn:**      
-* [Js file](https://unpkg.com/react-custom-scroll@5.0.0/dist/reactCustomScroll)
+* [Js file](https://unpkg.com/react-custom-scroll@7.0.0/dist/index.umd.js)
 
 Wrap your content with the custom scroll component  
 Remove any overflow style properties from your content root component - The custom scroll will take care of it
