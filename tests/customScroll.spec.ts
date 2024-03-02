@@ -54,24 +54,24 @@ test.describe("basic functionality", () => {
   });
 });
 
-test.describe("mouse interactions with custom scrollbar", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(APP_URL);
-  });
-
-  test("Should scroll when clicking on the scrollbar area", async ({
-    page,
-  }) => {
-    const examplePanel = getExamplePanel(page);
-
-    const customHandle = getScrollHandle(examplePanel);
-    await customHandle.hover();
-    // click below the handle
-    page.mouse.click(0, 50);
-
-    // check the scroll moved downwards
-  });
-});
+// test.describe("mouse interactions with custom scrollbar", () => {
+//   test.beforeEach(async ({ page }) => {
+//     await page.goto(APP_URL);
+//   });
+//
+//   test("Should scroll when clicking on the scrollbar area", async ({
+//     page,
+//   }) => {
+//     const examplePanel = getExamplePanel(page);
+//
+//     const customHandle = getScrollHandle(examplePanel);
+//     await customHandle.hover();
+//     // click below the handle
+//     page.mouse.click(0, 50);
+//
+//     // check the scroll moved downwards
+//   });
+// });
 
 // test.describe("Blocking outer scroll", () => {
 //   test.beforeEach(async ({ page }) => {

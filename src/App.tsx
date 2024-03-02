@@ -14,7 +14,11 @@ export const App = () => {
           hover design means no content is obscured, offering a consistent look
           across browsers and operating systems.
         </div>
-        <DemoComp demoType="compare-with-native" descriptionSide="left" />
+        <DemoComp
+          demoType="compare-with-native"
+          descriptionSide="left"
+          testId="first-example"
+        />
         <DemoComp demoType="crazy-designer" descriptionSide="right" />
         <DemoComp demoType="dynamic-content" descriptionSide="left" />
         <DemoComp demoType="allow-outer-scroll" descriptionSide="right" />

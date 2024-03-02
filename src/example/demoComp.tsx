@@ -13,9 +13,14 @@ interface DemoCompProps {
     | "dynamic-content"
     | "allow-outer-scroll";
   descriptionSide: "left" | "right";
+  testId?: string;
 }
 
-export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
+export const DemoComp = ({
+  demoType,
+  descriptionSide,
+  testId,
+}: DemoCompProps) => {
   const [dynamicContentCounter, setDynamicContentCounter] = useState<number>(4);
   const addContent = () => {
     setDynamicContentCounter((prev) => prev + 1);
@@ -29,8 +34,12 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
   switch (demoType) {
     case "compare-with-native":
       return (
-        <div className="example-wrapper" style={descriptionStyle}>
-          <div key="native-example" className="container native-scroll">
+        <div
+          data-testid={testId || ""}
+          className="example-wrapper"
+          style={descriptionStyle}
+        >
+          <div className="container native-scroll">
             <label className="side-title">Native Scroll</label>
             <div className="panel">
               <div className="panel-header">
@@ -41,7 +50,7 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
               </div>
             </div>
           </div>
-          <div key="cool-example" className="container">
+          <div className="container">
             <label className="side-title">Custom Scroll</label>
 
             <div className="panel">
@@ -60,7 +69,7 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
     case "crazy-designer":
       return (
         <div
-          key="crazy-example"
+          data-testid={testId || ""}
           className="container example-wrapper"
           style={descriptionStyle}
         >
@@ -90,6 +99,7 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
           className="container example-flex-wrapper example-wrapper"
           style={descriptionStyle}
           id="flex-example"
+          data-testid={testId || ""}
         >
           <div className="example-description">
             Custom scroll supports flexible layouts. You can use it on elements
@@ -110,6 +120,7 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
     case "dynamic-content":
       return (
         <div
+          data-testid={testId || ""}
           className="example-dynamic-wrapper example-wrapper"
           style={descriptionStyle}
           id="dynamic-content-example"
@@ -162,6 +173,7 @@ export const DemoComp = ({ demoType, descriptionSide }: DemoCompProps) => {
     case "allow-outer-scroll":
       return (
         <div
+          data-testid={testId || ""}
           className="example-wrapper"
           style={descriptionStyle}
           id="allow-outer-scroll-example"
