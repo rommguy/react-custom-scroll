@@ -31,7 +31,7 @@
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
-    "@playwright/test": "^1.41.1",
+    "@playwright/test": "^1.50.1",
     "@types/node": "^20.11.10",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
