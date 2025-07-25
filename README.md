@@ -15,6 +15,15 @@ The only thin that is different is the visible design and scrollbar layout.
 npm i react-custom-scroll --save
 ```
 
+### Peer Dependencies
+This package requires React 18+ to be installed in your project:
+
+```sh
+npm install react@">=18.0.0" react-dom@">=18.0.0"
+```
+
+**Note:** Most React projects already have these installed, so you typically don't need to install anything extra.
+
 ### Why do I need this ?  
 - Same design on all browsers
 - Scrollbar is above the content instead of floating to the side - same layout on scrolled content as not scrolled content
