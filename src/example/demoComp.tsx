@@ -11,7 +11,8 @@ interface DemoCompProps {
     | "crazy-designer"
     | "flex"
     | "dynamic-content"
-    | "allow-outer-scroll";
+    | "allow-outer-scroll"
+    | "keep-scroll-visible";
   descriptionSide: "left" | "right";
   testId?: string;
 }
@@ -193,6 +194,32 @@ export const DemoComp = ({
                   style={{ maxHeight: 300 }}
                 >
                   <div className="content-fill">{demoText.shortText}</div>
+                </div>
+              </CustomScroll>
+            </div>
+          </div>
+        </div>
+      );
+    case "keep-scroll-visible":
+      return (
+        <div
+          data-testid={testId || ""}
+          className="example-wrapper"
+          style={descriptionStyle}
+          id="keep-scroll-visible-example"
+        >
+          <div className="example-description">
+            With <b>alwaysVisible</b>, the scrollbar stays visible without
+            hovering.
+          </div>
+          <div className="container">
+            <div className="panel">
+              <div className="panel-header">
+                <label className="panel-title">Always-visible scrollbar</label>
+              </div>
+              <CustomScroll allowOuterScroll={true} alwaysVisible={true}>
+                <div className="panel-content-custom panel-content">
+                  <div className="content-fill">{demoText.text}</div>
                 </div>
               </CustomScroll>
             </div>

@@ -4,6 +4,7 @@ import {
   assertDomElementProperty,
   getExamplePanel,
   getInnerContainer,
+  getKeepScrollVisibleExamplePanel,
   getScrollHandle,
 } from "./customScrollDriver";
 
@@ -51,6 +52,19 @@ test.describe("basic functionality", () => {
       "offsetTop",
       28,
     );
+  });
+});
+
+test.describe("alwaysVisible prop", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(APP_URL);
+  });
+
+  test("Scrollbar is visible without hover when alwaysVisible is true", async ({
+    page,
+  }) => {
+    const panel = getKeepScrollVisibleExamplePanel(page);
+    await assertCustomScrollBarVisible(panel);
   });
 });
 
