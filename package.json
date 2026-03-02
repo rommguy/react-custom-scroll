@@ -1,9 +1,9 @@
 {
   "name": "react-custom-scroll",
-  "version": "7.1.1",
+  "version": "7.2.0",
   "private": false,
   "type": "module",
-  "main": "dist/index.umd.js",  
+  "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/src/customScroll.d.ts",
   "files": [
