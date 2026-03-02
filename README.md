@@ -16,7 +16,7 @@ npm i react-custom-scroll --save
 ```
 
 ### Peer Dependencies
-This package requires React 18+ to be installed in your project:
+This package was tested with React 19, and requires React 18 or higher to be installed in your project:
 
 ```sh
 npm install react@">=18.0.0" react-dom@">=18.0.0"
