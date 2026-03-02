@@ -6,6 +6,11 @@
   color: black;
 }
 
+#footer {
+  height: 50px;
+  width: 100%;
+}
+
 .app-root {
   max-height: calc(100vh - 70px);
   max-width: 900px;

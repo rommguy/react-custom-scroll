@@ -1,5 +1,5 @@
 interface DemoCompProps {
-    demoType: "compare-with-native" | "crazy-designer" | "flex" | "dynamic-content" | "allow-outer-scroll";
+    demoType: "compare-with-native" | "crazy-designer" | "flex" | "dynamic-content" | "allow-outer-scroll" | "keep-scroll-visible";
     descriptionSide: "left" | "right";
     testId?: string;
 }

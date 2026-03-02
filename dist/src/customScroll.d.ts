@@ -12,6 +12,7 @@ interface CustomScrollProps extends PropsWithChildren {
     rtl?: boolean;
     scrollTo?: number;
     keepAtBottom?: boolean;
+    alwaysVisible?: boolean;
     className?: string;
 }
 interface CustomScrollState {

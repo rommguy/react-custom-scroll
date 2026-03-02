@@ -23,6 +23,11 @@ export const App = () => {
         <DemoComp demoType="dynamic-content" descriptionSide="left" />
         <DemoComp demoType="allow-outer-scroll" descriptionSide="right" />
         <DemoComp demoType="flex" descriptionSide="left" />
+        <DemoComp
+          demoType="keep-scroll-visible"
+          descriptionSide="left"
+          testId="keep-scroll-visible-example"
+        />
       </div>
     </CustomScroll>
   );

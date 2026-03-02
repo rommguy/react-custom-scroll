@@ -19,6 +19,9 @@ export const getScrollHandle = (container: Locator) =>
 export const getExamplePanel = (page: Page) =>
   page.getByTestId("first-example");
 
+export const getKeepScrollVisibleExamplePanel = (page: Page) =>
+  page.getByTestId("keep-scroll-visible-example");
+
 export const assertDomElementProperty = async (
   element: Locator,
   elmProperty: "scrollTop" | "offsetTop",
@@ -34,5 +37,4 @@ export const assertDomElementProperty = async (
 };
 
 export const getDocumentElement = (page: Page) =>
-  // @ts-expect-error missing type
   page.evaluateHandle(() => document.documentElement);

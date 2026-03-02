@@ -1582,7 +1582,7 @@ class Er extends cn {
                 {
                   "data-testid": "custom-scrollbar",
                   ref: this.customScrollbarRef,
-                  className: `rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""} ${this.state.visible ? "scroll-visible" : ""}`,
+                  className: `rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""} ${this.state.visible || this.props.alwaysVisible ? "scroll-visible" : ""}`,
                   children: /* @__PURE__ */ X(
                     "div",
                     {

@@ -114,6 +114,7 @@ interface CustomScrollProps extends PropsWithChildren {
   rtl?: boolean;
   scrollTo?: number;
   keepAtBottom?: boolean;
+  alwaysVisible?: boolean;
   className?: string;
 }
 
@@ -515,7 +516,7 @@ export class CustomScroll extends Component<
               <CustomScrollbar
                 data-testid="custom-scrollbar"
                 ref={this.customScrollbarRef}
-                className={`rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""} ${this.state.visible ? "scroll-visible" : ""}`}
+                className={`rcs-custom-scrollbar ${this.props.rtl ? "rcs-custom-scrollbar-rtl" : ""} ${(this.state.visible || this.props.alwaysVisible) ? "scroll-visible" : ""}`}
                 key="scrollbar"
               >
                 <div
