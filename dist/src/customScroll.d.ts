@@ -33,11 +33,11 @@ export declare class CustomScroll extends Component<CustomScrollProps, CustomScr
     componentDidMount(): void;
     componentDidUpdate(prevProps: CustomScrollProps, prevState: CustomScrollState): void;
     componentWillUnmount(): void;
-    customScrollRef: import("react").RefObject<HTMLDivElement>;
-    innerContainerRef: import("react").RefObject<HTMLDivElement>;
-    customScrollbarRef: import("react").RefObject<HTMLDivElement>;
-    scrollHandleRef: import("react").RefObject<HTMLDivElement>;
-    contentWrapperRef: import("react").RefObject<HTMLDivElement>;
+    customScrollRef: import("react").RefObject<HTMLDivElement | null>;
+    innerContainerRef: import("react").RefObject<HTMLDivElement | null>;
+    customScrollbarRef: import("react").RefObject<HTMLDivElement | null>;
+    scrollHandleRef: import("react").RefObject<HTMLDivElement | null>;
+    contentWrapperRef: import("react").RefObject<HTMLDivElement | null>;
     adjustFreezePosition: (prevProps: CustomScrollProps) => void;
     toggleScrollIfNeeded: () => void;
     updateScrollPosition: (scrollValue: number) => void;
